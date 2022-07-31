@@ -26,7 +26,7 @@
       <div class=" col-md-6 logo-sec text-right">
         <ul class="text-right">
           <li><a href="#">
-            <i class="fa fa-bell-o" aria-hidden="true"><span>1</span></i></a></li>
+              <i class="fa fa-bell-o" aria-hidden="true"><span>1</span></i></a></li>
           <li class="admin-login">
             <a href="javascript:void(0);">
               @if(Auth::user()->profile_image !='')
@@ -49,7 +49,7 @@
   </header>
   <div class="dashboard-wapper">
     @include('admin.includes.sidebar')
-    <div class="Merchants-sec">
+    <div class="Merchants-sec merchantspg">
       @yield('content')
     </div>
   </div>
