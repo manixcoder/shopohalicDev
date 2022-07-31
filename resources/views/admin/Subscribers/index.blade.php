@@ -3,83 +3,115 @@
 @section('content')
 
 
-<div class="extrapad-wapper">
-    <div class="row">
-        <div class="col-md-5  heading-full">
-            <h3>Users</h3>
-        </div>
-        <div class="col-md-5  select-box pull-right">
-            <div class="row">
-                <div class="col-md-5 select-sec">
-                    <select name="abc" id="name">
-                        <option value="">All</option>
-                        <option value="">All</option>
-                    </select>
-                </div>
-                <div class="col-md-7 search-bar">
-                    <div class="form-group">
-                        <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
+<div class="Merchants-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6  heading-full">
+                <h3>Subscribers</h3>
+            </div>
+            <div class="col-md-6  select-box">
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary bg-color  btn-section">EXPORT AS CSV</button>
+                        </div>
+                    </div>
+                    <div class="col-md-8 search-bar">
+                        <div class="form-group">
+                            <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="extrapad-wapper">
-    <div class="white-boxbg">
-        <div class="table-responive">
-            <!-- <table border="0" width="100%"> -->
-            <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-                <thead>
-                    <tr>
-                        <th class="no-sort">Users ID</th>
-                        <th class="no-sort">User Name</th>
-                        <th class="no-sort">Email</th>
-                        <th class="no-sort">Phone Number</th>
-                        <th class="no-sort">Date of Registration</th>
-                        <th class="no-sort">Status</th>
 
-                        <th class="no-sort">Actions</th>
+    <div class="container">
+        <table border="0  " width="100%">
+            <tr>
+                <th> <input type="checkbox"></th>
+                <th class="category-box email-box">Email </th>
+                <th>Date of Subscription</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>PattyOFurniture@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($usersData as $data)
-                    <tr>
-                        <td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Maureenbiologist@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
 
-                            1
-                        </td>
-                        <td>
-                            <img src="{{ asset('public/adminAssets/images/circle.jpg') }}" alt="circle" width="50px">
-                            Acme Corporation pvt. ltd.
-                        </td>
-                        <td>Acmecrporatione@dummyemail.com</td>
-                        <td>+91 9876543210</td>
-                        <td>10 Aug 2021</td>
-                        <td>
-                            <label class="switch right-click">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                            Active
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>LoisDiNominator@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
 
-                        </td>
-                        <td>
-                            <small class="delete-icon">
-                                <a href="#" class="delete-icon">
-                                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon">
-                                </a>
-                            </small>
-                        </td>
-                    </tr>
-                    @endforeach
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Isabelleringing@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
 
-                </tbody>
-            </table>
-        </div>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Eileensideways@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
+
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Ritabook@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
+
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>RoyLCommishun@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
+
+
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>RodKnee@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
+
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>BridgetTheriveaquai@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
+
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>Geneevaconvenshun@dummyemail.com</td>
+                <td>10 Aug 2021</td>
+                <td class="text-color-red">Delete</td>
+
+            </tr>
+
+        </table>
+
+
     </div>
+
 </div>
 
 
