@@ -39,29 +39,31 @@
                         <th class="no-sort">Phone Number</th>
                         <th class="no-sort">Date of Registration</th>
                         <th class="no-sort">Status</th>
-
                         <th class="no-sort">Actions</th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($usersData as $data)
+                    @foreach($usersData as $key=> $users)
                     <tr>
                         <td>
-
-                            1
+                            {{$key+1}}
                         </td>
                         <td>
                             <img src="{{ asset('public/adminAssets/images/circle.jpg') }}" alt="circle" width="50px">
-                            Acme Corporation pvt. ltd.
+                            {{$users->name}}
                         </td>
-                        <td>Acmecrporatione@dummyemail.com</td>
-                        <td>+91 9876543210</td>
-                        <td>10 Aug 2021</td>
+                        <td> {{$users->email}}</td>
+                        <td>{{$users->mobile}}</td>
+                        <td>{{ date('d M Y', strtotime($users->created_at)) }}</td>
                         <td>
                             <label class="switch right-click">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
+                                <a href="{{ url('admin/users-management') . '/active-inactive/' . $users->id }}">
+                                   
+
+                                        <input type="checkbox" id="checkbox" >
+                                        <span class="slider round"></span>
+                                </a>
+
                             </label>
                             Active
 
@@ -74,6 +76,9 @@
                             </small>
                         </td>
                     </tr>
+
+
+
                     @endforeach
 
                 </tbody>
@@ -87,6 +92,20 @@
 @stop
 @section('pagejs')
 <script type="text/javascript">
+    $(document).ready(function() {
+        //set initial state.
+        $('#textbox1').val($(this).is(':checked'));
+
+        $('#checkbox1').change(function() {
+            $('#textbox1').val($(this).is(':checked'));
+        });
+
+        $('#checkbox1').click(function() {
+            if (!$(this).is(':checked')) {
+                return confirm("Are you sure?");
+            }
+        });
+    });
     $(document).ready(function() {
         //Get the total rows
         $('#datatable-responsive1_wrapper').each(function() {
@@ -183,8 +202,10 @@
             });
         });
     });
+
     /* Status toggle ends */
     function editRecords(id) {
+        alert("Id ");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -192,8 +213,8 @@
         });
 
         $.ajax({
-            url: "{{url('user/role/edit/')}}" + '/' + id,
-            method: "POST",
+            url: "{{url('users-management/active/')}}" + '/' + id,
+            method: "GET",
             contentType: 'application/json',
             success: function(data) {
                 $('#unique-model').modal('show');

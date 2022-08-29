@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
+use DB;
 
 class UsersManagementController extends Controller
 {
@@ -16,7 +17,7 @@ class UsersManagementController extends Controller
     public function index()
     {
         $userData = User::get();
-       // dd($userData);
+        // dd($userData);
         return view('admin.users.index')->with(array(
             'usersData' => $userData,
             'merchantData' => ''
@@ -53,6 +54,25 @@ class UsersManagementController extends Controller
     public function show($id)
     {
         //
+    }
+    public function active(Request $request, $id)
+    {
+
+        $userData = User::find($id);
+        if ($userData->status = '1') {
+            $status="0";
+            DB::table('users')->where('id', $id)->update(array(
+                'status' => $status,
+            ));
+        } else {
+            $status="1";
+            DB::table('users')->where('id', $id)->update(array(
+                'status' =>$status,
+            ));
+        }
+
+        return redirect('/admin/users-management')->with(['status' => 'success', 'message' => 'User Update Successfully!']);
+        //  dd($userData);
     }
 
     /**

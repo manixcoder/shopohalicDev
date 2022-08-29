@@ -35,6 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::post('{id}/update', 'Admin\UsersManagementController@update');
         Route::get('{id}/view', 'Admin\UsersManagementController@show');
         Route::get('delete/{id}', 'Admin\UsersManagementController@destroy');
+        Route::get('active-inactive/{id}', 'Admin\UsersManagementController@active');
     });
     Route::group(['prefix' => 'subscribers'], function () {
         Route::get('/', 'Admin\SubscriberManagementController@index');
