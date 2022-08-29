@@ -16,6 +16,11 @@ class UserDetailsAccessModel extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'company_id', 'assets_id', 'accept_status', 'created_at', 'updated_at',
+        'user_id', 
+        'company_id', 
+        'assets_id', 
+        'accept_status', 
+        'created_at', 
+        'updated_at',
     ];
 }

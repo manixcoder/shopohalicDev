@@ -23,6 +23,7 @@ class AddColumnUsersTable extends Migration
             $table->string('zip_code')->after('city')->nullable();
             $table->string('general_layality')->after('zip_code')->nullable();
             $table->enum('gender', ['1', '2', '0'])->after('general_layality')->default(1)->comment = '1=Male, 2 = Female 0=Special ';
+            $table->enum('status',['0', '1'])->after('gender')->default(1)->comment = '0=Inactive, 1 = Active';
             $table->string('mobile')->after('gender')->nullable();
             $table->dateTime('last_login')->after('remember_token')->nullable();
         });
