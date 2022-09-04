@@ -1,109 +1,58 @@
 @extends('admin.master')
 @section('pageTitle','Uses Management')
 @section('content')
+<style>
+    .form-control {
+        display: block;
+        width: 25% !important;
+        height: 34px;
+    }
+</style>
 
-
-<div class="extrapad-wapper">
-    <div class="row">
-        <div class="col-md-5  heading-full">
-            <h3>Users</h3>
-        </div>
-        <div class="col-md-5  select-box pull-right">
+<div class="Merchants-sec merchantspg add-new">
+    <div class="category">
+        <div class="container">
             <div class="row">
-                <div class="col-md-5 select-sec">
-                    <select name="abc" id="name">
-                        <option value="">All</option>
-                        <option value="">All</option>
-                    </select>
+                <div class="col-md-8 add-new-category ">
+                    <h3>Add new category</h3>
                 </div>
-                <div class="col-md-7 search-bar">
-                    <div class="form-group">
-                        <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
+                <div class="col-md-4 socical-img text-right">
+                    <img src="{{ asset('public/adminAssets/images/images/reject.svg')}}" alt="reject" width="20px">
+                </div>
+
+            </div>
+            <div class="row">
+                <form method="POST" action="{{ url('admin/category/save-category') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-md-12 add-form ">
+                        <div class="form-group">
+                            <select class="form-control text-color" name="parent_cat">
+                                <option value="">Select Category</option>
+                                @foreach($categoryData as $category)
+                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
                     </div>
-                </div>
+                    <div class="col-md-12 add-form ">
+                        <div class="form-group">
+                            <input type="text" name="category_name" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="Category Name">
+                        </div>
+                    </div>
+                    <div class="col-md-12 btn-sec">
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary bg-color">ADD</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="extrapad-wapper">
-    <div class="white-boxbg">
-        <div class="table-responive">
-            <!-- <table border="0" width="100%"> -->
-            <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-
-                <thead>
-                    <tr>
-                        <th class="no-sort">Users ID</th>
-                        <th class="no-sort">User Name</th>
-                        <th class="no-sort">Email</th>
-                        <th class="no-sort">Phone Number</th>
-                        <th class="no-sort">Date of Registration</th>
-                        <th class="no-sort">Status</th>
-                        <th class="no-sort">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($usersData as $key=> $users)
-                    <tr>
-                        <td>
-                            {{$key+1}}
-                        </td>
-                        <td>
-                            <img src="{{ asset('public/adminAssets/images/circle.jpg') }}" alt="circle" width="50px">
-                            {{$users->name}}
-                        </td>
-                        <td> {{$users->email}}</td>
-                        <td>{{$users->mobile}}</td>
-                        <td>{{ date('d M Y', strtotime($users->created_at)) }}</td>
-                        <td>
-                            <label class="switch right-click">
-                                <a href="{{ url('admin/users-management') . '/active-inactive/' . $users->id }}">
-                                    <input type="checkbox" id="checkbox" >
-                                    <span class="slider round"></span>
-                                </a>
-
-                            </label>
-                            Active
-
-                        </td>
-                        <td>
-                            <small class="delete-icon">
-                                <a href="#" class="delete-icon">
-                                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon">
-                                </a>
-                            </small>
-                        </td>
-                    </tr>
-
-
-
-                    @endforeach
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-
 @stop
 @section('pagejs')
 <script type="text/javascript">
-    $(document).ready(function() {
-        //set initial state.
-        $('#textbox1').val($(this).is(':checked'));
-
-        $('#checkbox1').change(function() {
-            $('#textbox1').val($(this).is(':checked'));
-        });
-
-        $('#checkbox1').click(function() {
-            if (!$(this).is(':checked')) {
-                return confirm("Are you sure?");
-            }
-        });
-    });
     $(document).ready(function() {
         //Get the total rows
         $('#datatable-responsive1_wrapper').each(function() {
@@ -200,10 +149,8 @@
             });
         });
     });
-
     /* Status toggle ends */
     function editRecords(id) {
-        alert("Id ");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -211,8 +158,8 @@
         });
 
         $.ajax({
-            url: "{{url('users-management/active/')}}" + '/' + id,
-            method: "GET",
+            url: "{{url('user/role/edit/')}}" + '/' + id,
+            method: "POST",
             contentType: 'application/json',
             success: function(data) {
                 $('#unique-model').modal('show');
