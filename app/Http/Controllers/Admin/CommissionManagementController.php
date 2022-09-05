@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Commission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
-use App\Models\Category;
 
-class CategoryManagementController extends Controller
+class CommissionManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class CategoryManagementController extends Controller
      */
     public function index()
     {
-        $categoryData = Category::get();
-        return view('admin.category.index')->with(array(
-            'categoryData' => $categoryData,
+        $commissiondata = Commission::get();
+        return view('admin.Commission.index')->with(array(
+            'commissiondata' => $commissiondata,
         ));
     }
 
@@ -29,11 +28,7 @@ class CategoryManagementController extends Controller
      */
     public function create()
     {
-        $categoryData = Category::get();
-        // dd($userData);
-        return view('admin.category.add_category')->with(array(
-            'categoryData' => $categoryData,
-        ));
+        //
     }
 
     /**
@@ -44,24 +39,16 @@ class CategoryManagementController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request->all());
-        Category::create([
-            'category_name'=>$request->category_name,
-            'parent_id'=>$request->parent_cat
-        ]);
-        return redirect('/admin/category')->with(array(
-            'status' => 'success',
-            'message' => 'User has been successfully.!'
-        ));
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Commission $commission)
     {
         //
     }
@@ -69,10 +56,10 @@ class CategoryManagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Commission $commission)
     {
         //
     }
@@ -81,10 +68,10 @@ class CategoryManagementController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Commission $commission)
     {
         //
     }
@@ -92,10 +79,10 @@ class CategoryManagementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Commission $commission)
     {
         //
     }

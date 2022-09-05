@@ -51,11 +51,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::get('/', 'Admin\CategoryManagementController@index');
         Route::get('users-data', 'Admin\CategoryManagementController@studentData');
         Route::get('create', 'Admin\CategoryManagementController@create');
-        Route::post('/save-users', 'Admin\CategoryManagementController@store');
+        Route::post('/save-category', 'Admin\CategoryManagementController@store');
         Route::get('{id}/edit', 'Admin\CategoryManagementController@edit');
         Route::post('{id}/update', 'Admin\CategoryManagementController@update');
         Route::get('{id}/view', 'Admin\CategoryManagementController@show');
         Route::get('delete/{id}', 'Admin\CategoryManagementController@destroy');
+    });
+    Route::group(['prefix' => 'commission'], function () {
+        Route::get('/', 'Admin\CommissionManagementController@index');
+        Route::get('users-data', 'Admin\CommissionManagementController@studentData');
+        Route::get('create', 'Admin\CommissionManagementController@create');
+        Route::post('/save-category', 'Admin\CommissionManagementController@store');
+        Route::get('{id}/edit', 'Admin\CommissionManagementController@edit');
+        Route::post('{id}/update', 'Admin\CommissionManagementController@update');
+        Route::get('{id}/view', 'Admin\CommissionManagementController@show');
+        Route::get('delete/{id}', 'Admin\CommissionManagementController@destroy');
     });
 });
 
