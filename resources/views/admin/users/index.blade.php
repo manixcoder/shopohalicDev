@@ -49,7 +49,12 @@
                             {{$key+1}}
                         </td>
                         <td>
+                            @if($users->profile_image !='')
+                            <img src="{{ asset('public/uploads/') }}/{{ Auth::user()->profile_image }}" alt="circle" width="50px">
+                            @else
                             <img src="{{ asset('public/adminAssets/images/circle.jpg') }}" alt="circle" width="50px">
+                            @endif
+
                             {{$users->name}}
                         </td>
                         <td> {{$users->email}}</td>
@@ -58,7 +63,7 @@
                         <td>
                             <label class="switch right-click">
                                 <a href="{{ url('admin/users-management') . '/active-inactive/' . $users->id }}">
-                                    <input type="checkbox" id="checkbox" >
+                                    <input type="checkbox" id="checkbox">
                                     <span class="slider round"></span>
                                 </a>
 

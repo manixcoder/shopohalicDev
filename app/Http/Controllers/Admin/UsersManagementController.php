@@ -16,11 +16,9 @@ class UsersManagementController extends Controller
      */
     public function index()
     {
-        $userData = User::get();
-        // dd($userData);
+        $userData = User::where('user_role','!=','1')->get();
         return view('admin.users.index')->with(array(
             'usersData' => $userData,
-            'merchantData' => ''
         ));
     }
 
