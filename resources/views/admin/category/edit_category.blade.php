@@ -19,17 +19,21 @@
                 <div class="col-md-4 socical-img text-right">
                     <img src="{{ asset('public/adminAssets/images/images/reject.svg')}}" alt="reject" width="20px">
                 </div>
-
+                <?php
+                //dd($categoryD );
+                $categoryData  = DB::table('category')->get();
+                ?>
             </div>
             <div class="row">
-                <form method="POST" action="{{ url('admin/category/save-category') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('admin/category/'.$categoryD->id.'/update') }}" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="category_id" value="{{$categoryD->id}}">
                     <div class="col-md-12 add-form ">
                         <div class="form-group">
                             <select class="form-control text-color" name="parent_cat">
                                 <option value="N/A">Select Category</option>
                                 @foreach($categoryData as $category)
-                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                <option value="{{$category->id}}" {{ ( $category->id == $categoryD->parent_id) ? 'selected' : '' }}>{{$category->category_name}}</option>
                                 @endforeach
                             </select>
 
@@ -37,12 +41,12 @@
                     </div>
                     <div class="col-md-12 add-form ">
                         <div class="form-group">
-                            <input type="text" name="category_name" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="Category Name">
+                            <input type="text" name="category_name" class="form-control text-color" value="{{$categoryD->category_name}}" id="emaillogin" aria-describedby="emailHelp" placeholder="Category Name">
                         </div>
                     </div>
                     <div class="col-md-12 btn-sec">
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary bg-color">ADD</button>
+                            <button type="submit" class="btn btn-primary bg-color">Update</button>
                         </div>
                     </div>
                 </form>

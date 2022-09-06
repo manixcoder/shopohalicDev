@@ -42,12 +42,12 @@
       <tbody>
         @foreach($categoryData as $key=> $category)
         <?php
-
-        if (is_null($category->parent_id)  > 0) {
-          $parentCat = '';
+        if ($category->parent_id  === "N/A") {
+          echo   $parentCat = '';
         } else {
           $part_catData = DB::table('category')->where('id', $category->parent_id)->first();
-          $parentCat = $part_catData->category_name;
+          // dd($part_catData->category_name);
+          echo $parentCat = $part_catData->category_name;
         }
 
 
@@ -58,30 +58,35 @@
           <td>{{$parentCat}}</td>
           <td>
             <p class="mb-0">
-              
-                <label class="switch">
 
-                  <input type="checkbox" class="togBtn" id="togBtn" name="togBtn_" value="" />
+              <label class="switch">
 
-                  <span class="slider round"></span>
-                </label>
-             
+                <?php
+                if ($category->status == 1) {
+                  $statVal = 1;
+                  $checked = 'checked = checked';
+                } else {
+                  $statVal = 0;
+                  $checked = '';
+                }
+                ?>
+                <input type="checkbox" class="togBtn" id="togBtn_{{$category->id}}" name="togBtn_{{$category->id}}" value="{{ $statVal}}" <?php echo $checked; ?> />
+
+                <span class="slider round"></span>
+              </label>
+
             </p>
           </td>
           <td class="actions">
             &nbsp;&nbsp;&nbsp;
             <span>
-              <a href=""> <i class="fa fa-pencil bg-orange" aria-hidden="true"></i> Edit
+              <a href="{{URL::to('admin/category/edit')}}/{{$category->id}}"> <i class="fa fa-pencil bg-orange" aria-hidden="true"></i> Edit
               </a>
             </span>
-            &nbsp;&nbsp;&nbsp;
-            <a href="#" class="fa fa-plus-square bg-gra" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+            <a href="{{URL::to('admin/category/delete')}}/{{$category->id}}">
+              Archive
             </a>
-
-            <a href="#">Archive</a> &nbsp;&nbsp;&nbsp;
-
-
-
+            &nbsp;&nbsp;&nbsp;
           </td>
         </tr>
         @endforeach
@@ -98,5 +103,44 @@
 @section('pagejs')
 <script type="text/javascript">
 
+ /* Status toggle starts */
+ $(window).load(function() {
+        $('.togBtn').click(function() {
+            var btnId = $(this).attr('id');
+            var ret = btnId.split("_");
+            var id = ret[1];
+            var status = $('#' + btnId).val();
+            if (status == 1) {
+                var changedStatus = $(this).val('0');
+                var statusNew = changedStatus.attr('value');
+                $('#' + btnId).val(statusNew);
+                var textStatus = $("#statusText_" + id).text("InActive");
+                $("#statusText_" + id).removeClass("badge-success").addClass("badge-danger");
+            } else {
+                var changedStatus = $(this).val('1');
+                var statusNew = changedStatus.attr('value');
+                $('#' + btnId).val(statusNew);
+                $('input[name=' + btnId + '][value=' + statusNew + ']').prop('checked', true);
+                var textStatus = $('#statusText_' + id).text('Active');
+                $("#statusText_" + id).removeClass("badge-danger").addClass("badge-success");
+            }
+
+            $.ajax({
+                url: "{{url('update-user-status')}}" + '/' + id,
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id,
+                    "status": statusNew
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+    });
 </script>
 @stop

@@ -21,7 +21,7 @@ class CommissionSeeder extends Seeder
 				'updated_at' =>  date("Y-m-d H:i:s"),
 			),
             array(
-				'id' => 1,
+				'id' => 2,
 				'commission_title'=>'GST',
 				'commission_percentage'=>"15",
 				'created_at' =>  date("Y-m-d H:i:s"),

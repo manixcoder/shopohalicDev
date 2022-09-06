@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::get('users-data', 'Admin\CategoryManagementController@studentData');
         Route::get('create', 'Admin\CategoryManagementController@create');
         Route::post('/save-category', 'Admin\CategoryManagementController@store');
-        Route::get('{id}/edit', 'Admin\CategoryManagementController@edit');
+        Route::get('/edit/{id}', 'Admin\CategoryManagementController@edit');
         Route::post('{id}/update', 'Admin\CategoryManagementController@update');
         Route::get('{id}/view', 'Admin\CategoryManagementController@show');
         Route::get('delete/{id}', 'Admin\CategoryManagementController@destroy');

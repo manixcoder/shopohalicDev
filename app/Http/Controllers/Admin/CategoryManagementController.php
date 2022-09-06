@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
 use App\Models\Category;
+use DB;
 
 class CategoryManagementController extends Controller
 {
@@ -44,10 +45,10 @@ class CategoryManagementController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request->all());
+      //dd($request->all());
         Category::create([
             'category_name'=>$request->category_name,
-            'parent_id'=>$request->parent_cat
+            'parent_id'=>$request->has('parent_cat') ? $request->parent_cat : "N/A"
         ]);
         return redirect('/admin/category')->with(array(
             'status' => 'success',
@@ -74,7 +75,12 @@ class CategoryManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+       
+       $categoryData = Category::where('id',$id)->first();
+      // dd($categoryData);
+       return view('admin.category.edit_category')->with(array(
+           'categoryD' => $categoryData,
+       ));
     }
 
     /**
@@ -86,7 +92,11 @@ class CategoryManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+       
+        DB::table('category')->where('id', $request->category_id)->update(array('category_name' => $request->category_name, "parent_id" => $request->parent_cat ,)); 
+        return redirect('/admin/category')->with(array('status' => 'success', 'message' => 'Update record successfully.'));
+        
     }
 
     /**
@@ -97,6 +107,11 @@ class CategoryManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $categoryData = Category::find($id);
+        $categoryData->deleted_at=date("Y-m-d H:i:s");
+        $categoryData->update();
+        return redirect('/admin/category')->with(array('status' => 'success', 'message' => 'Archive record successfully.'));
+       // dd($categoryData);
     }
 }
