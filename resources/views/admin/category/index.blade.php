@@ -83,7 +83,7 @@
               <a href="{{URL::to('admin/category/edit')}}/{{$category->id}}"> <i class="fa fa-pencil bg-orange" aria-hidden="true"></i> Edit
               </a>
             </span>
-            <a href="{{URL::to('admin/category/delete')}}/{{$category->id}}">
+            <a href="{{URL::to('admin/category/delete')}}/{{$category->id}}"><i class="fa fa-plus-square bg-orange" aria-hidden="true"></i>
               Archive
             </a>
             &nbsp;&nbsp;&nbsp;
