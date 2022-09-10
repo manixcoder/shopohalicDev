@@ -27,6 +27,20 @@ class userTableSeeder extends Seeder
 				'created_at' =>  date("Y-m-d H:i:s"),
 				'updated_at' =>  date("Y-m-d H:i:s"),
 			),
+			array(
+				'id' => 2,
+				'user_role'=>'2',
+				'first_name'=>"Marchent",
+				'last_name'=>"User",
+				'profile_image'	=>'profile.png',
+				'name' => 'marchent',
+				'email' => 'marchent@gmail.com',
+				'email_verified_at' =>  date("Y-m-d H:i:s"),
+				'password' => bcrypt('Qwert@123'),
+				'remember_token' => null,
+				'created_at' =>  date("Y-m-d H:i:s"),
+				'updated_at' =>  date("Y-m-d H:i:s"),
+			),
 		);
 		DB::table('users')->insert($seedData);
 	}

@@ -68,7 +68,9 @@
 						<ul class="dropdown-user">
 							<li>
 								<div class="dw-user-box">
-									<div class="u-img"><img src="{{ asset('public/assets/admin/images/users/profile-photo.jpg') }}" alt="user"></div>
+									<div class="u-img">
+										<img src="{{ asset('public/assets/admin/images/users/profile-photo.jpg') }}" alt="user">
+									</div>
 									<div class="u-text">
 										<h4>{{ Auth::user()->name  }}</h4>
 										<p class="text-muted">{{ Auth::user()->email  }}</p>
@@ -77,7 +79,6 @@
 							</li>
 							<li role="separator" class="divider"></li>
 							<li role="separator" class="divider"></li>
-							
 							<li role="separator" class="divider"></li>
 							<li>
 								<a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
