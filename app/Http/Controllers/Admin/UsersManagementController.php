@@ -16,8 +16,7 @@ class UsersManagementController extends Controller
      */
     public function index()
     {
-        $userData = User::get();
-        // dd($userData);
+        $userData = User::where('user_role','3')->where('isDelete','0')->get();
         return view('admin.users.index')->with(array(
             'usersData' => $userData,
             'merchantData' => ''
@@ -55,24 +54,14 @@ class UsersManagementController extends Controller
     {
         //
     }
-    public function active(Request $request, $id)
+    public function active(Request $request)
     {
-
+        $id = $request->get('id');
         $userData = User::find($id);
-        if ($userData->status = '1') {
-            $status="0";
-            DB::table('users')->where('id', $id)->update(array(
-                'status' => $status,
-            ));
-        } else {
-            $status="1";
-            DB::table('users')->where('id', $id)->update(array(
-                'status' =>$status,
-            ));
-        }
-
-        return redirect('/admin/users-management')->with(['status' => 'success', 'message' => 'User Update Successfully!']);
-        //  dd($userData);
+        $status=$userData->status==0?'1':'0';
+        $result=DB::table('users')->where('id', $id)->update(array('status' => $status));
+        echo $result;
+        die;
     }
 
     /**
@@ -104,8 +93,11 @@ class UsersManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->get('id');
+        $result=DB::table('users')->where('id', $id)->update(array('isDelete' => '1'));
+        echo $result;
+        die;
     }
 }

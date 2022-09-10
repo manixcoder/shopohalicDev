@@ -2,7 +2,67 @@
 @section('pageTitle','Uses Management')
 @section('content')
 
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
 
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
 <div class="extrapad-wapper">
     <div class="row">
         <div class="col-md-5  heading-full">
@@ -44,7 +104,7 @@
                 </thead>
                 <tbody>
                     @foreach($usersData as $key=> $users)
-                    <tr>
+                    <tr id='row_{{$users->id}}'>
                         <td>
                             {{$key+1}}
                         </td>
@@ -57,26 +117,18 @@
                         <td>{{ date('d M Y', strtotime($users->created_at)) }}</td>
                         <td>
                             <label class="switch right-click">
-                                <a href="{{ url('admin/users-management') . '/active-inactive/' . $users->id }}">
-                                    <input type="checkbox" id="checkbox" >
+                                    <input type="checkbox" id="checkbox" @if($users->status=='1') checked @endif  onclick="changeStatus({{$users->id}},{{$users->status}});">
                                     <span class="slider round"></span>
-                                </a>
-
                             </label>
-                            Active
+                            <span id='statustype'>@if($users->status=='1')  Active @else In-Active @endif</span>
 
                         </td>
                         <td>
                             <small class="delete-icon">
-                                <a href="#" class="delete-icon">
-                                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon">
-                                </a>
+                                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon" onclick="deleteStatus({{$users->id}});">
                             </small>
                         </td>
                     </tr>
-
-
-
                     @endforeach
 
                 </tbody>
@@ -84,107 +136,12 @@
         </div>
     </div>
 </div>
-
-
-
-@stop
-@section('pagejs')
-<script type="text/javascript">
-    $(document).ready(function() {
-        //set initial state.
-        $('#textbox1').val($(this).is(':checked'));
-
-        $('#checkbox1').change(function() {
-            $('#textbox1').val($(this).is(':checked'));
-        });
-
-        $('#checkbox1').click(function() {
-            if (!$(this).is(':checked')) {
-                return confirm("Are you sure?");
-            }
-        });
-    });
-    $(document).ready(function() {
-        //Get the total rows
-        $('#datatable-responsive1_wrapper').each(function() {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="' + title + ' Search" />');
-        });
-        var table = $('table').dataTable({
-            searching: true,
-            paging: true,
-            info: false, // hide showing entries
-            ordering: true, // hide sorting
-            columnDefs: [{
-                orderable: false,
-                targets: "no-sort"
-            }],
-            bLengthChange: false, // hide showing entries in dropdown
-            "dom": '<"pull-left"f><"pull-right"l>tip', //align search to left
-            "language": {
-                "search": "_INPUT_",
-                "searchPlaceholder": "Search here...",
-                "paginate": {
-                    previous: '&#x3c;', // or '<'
-                    next: '&#x3e;' // or '>' 
-                },
-            }
-        });
-
-        $('#datatable-responsive1_wrapper .pull-right ').append('<div class="dataTables_length"><label for="Total Users">Total Users : ' + table.fnGetData().length + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>');
-        $('.pull-right .dataTables_length').css({
-            'font-size': '15px',
-            'color': '#fff'
-        });
-        $('#datatable-responsive1_wrapper').
-        css({
-            'background': '#7CA7BB',
-            'background-repeat': 'no-repeat',
-            'padding': '10px 0px 0px 0px',
-            'font-size': '18px',
-            'color': '#fff',
-            'border-radius': '8px 8px 0px 0px',
-        });
-
-        $('#datatable-responsive1').css({
-            "border": "0px",
-            "margin-bottom": "0px !important",
-        });
-
-        $('#datatable-responsive1_paginate').css({
-            'background': '#fff'
-        });
-
-        $('.dataTables_filter input[type="search"]').
-        css({
-            'width': '250px'
-        });
-    });
-
-    /* Status toggle starts */
-    $(window).load(function() {
-        $('.togBtn').click(function() {
-            var btnId = $(this).attr('id');
-            var ret = btnId.split("_");
-            var id = ret[1];
-            var status = $('#' + btnId).val();
-            if (status == 1) {
-                var changedStatus = $(this).val('0');
-                var statusNew = changedStatus.attr('value');
-                $('#' + btnId).val(statusNew);
-                var textStatus = $("#statusText_" + id).text("InActive");
-                $("#statusText_" + id).removeClass("badge-success").addClass("badge-danger");
-            } else {
-                var changedStatus = $(this).val('1');
-                var statusNew = changedStatus.attr('value');
-                $('#' + btnId).val(statusNew);
-                $('input[name=' + btnId + '][value=' + statusNew + ']').prop('checked', true);
-                var textStatus = $('#statusText_' + id).text('Active');
-                $("#statusText_" + id).removeClass("badge-danger").addClass("badge-success");
-            }
-
-            $.ajax({
-                url: "{{url('update-user-status')}}" + '/' + id,
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function changeStatus(id,status){
+        var status=($('#statustype').text());
+        $.ajax({
+                url: "{{url('admin/users-management/active-inactive')}}",
                 method: "GET",
                 contentType: 'application/json',
                 headers: {
@@ -192,50 +149,45 @@
                 },
                 data: {
                     "id": id,
-                    "status": statusNew
+                    "status": status
                 },
+                dataType: 'html',
                 success: function(response) {
-                    console.log(response);
+                   if(response)
+                   {
+                    var type=status=='Active'?'In-Active':'Active';
+                    $('#statustype').text(type);
+                   }
                 }
             });
-        });
-    });
-
-    /* Status toggle ends */
-    function editRecords(id) {
-        alert("Id ");
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            url: "{{url('users-management/active/')}}" + '/' + id,
-            method: "GET",
-            contentType: 'application/json',
-            success: function(data) {
-                $('#unique-model').modal('show');
-                document.getElementById("ids").value = data.id;
-                document.getElementById("username").value = data.username;
-                document.getElementById("email").value = data.email;
-                document.getElementById("password").value = data.password;
-                var val = data.status;
-
-                if (val == 1) {
-                    $('input[name=status][value=' + val + ']').prop('checked', true);
-                } else {
-                    $('input[name=status][value=' + val + ']').prop('checked', true);
+    }
+    function deleteStatus(id){
+        if (confirm("Are you sure?")) {
+            $.ajax({
+                url: "{{url('admin/users-management/delete')}}",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {
+                    $('#row_'+id).hide();
+                   }
                 }
-                document.getElementById("submitbtn").innerText = 'UPDATE';
+            });
+           
             }
-        });
     }
+  </script>
 
-    function addRecords() {
-        document.getElementById("FormValidation").reset();
-        document.getElementById("submitbtn").innerText = 'Save';
-        $('#unique-model').modal('show');
-    }
-</script>
+@stop
+@section('pagejs')
+
+
 @stop
