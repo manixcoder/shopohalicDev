@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
-use App\Models\Subscription;
 use DB;
-class SubscriberManagementController extends Controller
+
+class MarchantManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,11 @@ class SubscriberManagementController extends Controller
      */
     public function index()
     {
-        $subscriptionData = Subscription::get();
-         return view('admin.Subscribers.index')->with(array(
-             'subscriptionData' => $subscriptionData
-         ));
+        $userData = User::where('user_role','2')->where('isDelete','0')->get();
+        return view('admin.merchant.index')->with(array(
+            'usersData' => $userData,
+            'merchantData' => ''
+        ));
     }
 
     /**
@@ -53,6 +54,15 @@ class SubscriberManagementController extends Controller
     {
         //
     }
+    public function active(Request $request)
+    {
+        $id = $request->get('id');
+        $userData = User::find($id);
+        $status=$userData->status==0?'1':'0';
+        $result=DB::table('users')->where('id', $id)->update(array('status' => $status));
+        echo $result;
+        die;
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -83,10 +93,10 @@ class SubscriberManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $id = $request->get('id');
-        $result=Subscription::where('id', $id)->delete();
+        $result=DB::table('users')->where('id', $id)->update(array('isDelete' => '1'));
         echo $result;
         die;
     }

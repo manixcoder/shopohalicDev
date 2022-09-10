@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
-use App\Models\Subscription;
+use App\Models\OrderSetting;
 use DB;
-class SubscriberManagementController extends Controller
+
+class OrderSettingManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,12 @@ class SubscriberManagementController extends Controller
      */
     public function index()
     {
-        $subscriptionData = Subscription::get();
-         return view('admin.Subscribers.index')->with(array(
-             'subscriptionData' => $subscriptionData
-         ));
+        
+        $orderSettingData = OrderSetting::get();
+       
+        return view('admin.ordersetting.index')->with(array(
+            'orderSettingData' => $orderSettingData,
+        ));
     }
 
     /**
@@ -29,7 +32,8 @@ class SubscriberManagementController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('admin.ordersetting.add_setting');
     }
 
     /**
@@ -40,7 +44,14 @@ class SubscriberManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        OrderSetting::create([
+            'order_tracking'=>$request->order_tracking
+        ]);
+        return redirect('/admin/order-settings')->with(array(
+            'status' => 'success',
+            'message' => 'User has been successfully.!'
+        ));
+        
     }
 
     /**
@@ -62,7 +73,11 @@ class SubscriberManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $orderSettingData = OrderSetting::where('id',$id)->first();
+        // dd($categoryData);
+         return view('admin.ordersetting.edit_setting')->with(array(
+             'orderSettingData' => $orderSettingData,
+         ));
     }
 
     /**
@@ -74,7 +89,8 @@ class SubscriberManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        OrderSetting::where('id', $request->order_setting_id)->update(array('order_tracking' => $request->order_tracking)); 
+        return redirect('/admin/order-settings')->with(array('status' => 'success', 'message' => 'Update record successfully.'));
     }
 
     /**
@@ -83,10 +99,19 @@ class SubscriberManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $id = $request->get('id');
-        $result=Subscription::where('id', $id)->delete();
+        $result=OrderSetting::where('id', $id)->delete();
+        echo $result;
+        die;
+    }
+    public function active(Request $request)
+    {
+       $id = $request->get('id');
+        $userData = OrderSetting::find($id);
+        $status=$userData->status==0?'1':'0';
+        $result=OrderSetting::where('id', $id)->update(array('status' => $status));
         echo $result;
         die;
     }

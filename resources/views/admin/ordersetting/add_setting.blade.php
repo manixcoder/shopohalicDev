@@ -1,110 +1,46 @@
 @extends('admin.master')
 @section('pageTitle','Uses Management')
 @section('content')
+<style>
+    .form-control {
+        display: block;
+        width: 25% !important;
+        height: 34px;
+    }
+</style>
 
-
-<div class="Merchants-sec">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6  heading-full">
-                <h3>Subscribers</h3>
-            </div>
-            <div class="col-md-6  select-box">
-                <div class="row">
-                    <div class="col-md-4 ">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary bg-color  btn-section">EXPORT AS CSV</button>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-bar">
-                        <div class="form-group">
-                            <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
-                        </div>
-                    </div>
+<div class="Merchants-sec merchantspg add-new">
+    <div class="category">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 add-new-category ">
+                    <h3>Add new setting</h3>
                 </div>
+                <div class="col-md-4 socical-img text-right">
+                    <img src="{{ asset('public/adminAssets/images/images/reject.svg')}}" alt="reject" width="20px">
+                </div>
+
+            </div>
+            <div class="row">
+                <form method="POST" action="{{ url('admin/order-settings/save-setting') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-md-12 add-form ">
+                        <div class="form-group">
+                            <input type="text" name="order_tracking" required class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="Order Setting">
+                        </div>
+                    </div>
+                    <div class="col-md-12 btn-sec">
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary bg-color">ADD</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-
-    <div class="container">
-        <table border="0  " width="100%">
-            <tr>
-                <th> <input type="checkbox"></th>
-                <th class="category-box email-box">Email </th>
-                <th>Date of Subscription</th>
-                <th>Action</th>
-            </tr>
-            @foreach($subscriptionData as $key=> $subscription)
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>{{$subscription->email}}</td>
-                <td>{{date('d M Y', strtotime($subscription->created_at))}}</td>
-                <td class="text-color-red" style="cursor:pointer;" onclick="deleteStatus({{$subscription->id}});">Delete</td>
-            </tr>
-            @endforeach
-        </table>
-
-
-    </div>
-
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-  function changeStatus(id,status){
-   
-        var status=($('#statustype').text());
-        $.ajax({
-                url: "{{url('admin/subscribers/delete')}}",
-                method: "GET",
-                contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    "id": id,
-                    "status": status
-                },
-                dataType: 'html',
-                success: function(response) {
-                   if(response)
-                   {
-                    var type=status=='Active'?'In-Active':'Active';
-                    $('#statustype').text(type);
-                   }
-                }
-            });
-    }
-    function deleteStatus(id){
-        if (confirm("Are you sure?")) {
-            alert(id)
-          $.ajax({
-                url: "{{url('admin/subscribers/delete')}}",
-                method: "GET",
-                contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    "id": id
-                },
-                dataType: 'html',
-                success: function(response) {
-                   if(response)
-                   {
-                    $('#row_'+id).hide();
-                   }
-                }
-            });
-           
-            }
-    }
-  </script>
-
 @stop
 @section('pagejs')
-
 <script type="text/javascript">
     $(document).ready(function() {
         //Get the total rows

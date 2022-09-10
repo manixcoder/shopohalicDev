@@ -1,146 +1,193 @@
 @extends('admin.master')
-@section('pageTitle','University Management')
+@section('pageTitle','Uses Management')
 @section('content')
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="right-side-struct  pull-right">
-                    <a href="{{ url('/admin/university-management/create') }}" class="btn btn-info waves-effect waves-light clearfix add-new add-faicon"><i class="fa fa-plus" aria-hidden="true"></i> Add New University</a>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+<div class="extrapad-wapper">
+    <div class="row">
+        <div class="col-md-5  heading-full">
+            <h3>Users</h3>
+        </div>
+        <div class="col-md-5  select-box pull-right">
+            <div class="row">
+                <div class="col-md-5 select-sec">
+                    <select name="abc" id="name">
+                        <option value="">All</option>
+                        <option value="">All</option>
+                    </select>
                 </div>
-                <div class="table-responsive m-t-40">
-                    @if(Session::has('status'))
-                    <div class="alert alert-{{ Session::get('status') }}">
-                        <i class="fa fa-building-o" aria-hidden="true"></i> {{ Session::get('message') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                <div class="col-md-7 search-bar">
+                    <div class="form-group">
+                        <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
                     </div>
-                    @endif
-                    <table id="dataTable" class=" table table-striped table-bordered dataTable  ">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>website</th>
-                                <th>Logo</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="extrapad-wapper">
+    <div class="white-boxbg">
+        <div class="table-responive">
+            <!-- <table border="0" width="100%"> -->
+            <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                <thead>
+                    <tr>
+                        <th class="no-sort">Users ID</th>
+                        <th class="no-sort">User Name</th>
+                        <th class="no-sort">Email</th>
+                        <th class="no-sort">Phone Number</th>
+                        <th class="no-sort">Date of Registration</th>
+                        <th class="no-sort">Status</th>
+                        <th class="no-sort">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($usersData as $key=> $users)
+                    <tr id='row_{{$users->id}}'>
+                        <td>
+                            {{$key+1}}
+                        </td>
+                        <td>
+                            <img src="{{ asset('public/adminAssets/images/circle.jpg') }}" alt="circle" width="50px">
+                            {{$users->name}}
+                        </td>
+                        <td> {{$users->email}}</td>
+                        <td>{{$users->mobile}}</td>
+                        <td>{{ date('d M Y', strtotime($users->created_at)) }}</td>
+                        <td>
+                            <label class="switch right-click">
+                                    <input type="checkbox" id="checkbox" @if($users->status=='1') checked @endif  onclick="changeStatus({{$users->id}},{{$users->status}});">
+                                    <span class="slider round"></span>
+                            </label>
+                            <span id='statustype'>@if($users->status=='1')  Active @else In-Active @endif</span>
+
+                        </td>
+                        <td>
+                            <small class="delete-icon">
+                                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon" onclick="deleteStatus({{$users->id}});">
+                            </small>
+                        </td>
+                    </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function changeStatus(id,status){
+        var status=($('#statustype').text());
+        $.ajax({
+                url: "{{url('admin/marchant-management/active-inactive')}}",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id,
+                    "status": status
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {
+                    var type=status=='Active'?'In-Active':'Active';
+                    $('#statustype').text(type);
+                   }
+                }
+            });
+    }
+    function deleteStatus(id){
+        if (confirm("Are you sure?")) {
+            $.ajax({
+                url: "{{url('admin/marchant-management/delete')}}",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {
+                    $('#row_'+id).hide();
+                   }
+                }
+            });
+           
+            }
+    }
+  </script>
+
 @stop
 @section('pagejs')
-<script type="text/javascript">
-    $(function() {
-        $('#dataTable').DataTable({
-            processing: true,
-            serverSide: true,
-            lengthMenu: [5, 10, 50, 100],
-            order: [
-                [1, 'desc']
-            ],
-            ajax: '{!! url("/admin/university-management/university-data") !!}',
-            columns: [{
-                    data: 'name',
-                    name: 'name',
-                    orderable: true
-                },
-                {
-                    data: 'email',
-                    name: 'email',
-                    orderable: true
-                },
-                {
-                    data: 'website',
-                    name: 'website',
-                    orderable: true
-                },
-                {
-                    data: 'logo',
-                    "render": function(data, type, row) {
-                        return '<img src="{{url('/public/uploads/university_logo/') }}/' + data + '" style="width:80px;hight:80px;" />';
-                    }
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                },
-            ],
-            dom: 'Blfrptip',
-            buttons: [{
-                extend: 'colvis',
-                text: "Show / Hide Columns"
-            }],
-            oLanguage: {
-                sProcessing: "<img height='80' width='80' src='{{ url('public/assets/admin/images/loading.gif') }}' alt='loader'/>",
-                "oPaginate": {
-                    "sPrevious": "Previous", // This is the link to the previous page
-                    "sNext": "Next",
-                },
-                "sSearch": "Search",
-                "sLengthMenu": "Show _MENU_ entries",
-                "sInfo": "Showing _START_ to _END_ of _TOTAL_ enteris",
-                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
-                "sInfoFiltered": "search filtered entries",
-                "sZeroRecords": "No matching records found",
-                "sEmptyTable": "No data available in table",
-            },
-            initComplete: function() {
-                this.api().columns().every(function() {
-                    var column = this;
-                    var input = document.createElement("input");
-                    $(input).appendTo($(column.footer()).empty())
-                        .on('change', function() {
-                            column.search($(this).val(), false, false, true).draw();
-                        });
-                });
-            }
-        });
-    });
-    $(document).on('click', '.delete', function() {
-        var id = $(this).data('id');
-        swal({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false
 
-        }).then(function(isConfirm) {
 
-            if (isConfirm.value === true) {
-
-                $('#dataTable_processing').show();
-
-                $.ajax({
-                    url: '{{ url("/admin/university-management/delete") }}' + '/' + id,
-                    type: 'GET',
-                    success: function() {
-                        $('#dataTable_processing').hide();
-                        swal(
-                            'Deleted!',
-                            'University has been deleted successfully.',
-                            'success'
-                        ).then(function() {
-                            window.location.href = '{{ url("/admin/university-management") }}';
-                        });
-                    }
-                });
-            }
-        })
-    });
-</script>
 @stop
