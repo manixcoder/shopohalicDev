@@ -35,78 +35,14 @@
                 <th>Date of Subscription</th>
                 <th>Action</th>
             </tr>
+            @foreach($subscriptionData as $key=> $subscription)
             <tr>
                 <td><input type="checkbox"></td>
-                <td>PattyOFurniture@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
+                <td>{{$subscription->email}}</td>
+                <td>{{date('d M Y', strtotime($subscription->created_at))}}</td>
+                <td class="text-color-red" style="cursor:pointer;" onclick="deleteStatus({{$subscription->id}});">Delete</td>
             </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Maureenbiologist@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>LoisDiNominator@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Isabelleringing@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Eileensideways@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Ritabook@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>RoyLCommishun@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>RodKnee@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>BridgetTheriveaquai@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Geneevaconvenshun@dummyemail.com</td>
-                <td>10 Aug 2021</td>
-                <td class="text-color-red">Delete</td>
-
-            </tr>
-
+            @endforeach
         </table>
 
 
@@ -114,10 +50,61 @@
 
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  function changeStatus(id,status){
+   
+        var status=($('#statustype').text());
+        $.ajax({
+                url: "{{url('admin/subscribers/delete')}}",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id,
+                    "status": status
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {
+                    var type=status=='Active'?'In-Active':'Active';
+                    $('#statustype').text(type);
+                   }
+                }
+            });
+    }
+    function deleteStatus(id){
+        if (confirm("Are you sure?")) {
+            alert(id)
+          $.ajax({
+                url: "{{url('admin/subscribers/delete')}}",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {
+                    $('#row_'+id).hide();
+                   }
+                }
+            });
+           
+            }
+    }
+  </script>
 
 @stop
 @section('pagejs')
+
 <script type="text/javascript">
     $(document).ready(function() {
         //Get the total rows

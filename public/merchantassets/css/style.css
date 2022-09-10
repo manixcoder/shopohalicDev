@@ -1,0 +1,2123 @@
+*{
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+header .benefitme {
+    float: left;
+    width: 100%;
+    padding: 15px 30px 10px;
+    box-shadow: 0 2px 4px #00000033;
+    vertical-align: middle;
+}
+header .benefitme .user-dropdown .dropdown {
+    position: relative;
+    float: right;
+}
+header .benefitme .user-dropdown ul.dropdown-menu {
+    position: absolute;
+    min-width: 110px;
+    text-align: left;
+    left: auto;
+    border: none;
+    right: 0;
+    padding: 0;
+    margin-top: 10px;
+    box-shadow: 0 3px 7px rgb(0 0 0 / 18%);
+}
+header .benefitme .user-dropdown .dropdown-menu li a {
+    padding: 4px 10px;
+    color: #06C6B3;
+    font-size: 13px;
+}
+header .benefitme .user-dropdown button#dLabel {
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.side-bar {
+    float: left;
+    width: 250px;
+    background-color: #06C6B3;
+    min-height: 100vh;
+}
+.side-bar ul li {
+    list-style: none;
+}
+.side-bar a img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 15px;
+    margin-top: -3px;
+    margin-right: 10px;
+    position: absolute;
+    left: 45px;
+    top: 16px;
+}
+.side-bar a {
+    width: 100%;
+    padding: 10px 26px 10px 70px;
+    display: inline-block;
+    font-size: 16px;
+    text-decoration: none;
+    color: #FFFFFF;
+    line-height: 20px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 300;
+    vertical-align: middle;
+    position: relative;
+}
+.add-newoffer{
+    width: calc(100% - 250px);
+    float: left;
+    padding: 0px 25px;
+}
+.add-newoffer .pra-sec p {
+    font-size: 18px;
+    padding: 25px 30px 10px;
+    color: #777777;
+    line-height: 30px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 300;
+}
+.add-newoffer .form-box {
+    width: 75%;
+    float: left;
+}
+.add-newoffer .pro-service a {
+    font-size: 18px;
+    line-height: 30px;
+    color: #06C6B3;
+    text-decoration: none;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 300;
+    padding: 10px 14px;
+    display: block;
+}
+.add-newoffer .form-box.Customer-journey figure {
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding: 6px 12px;
+}
+.add-newoffer .pro-service span {
+    display: inline-block;
+}
+.add-newoffer .pro-service {
+    float: left;
+    width: 100%;
+    box-shadow: 0 2px 4px #00000029;
+    border-radius: 8px;
+   margin-bottom: 30px;
+}
+.add-newoffer .pro-service img {
+    margin-left: 16px;
+}
+.add-newoffer .form-box figure p {
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 20px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 300;
+    padding-left: 14px;
+}
+.add-newoffer .form-box button {
+    min-width: 100%;
+    height: 48px;
+    border: 1px solid#9B3270;
+    background-color: #fff;
+    color: #9B3270;
+    font-size: 18px;
+    font-family: 'PF Bague Sans Pro';
+    line-height: 20px;
+    margin-top: 14px;
+}
+.add-newoffer .form-box .bgcolor{
+    background-color: #06C6B3;
+    border:none;
+    color: #fff;
+}
+.add-newoffer .form-box .form-control {
+    height: 48px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #ACACAC;
+    border: 1px solid#70707094;
+    font-family: 'PF Bague Sans Pro';
+}
+.add-newoffer .form-box .form-group .discount-offer{
+    background-image: url(../images/discount_sale_icon.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    padding-right: 35px;
+    background-size: 16px;
+}
+.add-newoffer .form-box .form-group .bg-calender {
+    background-image: url(../images/calender_icon.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    padding-right: 35px;
+    background-size: 14px;
+}
+.add-newoffer .Customer-journey {
+    width: 100%;
+    float: left;
+}
+.add-newoffer .form-box h3 {
+    font-size: 20px;
+    margin: 0;
+    line-height: 24px;
+    font-weight: 700;
+    padding: 8px 0px;
+    font-family: 'Futura PT';
+}
+.form-box.Customer-journey .Message {
+    box-shadow: none;
+    margin-bottom: 0;
+}
+.add-newoffer .Customer-journey label {
+    font-size: 16px;
+    color: #ACACAC;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+}
+.add-newoffer .Customer-journey option{
+    color: #000;
+}
+.add-newoffer .Customer-journey .text-color{
+    font-size: 18px;
+    -webkit-appearance: none;
+    background-image: url(../images/down_arrow_icon.png);
+    background-repeat: no-repeat;
+    background-position:96% center ;
+    padding-right: 35px;
+    background-size: 12px;
+}
+.add-newoffer .generate .givepoint-img{
+    -webkit-appearance: none;
+    background-image: url(../images/down_arrow_icon.png);
+    background-repeat: no-repeat;
+    background-position:97% center ;
+    padding-right: 35px;
+    background-size: 12px;
+}
+.add-newoffer .Customer-journey .category-mr {
+    margin-right: -25px;
+    margin-left: -25px;
+}
+.add-newoffer .generate {
+    float: left;
+    width: 100%;
+    margin-top: 14px;
+}
+.add-newoffer .generate p {
+    margin-top: 0px;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+}
+.add-newoffer .code-img {
+    float: left;
+    width: 100%;
+    padding: 24px;
+}
+.add-newoffer .generate .loction {
+    margin-top: 20px;
+}
+.add-newoffer .code-img figure {
+    float: left;
+    width: 180px;
+    padding: 30px;
+    height: 180px;
+}
+.add-newoffer .code-img figure img {
+    width: 100%;
+    height: 100%;
+}
+.add-newoffer .code-img a{
+    color: #06C6B3;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+   text-decoration: none;
+   font-size: 18px;
+}
+.add-newoffer .code-img p{
+    text-align: center;
+}
+/* -----------footer-css--------- */
+.footer-sec {
+    float: left;
+    width: 100%;
+    padding: 10px 30px ;
+    background-color: #DB3F9B;
+    margin-bottom: 20px;
+}
+.footer-sec ul{
+    margin-top: 7px;
+}
+.footer-sec ul li {
+    display: inline-block;  
+}
+.footer-sec ul li a {
+    font-size: 16px;
+    padding-right: 40px;
+    text-decoration: none;
+    color: #fff;
+}
+.footer-sec .gogle-play {
+    padding-right: 25px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+/* -----------footer-css--------- */
+
+
+
+.add-newoffer .form-box .coutome-uploadbtn {
+    color: #ACACAC;
+    float: left;
+    font-size: 18px;
+    padding-top: 50px;
+    width: 100%;
+    position: relative;
+    height: 170px;
+    text-align: center;
+    border: 1px solid #707070;
+    border-radius: 6px;
+}
+.add-newoffer .generate span figure  {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.add-newoffer .form-group {
+    margin-bottom: 15px;
+    float: left;
+    width: 100%;
+}
+.add-newoffer .form-box .upload-file {
+    height: 170px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 9;
+}
+.add-newoffer .form-group .discount-sale{
+    background-image: url(../images/discount_sale_icon.png);
+    background-repeat: no-repeat;
+    background-position:96% center ;
+    padding-right: 35px;
+}
+.add-newoffer .Customer-journey .click-bar {
+    margin: 10px 0px 20px;
+}
+.add-newoffer .switch {
+    position: relative;
+    display: inline-block;
+    width: 26px;
+    height: 16px;
+    vertical-align: middle;
+}
+.add-newoffer .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.add-newoffer .slider.round {
+    border-radius: 34px;
+}
+.add-newoffer .slider.round:before {
+    border-radius: 50%;
+}
+.add-newoffer .generate span {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+    color: #ACACAC;
+}
+.add-newoffer .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #06C6B3;
+    -webkit-transition: .4s;
+    transition: .4s;
+    width: 26px;
+} 
+.add-newoffer .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    font-size: 10px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    text-align: center;
+    line-height: 12px;
+}
+.add-newoffer input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(10px);
+}
+.category-sec {
+    width: calc(100% - 250px);
+    float: left;
+    padding: 30PX 20px;
+}
+.category-sec .menu-category {
+    float: left;
+    width: 100%;
+    padding-right: 8px;
+}
+.menu-category a {
+    font-size: 16px;
+    background: #06C6B3;
+    padding: 10px;
+    color: #FFFFFF;
+    border-radius: 6px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    text-decoration: none;
+}
+.menu-category span {
+    font-size: 18px;
+    line-height: 30px;
+    color: #777777;
+}
+.menu-category .color-text{
+    color:#06C6B3;
+}
+.category-sec .table-responsive {
+    float: left;
+    width: 100%;
+    margin-top: 40px;
+}
+.category-sec td {
+    border-top: 0 !important;
+    padding: 24px 20px !important;
+    font-size: 18px;
+    color: #212121;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 700;
+}
+.category-sec td a img {
+    width: 18px;
+    margin-left: 18px;
+}
+
+.category-sec .table-responsive i.fa.fa-trash-o {
+    color: #9B3270;
+    font-size: 28px;
+}
+.category-sec tr td span a {
+    padding: 0px 5px; 
+}
+.category-sec tr {
+    box-shadow: 0px 2px 4px #00000029;
+    border-radius: 8px;
+}
+.category-sec .menu-switch .refresh a  {
+    color: #168AFF;
+    padding-right: 22px;
+    font-size: 20px;
+    font-weight: 400;
+    background-color: #fff;
+    font-family: 'PF Bague Sans Pro';
+}
+.category-sec .menu-images {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+}
+.category-sec figure img {
+    float: left;
+    width: 100%;
+    border-radius: 10px;
+}
+.category-sec .menu-images figure {
+    float: left;
+    width: 100%;
+    position: relative; 
+}
+.category-sec .menu-images span {
+    position: absolute;
+    z-index: 9;
+    right: 0;
+    top: 0;
+    background: #FFFFFF;
+    height: 32px;
+    width: 32px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 0px 0px 0px 10px;
+    box-shadow: 0px 3px 6px #00000029;
+}
+.category-sec .menu-images span a{
+    color: #9B3270;
+    font-size: 18px;
+}
+.check-in-tabing .checkin-venuepg {
+    float: left;
+    width: 100%;
+}
+.check-in-tabing ul {
+    margin-left: 0;
+    border: none;
+    border: 1px solid #06c6b3;
+    display: inline-block;
+    margin: 0 !important;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.check-in-tabing ul.nav.nav-tabs li {
+    font-size: 18px;
+    line-height: 26px;
+    font-family: 'Poppins';
+    background-color: #fff;
+    display: inline-block;
+    margin: 0 !important;
+}
+.check-in-tabing ul.nav.nav-tabs li.active {
+    border-radius: 5px;
+}
+.check-in-tabing ul.nav.nav-tabs .checkin-venuepg{
+    border: 1px solid #06C6B3;
+    display: inline-block;
+    width: 295px;
+}
+.check-in-tabing ul.nav.nav-tabs a {
+    color: #06C6B3;
+    padding: 10px 50px;
+    text-decoration: none;
+    border: none;
+    background-color: #fff;
+    margin-right: 0;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.check-in-tabing ul.nav.nav-tabs a:hover{
+    color: #000;
+}
+.check-in-tabing ul.nav.nav-tabs li a:hover , .check-in-tabing ul.nav.nav-tabs li.active a{
+    background-color: #06C6B3;
+    color: #fff;
+}
+.check-in-add .generate.Customer-journey figure img {
+    width: auto;
+    display: inline-block;
+    max-width: 100%;
+}
+.check-in-add .generate.Customer-journey figure {
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+    float: none;
+    padding: 20px;
+}
+.login {
+    vertical-align: middle;
+    width: 100%;
+    background-image: url(../images/l_bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: table;
+    background-position: center 250px;
+}
+.login .login-form {
+    display: table-cell;
+    width: 800px;
+    margin: 0 auto;
+    vertical-align: middle;
+    text-align: center;
+}
+.login .login-form  .login-form-sec {
+    display: inline-block;
+    width: 950px;
+    vertical-align: middle;
+    background: #ffff;
+    border-radius: 16px;
+    box-shadow: 0px 12px 14px #00000029;
+}
+.login .login-form .login-form-sec .contrary-popular {
+    width: 50%;
+    background: rgb(155,50,112);
+    background: linear-gradient(0deg, rgba(155,50,112,1) 0%, rgba(219,63,155,1) 100%);
+    float: left;
+    padding:50px 32px 80px;
+    border-top-left-radius: 16px ;
+    border-bottom-left-radius:16px ;
+    min-height: 570px;
+}
+.login-form-sec .contrary-popular  figure {
+    float: left;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.login-form-sec .contrary-popular figure img {
+    width: 230px;
+    margin-bottom: 30px;
+}
+.login-form-sec .contrary-popular h3 {
+    color: #FFFFFF;
+    font-size: 29px;
+    line-height: 30px;
+    font-weight: 600;
+    font-family: 'PF Bague Sans Pro';
+    letter-spacing: .80px;
+    margin: 15px 0px;
+}
+.login-form-sec .contrary-popular  p {
+    text-align: center;
+    font-size: 16px;
+    color: #FFFFFF;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    line-height: 26px;
+}
+.login .login-with {
+    float: left;
+    width: 50%;
+    padding-top: 40px;
+}
+.login  h3 {
+    font-size: 32px;
+    line-height: 23px;
+    font-weight: bold;
+    font-family: 'Futura PT';
+    color: #000000;
+    margin-bottom: 18px;
+}
+.login-with .form-box-sec {
+    float: left;
+    width: 100%;
+    padding: 25px 32px;
+}
+.login-with .form-box-sec .form-control {
+    height: 48px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    font-family: 'PF Bague Sans Pro';
+    border: 1px solid#70707094;
+}
+.login-with .form-box-sec button {
+    font-size: 18px;
+    font-family: 'PF Bague Sans Pro';
+    line-height: 20px;
+    margin-top: 14px;
+    width: 100%;
+    height: 45px;
+    color: #FFFFFF;
+    background-color: #06C6B3;
+    border: none;
+}
+.login .login-facebook {
+    float: left;
+    width: 100%;
+}
+.login .login-with .form-box-sec .password-show {
+    background-image: url(../images/pass_show.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    background-size: 24px;
+}
+.login .login-facebook button {
+    font-size: 15px;
+    background: #fff;
+    color: #1977F3;
+    border: 1px solid #1977F3;
+    margin-bottom: 24px;
+}
+.login .login-facebook button img{
+    margin-right: 8px;
+}
+.login .login-facebook .text-color{
+    color: #E84234;
+    border: 1px solid#E84234;
+}
+.login .login-facebook p{
+    font-size: 18px;
+    line-height: 30px;
+    color: #ACACAC;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.login .login-facebook span {
+    color: #06C6B3;
+    font-size: 22px;
+}
+.login .login-with .sign-up{
+    background-image: url(../images/down_arrow_icon.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    padding-right: 35px;
+    -webkit-appearance: none;
+    background-size: 14px;
+    color: #000;
+}
+.login .sign-up-benefitme{
+    max-height: 570px;
+    overflow-x:  auto;
+}
+.login .login-with .switch {
+    float: right;
+    position: relative;
+    width: 26px;
+    height: 16px;
+    vertical-align: middle;
+}
+.login .login-with .switch.off-cilck{
+    margin-right: 10px;
+}
+.login .login-with  .switch input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+.form-box-sec .slider.bg-color{
+    background-color: #ACACAC;
+}
+.form-box-sec .General{
+    font-size: 18px;
+    line-height: 24px;
+    color: #212121;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.form-box-sec .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #06C6B3;
+    -webkit-transition: .4s;
+    transition: .4s;
+    width: 26px;
+} 
+.login-with .form-box-sec .slider.click:before {
+    border-radius: 50%;
+}
+.login-with .form-box-sec .slider{
+    border-radius: 34px;
+}
+.form-box-sec .slider.bg-color:before{
+    position: absolute;
+    content: "";
+    height: 12px;
+    font-size: 10px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color:#fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    text-align: center;
+    line-height: 12px;
+}
+.login-with .form-box-sec .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    font-size: 10px;
+    width: 12px;
+    right: 2px;
+    bottom: 2px;
+    background-color:#fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    text-align: center;
+    line-height: 12px;
+}
+.login-with .form-box-sec input:checked + .slider:before {
+    -webkit-transform: translateX(-20px);
+    -ms-transform: translateX(-20px);
+    transform: translateX(-10px);
+}
+.login-with .form-box-sec input:checked + .slider.bg-color:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(10px);
+}
+.login-with .form-box-sec .bg-calender {
+    background-image: url(../images/calender_icon.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    padding-right: 35px;
+    background-size: 14px;
+}
+.Subscription {
+    width: 100%;
+    float: left;
+    background-color: #06C6B3;
+    padding: 30px 0px 50px;
+}
+.Subscription figure{
+    float: left;
+    width: 100%;
+    margin-top: 25px;
+}
+.Subscription h3 {
+    font-size: 43px;
+    color: #FFFFFF;
+    line-height: 40px;
+    font-family: 'Futura PT';
+    font-weight: 600;
+}
+.Subscription p {
+    font-size: 28px;
+    color: #FFFFFF;
+    line-height: 30px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.Subscription ul {
+    margin-bottom: 22px;
+}
+.Subscription ul li {
+    color: #FFFFFF;
+    list-style: none;
+    padding: 2px 0px;
+    font-size: 20px;
+    line-height: 28px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.Subscription a {
+    font-size: 18px;
+    padding: 10px 20px 10px;
+    background: #fff;
+    text-decoration: none;
+    margin-top: 0px;
+    color: #06C6B3;
+    border-radius: 5px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.subscri-features {
+    float: left;
+    width: 100%;
+}
+.subscri-features h3 {
+    font-size: 40px;
+    line-height: 50px;
+    font-family: 'Futura PT';
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+}
+.subscri-features p {
+    font-size: 26px;
+    line-height: 30px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    color: #777777;
+    text-align: center;
+}
+ .standard {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.standard p{
+    text-align: left !important;
+}
+ .standard p {
+    text-align: left;
+    font-size: 30px;
+    padding: 18px 16px 18px 26px;
+    background: #01C0A242;
+    border-radius: 10px 10px 0px 0px;
+    color: #212121;
+    font-family: 'PF Bague Sans Pro';
+}
+ .standard .month {
+    color: #006756;
+    font-weight: 600;
+}
+.standard .products-promotions {
+    float: left;
+    width: 100%;
+    padding: 8px 32px;
+}
+.standard .products-promotions li {
+    font-size: 18px;
+    list-style: none;
+    padding: 8px 0px;
+    color: #212121;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.standard .products-promotions img {
+    margin-right: 8px;
+    width: 14px;
+}
+.basic-sec{
+    background: #fff !important;
+    width: auto;
+}
+.basic-sec figure{
+    text-align: center;
+    margin-bottom: 20px !important;
+}
+.basic-sec img {
+    width: auto !important;
+}
+.basic-sec h3{
+     color: #000 !important;
+     text-align: center !important;
+     font-size: 32px !important;
+     line-height: 23px !important;
+     font-weight: bold !important;
+     font-family: 'Futura PT' !important;
+     margin-bottom: 24px !important;
+}
+.basic-sec p{font-size: 30px !important;
+    padding: 18px 16px 18px 26px !important;
+    background: #01C0A242 !important;
+    border-radius: 10px 10px 0px 0px !important;
+    color: #212121 !important;
+    font-family: 'PF Bague Sans Pro' !important;
+}
+.standard .products-promotions button.form-control {
+    background: #06C6B3;
+    height: 45px;
+    border: none;
+    font-size: 18px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    border-radius: 8px;
+}
+ .standard .bg-stand {
+    background: #6ECCEF42;
+}
+ .standard .bg-premiun{
+    background-color: #EFC46E42;
+}
+ .standard .bg-month{
+    color: #B78620;
+}
+.standard  .color-month{
+    color:  #037198;
+}
+.form-box-sec p {
+    font-size: 30px;
+    color: #777777;
+    line-height: 30px;
+    text-align: left;
+    padding-bottom: 20px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.form-box-sec.payment h3 {
+    text-align: left;
+
+}
+.form-box-sec.otp-below {
+    float: left;
+    width: 100%;
+    padding-top: 0;
+}
+.login-with .form-box-sec ul {
+    margin: 0;
+}
+.login-with .form-box-sec ul label {
+    width: 100%;
+    font-size: 18px;
+    color: #999;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 14px 0px;
+    font-family: 'PF Bague Sans Pro';
+}
+.login-with .form-box-sec ul li {
+    display: inline-block;
+    list-style: none;
+    padding: 0px 10px;
+}
+.login-with .form-box-sec ul label span {
+    color: #06C6B3;
+    font-weight: 700;
+}
+.login-with .form-box-sec ul li input {
+    width: 38px;
+    height: 36px;
+    text-align: center;
+    outline: none;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+.login-with.otp-box {
+    width: 100%;
+}
+.login-form-sec.Verification-otp {
+    width: 550px !important;
+}
+.login .login-with p {
+    font-size: 19px;
+    color: #212121;
+    line-height: 25px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    margin: 0;
+}
+.appoint-ment{
+    width: calc(100% - 250px);
+    float: left;
+}
+.appoint-ment {
+    width: calc(100% - 250px);
+    float: left;
+    padding: 20px 50px 20px 20px;
+}
+.appoint-ment  .appoint-sec {
+    float: left;
+    width: 100%;
+    padding: 12px;
+}
+.appoint-ment .appoint-sec p {
+    font-size: 22px;
+    color: #777777;
+    line-height: 30px;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+}
+.appoint-ment .appoint-sec a {
+    font-size: 16px;
+    text-decoration: none;
+    padding: 8px 24px;
+   
+    background: #06C6B3;
+    color: #FFFFFF;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+    border-radius: 5px;
+}
+.appoint-ment .new-requests ul {
+    margin-left: 0;
+    border: none;
+    border: 1px solid #06c6b3;
+    display: inline-block;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+.appoint-ment .new-requests ul.nav.nav-tabs li {
+    font-size: 17px;
+    line-height: 26px;
+    font-family: 'PF Bague Sans Pro';
+    background-color: #fff;
+    display: inline-block;
+    margin: 0 !important;
+}
+.appoint-ment .new-requests ul.nav.nav-tabs a {
+    color: #06C6B3;
+    padding: 10px 40px;
+    text-decoration: none;
+    border: none;
+    background-color: #fff;
+    margin-right: 0;
+    border-radius: 0px;
+}
+.appoint-ment .new-requests ul.nav.nav-tabs li a:hover , .appoint-ment .new-requests ul.nav.nav-tabs li.active a{
+    background-color: #06C6B3;
+    color: #fff;
+}
+.appoint-ment .new-requests {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.appoint-ment .new-requests .john-doe-box {
+    float: left;
+    width: 100%;
+    padding: 20px 20px;
+    box-shadow: 0px 2px 4px #00000029;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+.appoint-ment .new-requests .john-doe-box figure {
+    float: left;
+    width: 100px;
+}
+.appoint-ment .new-requests .john-doe-box figure  img {
+    width: 100%;
+}
+.appoint-ment .new-requests .Jessica-pra {
+    width: calc(100% - 120px);
+    float: left;
+    vertical-align: inherit;
+    padding-left: 20px;
+}
+.appoint-ment .new-requests .Jessica-pra h3 {
+    margin: 0;
+    line-height: 1;
+    font-size: 17px;
+    color: #212121;
+    font-weight: 700;
+    font-family: 'PF Bague Sans Pro';
+    
+}
+.appoint-ment .new-requests .Jessica-pra p {
+    font-size: 15px;
+    margin: 0;
+    font-family: 'PF Bague Sans Pro';
+    line-height: 25px;
+    color: #212121;
+   
+}
+.Jessica-pra.appointment {
+    padding-left: 0px !important;
+}
+.Jessica-pra.appointment p {
+    padding-bottom: 4px !important;
+}
+.Jessica-pra.appointment h3{
+    margin-bottom: 4px !important;
+}
+.appoint-ment .appointment-for p {
+    font-size: 16px;
+    color: #ACACAC;
+    line-height: 30px;
+    letter-spacing: .52px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+}
+.appoint-ment .appointment-for{
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.appoint-ment .appointment-for p span {
+    color: #212121;
+}
+.appoint-ment .new-requests .john-doe-box span a {
+    min-width: 150px;
+    min-height: 42px;
+    font-size: 18px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    margin: 0 0px 0px 20px;
+    border: 1px solid #9B3270;
+    background: #fff;
+    color: #9B3270;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none !important;
+    padding-top: 7px;
+}
+.appoint-ment .new-requests .john-doe-box span a.accept-bg {
+    color: #fff;
+    background: #06C6B3;
+    border: none;
+}
+.appoint-ment .new-requests .john-doe-box ul {
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0px;
+}
+.appoint-ment .new-requests .john-doe-box li {
+    display: inline-block;
+}
+.appoint-ment .new-requests .john-doe-box li a {
+    padding-left: 15px;
+}
+.appoint-ment .new-requests .Jessica-pra p span {
+    color: #ACACAC;
+    padding-right: 10px;
+}
+.appoint-ment .new-requests .new-booking figure.small-img {
+    float: left;
+    /* width: 50px; */
+}
+.new-booking .number-table {
+    float: left;
+    width: 100%;
+    border-bottom: 10px solid #06C6B3;
+    border-radius: 6px;
+    padding-bottom: 26px;
+    padding-left: 25px;
+}
+.appoint-ment .new-requests .new-booking {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px 10px;
+}
+.new-booking .number-table figure {
+    width: 70px;
+    float: left;
+}
+.new-booking .number-table figure img {
+    width: 100%;
+    vertical-align: text-top;
+}
+.number-table.table-box {
+    box-shadow: 0px 2px 4px #00000029;
+    border-bottom: none;
+}
+.appoint-ment .new-requests .john-doe-box figure.avarage-box {
+    width: 70px;
+    float: left;
+}
+.login .login-with p{text-align: center;}
+header .benefitme img[width="230px"] {
+    width: 150px;
+}
+header .benefitme .user-dropdown button span {
+    display: inline-block;
+    vertical-align: middle;
+}
+header .benefitme .user-dropdown button span img {
+    width: 38px;
+    border-radius: 40px;
+    height: 38px;
+    object-fit: cover;
+}
+.user-dropdown button#dLabel {
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    outline: none !important;
+}
+
+@keyframes bake-pie {
+    from {
+      transform: rotate(0deg) translate3d(0,0,0);
+    }
+  }
+  
+.dashboard-chartbox .pieID {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .dashboard-chartbox .pie {
+    height: 200px;
+    width: 200px;
+    position: relative;
+    margin: 0 30px 30px 0;
+    margin: 0 auto 20px!important;
+    display: inline-block;
+    top: 0;
+}
+.dashboard-chartbox .pie::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    background: #EEE;
+    border-radius: 50%;
+    top: 50px;
+    left: 50px;
+  }
+.dashboard-chartbox   .pie::after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 2px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    box-shadow: 0 0 3px 4px rgba(0,0,0,0.1);
+    margin: 220px auto;
+    
+  }
+.dashboard-chartbox .slice {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    clip: rect(0px, 200px, 200px, 100px);
+    animation: bake-pie 1s;
+  }
+.dashboard-chartbox .slice span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    clip: rect(0px, 200px, 200px, 100px);
+  }
+.dashboard-chartbox  .legend {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: #FFF;
+    padding: 15px;
+    font-size: 13px;
+    box-shadow: 1px 1px 0 #DDD,
+                2px 2px 0 #BBB;
+  }
+.dashboard-chartbox  .legend li {
+    width: 110px;
+    height: 1.25em;
+    margin-bottom: 0.7em;
+    padding-left: 0.5em;
+    border-left: 1.25em solid black;
+  }
+  .legend em {
+    font-style: normal;
+  }
+.dashboard-chartbox .legend span {
+    float: right;
+  }
+  .dashboard-chartbox  .label {
+    height: 1em;
+    padding: .3em;
+    background: rgba(255, 255, 255, .8);
+    position: absolute;
+    display: none;
+    color:#333;
+    
+  }
+  .dashboard-heading {
+    float: left;
+    width: 100%;
+    background: rgb(183 183 183 / 15%);
+    padding: 10px 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.dashboard-heading h3 {
+    font-size: 15px;
+    margin: 0;
+    color: rgb(0 0 0 / 50%);
+}
+.registered-customer {
+    float: left;
+    width: 100%;
+    margin-bottom: 40px;
+    margin-top: 5px;
+}
+.registered-customer h3 , .current-offer h3{
+    font-size: 18px;
+    color: #000;
+    font-family: 'Futura PT';
+    margin: 0;
+}
+.customer-box-sec {
+    float: left;
+    width: 100%;
+    margin-top: 12px;
+}
+.customer-box-sec .customerbox {
+    float: left;
+    width: 100%;
+    padding: 20px 25px;
+    background: #D6FBD7;
+}
+.customer-box-sec .customerbox h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #212121;
+    font-family: 'PF Bague Sans Pro';
+}
+.customer-box-sec .customerbox h4 b {
+    float: right;
+    font-weight: 900;
+    font-family: 'PF Bague Sans Pro';
+}
+.customer-box-sec .customerbox.lightorg {
+    background: #FBF2D6;
+}
+.customerbox.lightblue {
+    background: #D6F4FB;
+}
+.dashboard-chartbox {
+    float: left;
+    width: 100%;
+}
+.dashboard-chartbox .chartbox-sec {
+    padding: 22px 20px;
+    float: left;
+    width: 100%;
+    box-shadow: 0 0 3px rgb(0 0 0 / 16%);
+    text-align: center;
+    min-height: 358px;
+}
+.dashboard-chartbox .chartbox-sec h4 {
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Futura PT';
+    color: #212121;
+}
+.dashboard-chartbox .chartbox-sec .selectbox {
+    float: right;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+    min-width: 110px;
+    height: 30px;
+    border: 1px solid #707070;
+    box-shadow: none !important;
+    text-shadow: none;
+    outline: none !important;
+    font-size: 15px;
+    color: #212121;
+    padding: 4px 10px;
+}
+.dashboard-chartbox .chartbox-sec .pieID.pie {
+    margin-right: 10px;
+}
+.dashboard-chartbox  .legend {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background: #FFF;
+    padding: 0;
+    font-size: 12px;
+    box-shadow: none;
+}
+.dashboard-chartbox  .legend li {
+    width: 80px;
+    height: 1.25em;
+    margin-bottom: 0.7em;
+    padding-left: 0.5em;
+    border-left: 1.25em solid black;
+    display: inline-block;
+    margin-right: 10px;
+}
+.dashboard-chartbox  .legend li:last-child{margin-left: 0;}
+.dashboard-chartbox .pie::after{margin: 0; display: none;}
+.current-offer {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+}
+.current-offerBox {
+    float: left;
+    width: 100%;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    margin-top: 10px;
+}
+.current-offerBox .imgbox {
+    float: left;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-right: 10px;
+    border: 1px solid #eee;
+}
+.current-offerBox .imgbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+.current-offerBox .current-offercont {
+    float: left;
+    width: calc(100% - 125px);
+    width: -ms-calc(100% - 125px);
+    width: -moz-calc(100% - 125px);
+    width: -webkit-calc(100% - 125px);
+}
+.current-offerBox .current-offercont h5 {
+    color: #212121;
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.current-offerBox .current-offercont  h4 {
+    color: #212121;
+    font-size: 17px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 600;
+    margin-top: 6px;
+    margin-bottom: 7px;
+}
+.current-offerBox .current-offercont h4 span {
+    opacity: .4;
+    font-weight: 500;
+    font-size: 16px;
+}
+.current-offerBox .current-offercont p {
+    color: #212121;
+    font-size: 15px;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 600;
+}
+.current-offerBox .current-offercont p .discount-cont {
+    background: rgb(255 0 0 / 70%);
+    padding: 8px 15px;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.current-offerBox .current-offercont p 
+ .redclr {
+    color: #FF3939;
+    font-weight: 400;
+    padding-left: 12px;
+}
+.current-offerBox .socialIcon {
+    float: right;
+    list-style: none;
+    margin: 0;
+}
+.current-offerBox .socialIcon li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+.current-offerBox .socialIcon li a {
+    display: inline-block;
+    vertical-align: middle;
+    color: #777777;
+    font-size: 13px;
+}
+.current-offerBox .socialIcon li a i {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -5px;
+    margin-right: 5px;
+}
+.current-offerBox .socialIcon li a i img {
+    width: 16px;
+}
+.current-offerBox .socialIcon li:last-child {
+    margin: 0;
+}
+.current-offerBox .socialIcon li:last-child a i {
+    margin-right: 0;
+}
+.current-offerBox .socialIcon li:last-child a i img {
+    width: 14px;
+}
+.current-offerBox .prabox {
+    padding: 15px 30px 0;
+    color: #ACACAC;
+    line-height: 24px;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+.current-offerBox .prabox p {
+    margin: 0;
+}
+.addproduct-btn {
+    background: #06c6b3;
+    padding: 12px 15px;
+    color: #fff !important;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none !important;
+}
+.products-hedmrtop {
+    margin-top: -5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.appoint-ment .new-requests ul.socialIcon {
+    border: 0;
+}
+.add-newoffer.appoint-ment .current-offer {
+    margin-top: 0;
+}
+.add-newoffer.appoint-ment ul.nav.nav-tabs {
+    margin-top: 0;
+}
+.appoint-ment .new-requests .addproduct-btn {
+    position: absolute;
+    right: 0;
+    top: -62px;
+}
+div#messages .new-booking {
+    margin-bottom: 10px;
+}
+.appoint-ment .new-requests div#messages .john-doe-box li:last-child a img {
+    width: 18px;
+}
+.appoint-ment .new-requests div#messages .john-doe-box li:nth-child(2) a img {
+    width: 18px;
+}
+.appoint-ment .new-requests div#messages .john-doe-box li:first-child a img {
+    width: 24px;
+}
+.new-booking .active.col-md-4 .number-table {
+    float: left;
+    width: 100%;
+    border-bottom: 10px solid #06C6B3;
+    border-radius: 6px;
+    padding-bottom: 26px;
+    padding-left: 25px;
+}
+
+ul.nav.nav-tabs.number-sec.col-md-12{
+    border: 0;
+}
+ul.nav.nav-tabs.number-sec.col-md-12 a.number-table {
+    background: none !important;
+    padding: 15px;
+}
+ul.nav.nav-tabs.number-sec li a:hover ,  ul.nav.nav-tabs.number-sec li.active a{
+    float: left;
+    width: 100%;
+    border-bottom: 10px solid #06C6B3;
+    border-radius: 6px;
+    padding-bottom: 26px;
+    padding-left: 25px;
+}
+
+
+.add-newoffer span.box-input {
+    position: relative;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.add-newoffer .Customer-journey .menu-text {
+    font-size: 18px;
+    line-height: 28px;
+    color: #000000;
+    font-weight: 400;
+    vertical-align: sub;
+    font-family: 'PF Bague Sans Pro';
+}
+.add-newoffer  span.box-input input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    cursor: pointer;
+    opacity: 0;
+    display: block;
+    margin: 0;
+}
+.add-newoffer span.box-input small {
+    background: #fff;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 2px;
+    border: 1px solid#ACACAC;
+}
+.add-newoffer span.box-input input:checked + small {
+    background: #06C6B3;
+    border-color:#06C6B3;
+}
+
+.add-newoffer span.box-input input:checked + small:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.add-newoffer .form-group .timer-icon {
+    background-image: url(../images/timer-icon.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    padding-right: 35px;
+}
+.add-newoffer .form-group .close-icon{
+    background-image: url(../images/close-icon.png);
+    background-repeat: no-repeat;
+    background-position: 98% center;
+    padding-right: 35px;
+}
+.add-newoffer .generate .add-new{
+    color: #06C6B3;
+}
+.appoint-ment .new-requests .john-doe-box .pizza-sec {
+    float: left;
+    width: 200px;
+}
+.appoint-ment .new-requests .john-doe-box .pizza-sec img {
+    border-radius: 15px;
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant {
+    width: calc(100% - 200px);
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant p {
+    color: rgb(0 0 0 / 60%);
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant h3 {
+    line-height: 24px;
+    margin-bottom: 3px;
+}
+.Jessica-pra.text-contant span.offer {
+    color: red;
+    font-size: 14px;
+    line-height: 20px;
+}
+.appoint-ment .appoint-sec button {
+    border: none;
+    background: none;
+    color: #168AFF;
+    font-size: 16px;
+    padding-right: 20px;
+    font-family: 'PF Bague Sans Pro';
+}
+.appoint-ment .appoint-sec button i.fa.fa-refresh {
+    font-size: 19px;
+    vertical-align: text-top;
+    padding-right: 5px;
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant p img {
+    width: 20px;
+    vertical-align: text-top;
+ 
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant .per-night {
+    font-size: 12px;
+    font-weight: 400;
+    color: #ACACAC;
+    vertical-align: top;
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant li {
+    display: inline-block;
+    font-size: 14px;
+    color: rgb(0 0 0 / 57%);
+    padding-right:10px ;
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant li img {
+    width: 15px;
+    margin-right: 7px;
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant ul {
+    margin: 5px 0px;
+}
+.appoint-ment .new-requests .Jessica-pra.room-for p {
+    margin-top: 26px;
+}
+
+.appoint-ment .new-requests .Jessica-pra .mobile-box figure {
+    width: 85px;
+    height: 80px;
+    padding: 6px;
+}
+.appoint-ment .new-requests .Jessica-pra .mobile-box figure img{
+    width: 100%;
+}
+.appoint-ment .new-requests .Jessica-pra .mobile-box {
+    padding-right: 15px !important;
+    float: left;
+}
+.appoint-ment .new-requests .Jessica-pra .mobile-box p {
+    font-size: 12px;
+}
+
+*,:after,:before{box-sizing:border-box}
+.Jessica-pra.calendar-box .pull-left{float:left}
+.Jessica-pra.calendar-box .pull-right{float:right}
+.Jessica-pra.calendar-box .clearfix:after,.clearfix:before{content:'';display:table}
+.Jessica-pra.calendar-box .clearfix:after{clear:both;display:block}
+
+
+.Jessica-pra.calendar-box .calendar {
+    width: 400px;
+    font-size: 100%;
+    perspective: 1000px;
+    cursor: default;
+    position: relative;
+}
+
+.calendar .header{height:50px;position:relative;color:#fff}
+.calendar .header .text{
+    position:absolute;
+    top:0;left:0;
+    right:0;bottom:0;
+    background-color:#9B3270;
+    padding:0px;
+    transform:rotateX(90deg);
+    transform-origin:bottom;
+    backface-visibility:hidden;
+    transition:.4s ease-in-out 0s;
+    box-shadow:0 6px 20px 0 rgba(0,0,0,.19), 0 8px 17px 0 rgba(0,0,0,.2);
+    opacity:0;
+    border-radius: 12px 12px 0px 0px;
+}
+.Jessica-pra.calendar-box .calendar .header .text>span {
+    text-align: center;
+    padding: 15px;
+    display: block;
+}
+.new-requests .form-control {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.calendar .header.active .text{transform:rotateX(0deg);opacity:1}
+.months{width:100%;height: 320px;position:relative}
+.months .hr{height:1px;margin:15px 0;background:#ccc}
+.Jessica-pra.calendar-box .month {
+    padding: 15px;
+    width: inherit;
+    height: inherit;
+    background: #fff;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all .4s ease-in-out 0s;
+    box-shadow: 0px 2px 4px #00000029;
+    border-radius: 0px 0px 12px 12px;
+}
+.months[data-flow="left"] .month{transform:rotateY(-180deg)}
+.months[data-flow="right"] .month{transform:rotateY(180deg)}
+.table{width:100%;font-size:10px;font-weight:400;display:table}
+.table .row{display:table-row}
+.table .row.head{color:#308ff0;text-transform:uppercase}
+.Jessica-pra.calendar-box .table .row .cell {
+    width: 14.28%;
+    padding: 8px 5px;
+    text-align: center;
+    display: table-cell;
+    font-size: 16px;
+}
+.table .row .cell.disable{color:#ccc}
+.table .row .cell span{display:block;width:28px;height:28px;line-height:28px;transition:color,background .4s ease-in-out 0s}
+.Jessica-pra.calendar-box .table .row .cell.active span{
+    color:#fff;
+    background-color:#06C6B3;
+    border-radius: 50px;
+    font-size: 16px;
+    
+}
+.months .month[data-active="true"]{transform:rotateY(0)}
+.header [data-action]{color:inherit;position:absolute;top:50%;margin-top:-20px;width:40px;height:40px;z-index:1;opacity:0;transition:all .4s ease-in-out 0s}
+.header [data-action]>i{width:20px;height:20px;display:block;position:absolute;left:50%;top:50%;margin-top:-10px;margin-left:-10px}
+.header [data-action]>i:before,.header [data-action]>i:after{top:50%;margin-top:-1px;content:'';position:absolute;height:2px;width:20px;border-top:2px solid;border-radius:2px}
+.header [data-action*="prev"]{left:15px}
+.header [data-action*="next"]{right:15px}
+.header [data-action*="prev"]>i:before,.header [data-action*="prev"]>i:after{left:0}
+.header [data-action*="prev"]>i:before{top:3px;transform:rotate(-45deg)}
+.header [data-action*="prev"]>i:after{top:auto;bottom:3px;transform:rotate(45deg)}
+.header [data-action*="next"]>i:before,.header [data-action*="next"]>i:after{right:0}
+.header [data-action*="next"]>i:before{top:auto;bottom:3px;transform:rotate(-45deg)}
+.header [data-action*="next"]>i:after{top:3px;transform:rotate(45deg)}
+.header.active [data-action]{opacity:1}
+
+[data-theme="jan"]{background-color:none}
+[data-theme="jan"] .row.head{color:#000}
+[data-theme="jan"] .header .text,
+[data-theme="jan"] .table .row .cell.active span{background-color:none}
+
+[data-theme="feb"]{background-color:none}
+[data-theme="feb"] 
+.Jessica-pra.calendar-box .row.head{
+       color:#000;
+       font-size: 18px;
+}
+[data-theme="feb"] .header .text,
+[data-theme="feb"] .table .row .cell.active span{background-color:none}
+
+[data-theme="mar"]{background-color:none}
+[data-theme="mar"] .row.head{color:#000}
+[data-theme="mar"] .header .text,
+[data-theme="mar"] .table .row .cell.active span{background-color:none}
+
+[data-theme="apr"]{background-color:none}
+[data-theme="apr"] .row.head{color:#000}
+[data-theme="apr"] .header .text,
+[data-theme="apr"] .table .row .cell.active span{background-color:none}
+
+[data-theme="may"]{background-color:none}
+[data-theme="may"] .row.head{color:#000}
+[data-theme="may"] .header .text,
+[data-theme="may"] .table .row .cell.active span{background-color:none}
+
+[data-theme="jun"]{background-color:none}
+[data-theme="jun"] .row.head{color:#000}
+[data-theme="jun"] .header .text,
+[data-theme="jun"] .table .row .cell.active span{background-color:none}
+
+[data-theme="jul"]{background-color:none}
+[data-theme="jul"] .row.head{color:#000}
+[data-theme="jul"] .header .text,
+[data-theme="jul"] .table .row .cell.active span{background-color:none}
+
+[data-theme="aug"]{background-color:none}
+[data-theme="aug"] .row.head{color:#000}
+[data-theme="aug"] .header .text,
+[data-theme="aug"] .table .row .cell.active span{background-color:none}
+
+[data-theme="sep"]{background-color:none}
+[data-theme="sep"] .row.head{color:#000}
+[data-theme="sep"] .header .text,
+[data-theme="sep"] .table .row .cell.active span{background-color:none}
+
+[data-theme="oct"]{background-color:none}
+[data-theme="oct"] .row.head{color:#000}
+[data-theme="oct"] .header .text,
+[data-theme="oct"] .table .row .cell.active span{background-color:none}
+
+[data-theme="nov"]{background-color:none}
+[data-theme="nov"] .row.head{color:#000}
+[data-theme="nov"] .header .text,
+[data-theme="nov"] .table .row .cell.active span{background-color:none}
+
+[data-theme="dec"]{background-color:none}
+[data-theme="dec"] .row.head{color:#000}
+[data-theme="dec"] .header .text,
+[data-theme="dec"] .table .row .cell.active span{background-color:none}
+.Jessica-pra.appointment a {
+    font-size: 16px;
+    line-height: 16px;
+    color: #06C6B3;
+    font-weight: 300;
+    font-family: 'PF Bague Sans Pro';
+    text-decoration: none;
+}
+.Jessica-pra.appointment a img {
+    margin-left: 10px;
+    width: 12px;
+}
+.appointment-for.title label {
+    font-size: 15px;
+    color: #ACACAC;
+    font-weight: 400;
+    line-height: 28px;
+}
+.appointment-for.title .switch {
+    position: relative;
+    display: inline-block;
+    width: 26px;
+    height: 16px;
+    vertical-align: middle;
+}
+.appointment-for.title .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.appointment-for.title .slider.round {
+    border-radius: 34px;
+}
+.appointment-for.title .slider.round:before {
+    border-radius: 50%;
+}
+.appointment-for.title .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #06C6B3;
+    -webkit-transition: .4s;
+    transition: .4s;
+    width: 26px;
+} 
+.appointment-for.title .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    font-size: 10px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    text-align: center;
+    line-height: 12px;
+}
+.appointment-for.title input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(10px);
+}
+.appointment-for.title .form-group {
+    margin-bottom: 8px;
+}
+.appointment-for.title .form-group .timer-icon {
+    background-image: url(../images/timer-icon.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    padding-right: 35px;
+}
+.appointment-for.title {
+    padding: 0px 20px;
+    box-shadow: 0px 3px 6px#00000029;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+.appointment-for.title .recurring {
+    color: #000;
+}
+.new-requests button {
+    min-width: 100%;
+    height: 48px;
+    border: 1px solid#9B3270;
+    background-color: #fff;
+    color: #9B3270;
+    font-size: 18px;
+    font-family: 'PF Bague Sans Pro';
+    line-height: 20px;
+    margin-top: 14px;
+}
+.new-requests .bgcolor {
+    background-color: #06C6B3;
+    border: none;
+    color: #fff;
+}
+.new-requests .Jessica-pra.calendar-box {
+    padding-left: 0px;
+}
+.appoint-ment .new-requests .Jessica-pra.text-contant a {
+    font-size: 16px;
+    color: #168AFF;
+    font-weight: 400;
+    line-height: 28px;
+    text-decoration: none;
+    font-family: 'PF Bague Sans Pro';
+}
+.form-box.check-in-add.award-sec {
+    float: left;
+    width: 100%;
+}
+.form-box.check-in-add.award-sec a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #777777;
+    font-family: 'PF Bague Sans Pro';
+    font-weight: 400;
+    line-height: 24px;
+}
+.form-box.check-in-add.award-sec a img{
+    width: 15px;
+    margin-right: 5px;
+}
+.regular-visitor p {
+    font-size: 18px;
+    line-height: 30px;
+    color: #212121;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+}
+.regular-visitor {
+    float: left;
+    width: 100%;
+    padding: 40px 20px;
+}
+.regular-visitor .mascot {
+    font-size: 24px;
+    line-height: 35px;
+    color: #02BB46;
+    font-weight: 700;
+    font-family: 'PF Bague Sans Pro';
+}
+.modal-dialog.appointment-popup{
+    width: 740px;
+    margin: 30px auto;
+}
+.modal-dialog.appointment-popup span.pull-right img {
+    width: 20px;
+}
+.modal-dialog.appointment-popup h3 {
+    font-size: 29px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 20px;
+    font-family: 'Futura PT';
+    margin-bottom: 25px;
+}
+.table-responsive{
+    display: inline-block;
+    width: 100%;
+}
+.modal-dialog.appointment-popup .checkin-venuepg.connect {
+    width: 100%;
+    float: none;
+    display: inline-block;
+}
+.table-responsive .form-control{
+    border: none;
+}
+.table-responsive .form-control.search-icon {
+    background-image: url(../images/serach.png);
+    background-repeat: no-repeat;
+    padding-left: 40px;
+    background-size: 16px;
+    background-position: 2%;
+}
+.table-responsive td {
+    width: 25%;
+    font-size: 18px;
+    color: #212121;
+    font-weight: 700;
+    font-family: 'PF Bague Sans Pro';
+    padding: 10px  0px;
+}
+.table-responsive tr {
+    border-bottom: 1px solid #00000029;
+}
+.modal-dialog.appointment-popup .modal-body {
+    position: relative;
+    padding: 20px 25px 25px;
+}
+.modal-dialog.appointment-popup .btn-done a {
+    font-size: 16px;
+    padding: 12px 140px;
+    text-decoration: none;
+    background: #06C6B3;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 400;
+    font-family: 'PF Bague Sans Pro';
+    line-height: 28px;
+}
+.modal-dialog.appointment-popup .btn-done {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 24px;
+}
+

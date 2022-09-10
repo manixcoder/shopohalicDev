@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Foundation\Auth\User;
+use App\Models\Subscription;
+use DB;
 class SubscriberManagementController extends Controller
 {
     /**
@@ -14,11 +16,9 @@ class SubscriberManagementController extends Controller
      */
     public function index()
     {
-        $userData = array();
-        // dd($userData);
+        $subscriptionData = Subscription::get();
          return view('admin.Subscribers.index')->with(array(
-             'usersData' => $userData,
-             'merchantData' => ''
+             'subscriptionData' => $subscriptionData
          ));
     }
 
@@ -85,6 +85,9 @@ class SubscriberManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = $request->get('id');
+        $result=Subscription::where('id', $id)->delete();
+        echo $result;
+        die;
     }
 }

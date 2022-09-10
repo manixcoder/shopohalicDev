@@ -1,0 +1,65 @@
+
+@font-face {
+    font-family: 'PF Bague Sans Pro';
+    src: url('PFBagueSansPro-Medium.eot');
+    src: local('PF Bague Sans Pro Medium'), local('PFBagueSansPro-Medium'),
+        url('PFBagueSansPro-Medium.eot?#iefix') format('embedded-opentype'),
+        url('PFBagueSansPro-Medium.woff2') format('woff2'),
+        url('PFBagueSansPro-Medium.woff') format('woff'),
+        url('PFBagueSansPro-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PF Bague Sans Pro';
+    src: url('PFBagueSansPro-Light.eot');
+    src: local('PF Bague Sans Pro Light'), local('PFBagueSansPro-Light'),
+        url('PFBagueSansPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('PFBagueSansPro-Light.woff2') format('woff2'),
+        url('PFBagueSansPro-Light.woff') format('woff'),
+        url('PFBagueSansPro-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PF Bague Sans Pro';
+    src: url('PFBagueSansPro.eot');
+    src: local('PF Bague Sans Pro'), local('PFBagueSansPro'),
+        url('PFBagueSansPro.eot?#iefix') format('embedded-opentype'),
+        url('PFBagueSansPro.woff2') format('woff2'),
+        url('PFBagueSansPro.woff') format('woff'),
+        url('PFBagueSansPro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PF Bague Sans Pro';
+    src: url('PFBagueSansPro-Bold.eot');
+    src: local('PF Bague Sans Pro Bold'), local('PFBagueSansPro-Bold'),
+        url('PFBagueSansPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('PFBagueSansPro-Bold.woff2') format('woff2'),
+        url('PFBagueSansPro-Bold.woff') format('woff'),
+        url('PFBagueSansPro-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Futura PT';
+    src: url('FuturaPT-Bold.woff2') format('woff2'),
+        url('FuturaPT-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PF Bague Sans Pro';
+    src: url('PFBagueSansPro-Black.eot');
+    src: local('PF Bague Sans Pro Black'), local('PFBagueSansPro-Black'),
+        url('PFBagueSansPro-Black.eot?#iefix') format('embedded-opentype'),
+        url('PFBagueSansPro-Black.woff2') format('woff2'),
+        url('PFBagueSansPro-Black.woff') format('woff'),
+        url('PFBagueSansPro-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
