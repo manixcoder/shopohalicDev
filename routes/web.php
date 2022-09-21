@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
     });
     Route::group(['prefix' => 'marchant-management'], function () {
         Route::get('/', 'Admin\MarchantManagementController@index');
+        Route::get('/', ['uses' => 'Admin\MarchantManagementController@index', 'as' => 'users.index']);
         Route::get('users-data', 'Admin\MarchantManagementController@studentData');
         Route::get('create', 'Admin\MarchantManagementController@create');
         Route::post('/save-users', 'Admin\MarchantManagementController@store');
@@ -93,13 +94,47 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
 
 /*=====================================merchant=====================================*/
 Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], function () {
-
     Route::get('/', 'Merchant\DashboardController@index');
+    Route::group(['prefix' => 'order-management'], function () {
+        Route::get('/', 'Merchant\OrderManagementController@index');
+        Route::get('users-data', 'Merchant\OrderManagementController@studentData');
+        Route::get('create', 'Merchant\OrderManagementController@create');
+        Route::post('/save-category', 'Merchant\OrderManagementController@store');
+        Route::get('{id}/edit', 'Merchant\OrderManagementController@edit');
+        Route::post('{id}/update', 'Merchant\OrderManagementController@update');
+        Route::get('{id}/view', 'Merchant\OrderManagementController@show');
+        Route::get('delete/{id}', 'Merchant\OrderManagementController@destroy');
+    });
+    Route::group(['prefix' => 'products-management'], function () {
+        Route::get('/', 'Merchant\ProductManagementController@index');
+        Route::get('create', 'Merchant\ProductManagementController@create');
+        Route::post('/save', 'Merchant\ProductManagementController@store');
+    });
+    Route::group(['prefix' => 'shipping-management'], function () {
+        Route::get('/', 'Merchant\ShippingManagementController@index');
+        Route::get('create', 'Merchant\ShippingManagementController@create');
+        Route::post('/save', 'Merchant\ShippingManagementController@store');
+        Route::get('{id}/edit', 'Merchant\ShippingManagementController@edit');
+        Route::post('{id}/update', 'Merchant\ShippingManagementController@update');
+        Route::get('{id}/view', 'Merchant\ShippingManagementController@show');
+        Route::get('delete', 'Merchant\ShippingManagementController@destroy');
+    });
+    Route::group(['prefix' => 'account-management'], function () {
+        Route::get('/', 'Merchant\AccountManagementController@index');
+        Route::get('users-data', 'Merchant\AccountManagementController@studentData');
+        Route::get('create', 'Merchant\AccountManagementController@create');
+        Route::post('/save', 'Merchant\AccountManagementController@store');
+        Route::get('{id}/edit', 'Merchant\AccountManagementController@edit');
+        Route::post('{id}/update', 'Merchant\AccountManagementController@update')->name('account.update');
+        Route::get('{id}/view', 'Merchant\AccountManagementController@show');
+        Route::get('delete/{id}', 'Merchant\AccountManagementController@destroy');
+    });
 });
 
 
 /*=====================================Users=====================================*/
 Route::group(['prefix' => 'users', 'middleware' => ['users', 'auth']], function () {
+
     // return "Student";
     Route::get('/', 'Users\DashboardController@index');
     /*

@@ -21,6 +21,7 @@ class DashboardController extends Controller
     }
     public function index()
     {
+       
         $employee_data = User::with(['getRole'])
             ->whereHas('roles', function ($q) {
                 $q->where('name', 'merchant');

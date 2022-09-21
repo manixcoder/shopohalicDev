@@ -16,7 +16,7 @@ class Users
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->isStudent()) {
+        if (Auth::check() && Auth::user()->isUser()) {
             return $next($request);
         } else {
             $Role = Auth::user()->roles->first();

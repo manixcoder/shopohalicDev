@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('merchant.master')
 @section('pageTitle', 'Dashboard')
 @section('content')
 <div class="samll-container">
@@ -78,7 +78,7 @@
             <img src="{{ asset('public/adminAssets/images/login-logo.png') }}" alt="login" width="100px">
           </div>
           <div class="col-md-7 socical-box">
-            <span class="text-number">{{ $usersData }}</span>
+            <span class="text-number">10</span>
             <p>New User</p>
           </div>
         </div>
@@ -91,7 +91,7 @@
             <img src="{{ asset('public/adminAssets/images/login-logo.png') }}" alt="login" width="100px">
           </div>
           <div class="col-md-7 socical-box">
-            <span class="text-number">{{ $merchantData }}</span>
+            <span class="text-number">10</span>
             <p> New Merchant</p>
           </div>
         </div>
