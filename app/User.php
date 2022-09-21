@@ -73,18 +73,18 @@ class User extends Authenticatable implements MustVerifyEmail
             ->first();
         return $role->name == 'admin' ? true : false;
     }
-    public function isUniversity()
+    public function isMerchant()
     {
         $role = Role::join('role_user', 'roles.id', '=', 'role_user.role_id')
             ->where('user_id', Auth::user()->id)
             ->first();
-        return $role->name == 'university' ? true : false;
+        return $role->name == 'merchant' ? true : false;
     }
-    public function isStudent()
+    public function isUser()
     {
         $role = Role::join('role_user', 'roles.id', '=', 'role_user.role_id')
             ->where('user_id', Auth::user()->id)
             ->first();
-        return $role->name == 'student' ? true : false;
+        return $role->name == 'users' ? true : false;
     }
 }

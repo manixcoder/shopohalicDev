@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
+use DataTables;
 use DB;
 
 class MarchantManagementController extends Controller
@@ -14,13 +15,24 @@ class MarchantManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userData = User::where('user_role','2')->where('isDelete','0')->get();
-        return view('admin.merchant.index')->with(array(
-            'usersData' => $userData,
-            'merchantData' => ''
-        ));
+        if ($request->ajax()) {
+            $data  = User::where('user_role','2')->where('isDelete','0')->get();
+          
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+     
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+       
+        return view('admin.merchant.index');
     }
 
     /**

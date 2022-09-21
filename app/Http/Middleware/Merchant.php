@@ -16,7 +16,7 @@ class Merchant
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->isUniversity()) {
+        if (Auth::check() && Auth::user()->isMerchant()) {
             return $next($request);
         } else {
             $Role = Auth::user()->roles->first();

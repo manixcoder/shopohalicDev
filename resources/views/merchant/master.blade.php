@@ -1,228 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Dashboard</title>
-  <!-- Custom CSS -->
-  <link href="{{ asset('public/assets/admin/css/style.css') }}" rel="stylesheet">
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/fontawesome-free/css/all.min.css') }}">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/jqvmap/jqvmap.min.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/dist/css/adminlte.min.css')}}">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/daterangepicker/daterangepicker.css')}}">
-  <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('public/assets2/plugins/summernote/summernote-bs4.min.css')}}">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ asset('public/merchantassets/css/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/merchantassets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/merchantassets/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/merchantassets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/merchantassets/fonts/fonts.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+   
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/bootstrap-table.min.css">
+    <script src="{{ asset('public/merchantassets/js/jequery-main3.5.js') }}"></script>
+  <script src="{{ asset('public/merchantassets/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('public/merchantassets/js/aos.js') }}"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/bootstrap-table.min.css"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+  <link rel="icon" href="{{ asset('public/merchantassets/images/favicon.png') }}" type="skype-img" />
   @yield('pageCss')
+  <title>{{ config('app.name', 'Laravel') }} @yield('pageTitle')</title>
+  </head>
 
-  <style>
-    .dataTables_wrapper .dataTables_processing {
-      background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0 !important;
-      height: 100% !important;
-      left: 0 !important;
-      margin-left: 0px !important;
-      margin-top: 0 !important;
-      padding-top: 20px;
-      position: fixed !important;
-      text-align: center;
-      top: 0;
-      width: 100% !important;
-      z-index: 999999;
-    }
+  <body>
 
-    .dataTables_processing>img {
-      background: #ffffff none repeat scroll 0 0;
-      border-radius: 8px;
-      height: 120px;
-      padding: 10px;
-      position: relative;
-      top: 40%;
-      width: 120px;
-    }
+  <header>
+    <div class="top-header">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-3 text-center">
+            <a href="{{ URL::to('/') }}">
+          <img src="{{ asset('public/merchantassets/images/logo.png') }}" alt="logo" width="150px"> </a>
+            </div>                          
 
-    .dataTables_processing>img {
-      background: #ffffff none repeat scroll 0 0;
-      border-radius: 8px;
-      height: 120px;
-      padding: 10px;
-      position: relative;
-      top: 40%;
-      width: 120px;
-    }
+            <div class="col-md-10 col-sm-9">
+              <ul class="marchent-menu">
+                <li>
+                <a href="#" class="bell-icon">
+              @if(Auth::user()->profile_image !='')
+              <img src="{{ asset('public/uploads/') }}/{{ Auth::user()->profile_image }}"  alt="bell-icon">
+              @endif
+            </a>
+              
+              </li>
+                <li class="marchent-dropmenu-sec">
+                  <a href="#" class="dropdown-headmenu">
+                    <img src="images/favicon.png" alt="icon">
+                  </a>
+                  <ul class="submenu-drop">
+                    <li><a href="#">My Account</a></li>
+                    <li> <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                Logout
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form></li>
+                  </ul>
+                </li>
+              </ul>
+            </div> 
 
-    #dataTable_paginate {
-      display: none;
-    }
-  </style>
-</head>
-
-<body class="hold-transition sidebar-mini layout-fixed">
-  <div class="wrapper">
-
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="{{ asset('public/assets2/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
-    </div>
-
-    <!-- Navbar -->
-    @include('university.includes.topbar')
-    <!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
-    @include('university.includes.sidebar')
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard v1</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>  
       </div>
-      <!-- /.content-header -->
-
-      <!-- Main content -->
-      <section class="content">
-        @yield('content')
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-      All rights reserved.
-      <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 3.1.0
+    </div> 
+  </header>  
+  @yield('content')
+  <footer>
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-3">
+            <div class="payment-part">
+              <a href="#" class="footer-logo"><img src="./images/footer-logo.jpg" alt="footer-logo"></a>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <h6>WE ACCEPT</h6>
+              <ul>
+                <li><a href="#"><img src="./images/payment-img1.jpg" alt="payment-img1"></a></li>
+                <li><a href="#"><img src="./images/payment-img2.jpg" alt="payment-img2"></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <h3>LINKS</h3>
+            <ul class="footer-menu">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 col-sm-5">
+            <div class="newsletter-part">
+              <a href="#">FREE LISTING</a>
+              <form class="form-inline">
+                <div class="form-group">
+                  <label><img src="./images/subscribe.png" alt="subscribe">Subscribe to our newsletter</label>
+                  <div class="input-group">
+                    <input type="email" class="form-control" id="exampleInputAmount" placeholder="Email ID">
+                    <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <h3>SOCIAL</h3>
+            <ul class="social-icon">
+              <li><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+              <li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-  </div>
-  <!-- ./wrapper -->
-
-  <!-- jQuery -->
-  <script src="{{ asset('public/assets2/plugins/jquery/jquery.min.js')}}"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="{{ asset('public/assets2/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script>
-    $.widget.bridge('uibutton', $.ui.button)
-  </script>
-  <!-- Bootstrap 4 -->
-  <script src="{{ asset('public/assets2/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <!-- ChartJS -->
-  <script src="{{ asset('public/assets2/plugins/chart.js/Chart.min.js')}}"></script>
-  <!-- Sparkline -->
-  <script src="{{ asset('public/assets2/plugins/sparklines/sparkline.js')}}"></script>
-  <!-- JQVMap -->
-  <script src="{{ asset('public/assets2/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-  <script src="{{ asset('public/assets2/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-  <!-- jQuery Knob Chart -->
-  <script src="{{ asset('public/assets2/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
-  <!-- daterangepicker -->
-  <script src="{{ asset('public/assets2/plugins/moment/moment.min.js') }}"></script>
-  <script src="{{ asset('public/assets2/plugins/daterangepicker/daterangepicker.js') }}"></script>
-  <!-- Tempusdominus Bootstrap 4 -->
-  <script src="{{ asset('public/assets2/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-  <!-- Summernote -->
-  <script src="{{ asset('public/assets2/plugins/summernote/summernote-bs4.min.js') }}"></script>
-  <!-- overlayScrollbars -->
-  <script src="{{ asset('public/assets2/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-  <!-- AdminLTE App -->
-  <script src="{{ asset('public/assets2/dist/js/adminlte.js') }}"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="{{ asset('public/assets2/dist/js/demo.js') }}"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{ asset('public/assets2/dist/js/pages/dashboard.js') }}"></script>
+    </div>
+    <div class="bottom-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 text-center">
+            <p>© 2021, Shopaholicsale</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 
-
-
-<!-- Data Table ---->
-    <!--script type="text/javascript" src="{{ asset('public/assets/admin/plugins/data-tables/js/data-table.min.js') }}"></script-->
-    <script type="text/javascript" src="{{ asset('public/assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/admin/plugins/datatables/extra-plugins/dataTables.buttons.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/admin/plugins/datatables/extra-plugins/buttons.html5.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/admin/plugins/datatables/extra-plugins/buttons.colVis.min.js') }}"></script>
-
-
-    <!--script src="{{ asset('public/assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script-->
-
-
-    <!-- SweetAlert -->
-    <script type="text/javascript" src="{{ asset('public/assets/admin/plugins/sweetalert/sweetalert2.min.js') }}"></script>
-
-    <!-- Switcher Js -->
-    <script src="{{ asset('public/assets/admin/plugins/switchery/dist/switchery.min.js') }}"></script>
-    <!-- Style switcher -->
-    <script src="{{ asset('public/assets/admin/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
-
-    <!-- summernotes JS -->
-    <script src="{{ asset('public/assets/admin/plugins/summernote/dist/summernote.min.js') }}"></script>
-        <!-- Range Date picker -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
   
-
-    
-
-    
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <!--sparkline JavaScript -->
-    <!--script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script-->
-    <!--morris JavaScript -->
-    <!--script src="../assets/plugins/raphael/raphael-min.js"></script-->
-    <!--script src="../assets/plugins/morrisjs/morris.min.js"></script-->
-    <!-- Chart JS -->
-    <!--script src="js/dashboard1.js"></script-->
-    <!-- ============================================================== -->
-    <!-- Include page js script here -->
-    @yield('pagejs')
+  <!-- Optional JavaScript; choose one of the two! -->
+               
     <script>
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-        $('.js-switch').each(function() {
-            new Switchery($(this)[0], $(this).data());
-        });
+      $(window).bind("load", function () {
+         if (document.readyState === "complete") {
+             // aos init
+             AOS.init({
+               once: false,
+               duration: 1000,
+           });
+         }
+         $('.login-sec .form-group .form-control').click(function () {
+            $(this).parent().addClass('inputlabel-up');
+          }).blur(function () {
+            $(this).parent().removeClass('inputlabel-up');
+          });
+      })
     </script>
-</body>
-
+   <script>
+    $(document).ready(function(){ 
+        $('.marchent-dropmenu-sec').click(function(){
+        $("ul.marchent-menu .submenu-drop").toggleClass("openmenu-box");
+        });
+    });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+  </body>
 </html>
