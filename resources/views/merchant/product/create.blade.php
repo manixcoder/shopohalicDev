@@ -95,17 +95,15 @@
                 <div class="placeholder-textbox">
                   <p>600 X 600 px<br /> Minimum Size in pixel</p>
                   <div class="upload-filebox ">
-                      <input type="file"  id="image" name="image" value="upload">
+                      <input type="file" class="upload-box" id="image" value="upload">
+                      <span class="upload-box">upload</span>
                     </div>
+                 
                 </div>
               </div>
               <div class="col-md-5 uploadOther-photo">
                 <label>Upload Other Photos</label>
-                <div class="placeholder-img">
-                  <span class="photobox-img"><small class="close-icon">X</small><img src="images/placeholder.png" alt="img" /></span>
-                  <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
-                  <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
-                  <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
+                <div class="placeholder-img" id="image_preview">
                 </div>
                 <div class="placeholder-textbox">
                   <span class="pull-left">
@@ -113,7 +111,7 @@
                   </span>
                   <span class="pull-right">
                     <div class="upload-filebox ">
-                      <input type="file" class="upload-box" multiple id="photo_image" name="photo_image[]">
+                      <input type="file" class="upload-box"  id="upload_file" name="photo_image[]" onchange="preview_image();" multiple>
                       <span class="upload-box">upload</span>
                     </div>
                   </span>
@@ -202,5 +200,13 @@
                     }
                 });
             });
+            function preview_image() 
+{
+ var total_file=document.getElementById("upload_file").files.length;
+ for(var i=0;i<total_file;i++)
+ {
+  $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
+ }
+}
         </script>
 @stop
