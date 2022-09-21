@@ -107,13 +107,9 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], fun
     });
     Route::group(['prefix' => 'products-management'], function () {
         Route::get('/', 'Merchant\ProductManagementController@index');
-        Route::get('users-data', 'Merchant\ProductManagementController@studentData');
         Route::get('create', 'Merchant\ProductManagementController@create');
         Route::post('/save', 'Merchant\ProductManagementController@store');
-        Route::get('{id}/edit', 'Merchant\ProductManagementController@edit');
-        Route::post('{id}/update', 'Merchant\ProductManagementController@update');
-        Route::get('{id}/view', 'Merchant\ProductManagementController@show');
-        Route::get('delete/{id}', 'Merchant\ProductManagementController@destroy');
+       
     });
     Route::group(['prefix' => 'shipping-management'], function () {
         Route::get('/', 'Merchant\ShippingManagementController@index');

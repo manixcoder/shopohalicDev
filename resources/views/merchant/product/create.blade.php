@@ -9,35 +9,43 @@
 <div class="right-marchent-wapper">
           <div class="product-detailform">
             <h4>Product Details</h4>
-            <form class="">
-              <div class="row">
+            <form method="POST" action="{{ url('/merchant/products-management/save') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="row">
                 <div class="col-md-12 col-sm-12">
                   <div class="form-group">
-                    <input class="form-control" type="text" name="Product-Title" placeholder="Product Title">
+                    <input class="form-control" type="text" id="product_name" name="product_name" placeholder="Product Title" >
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" name="Product-Code" placeholder="Product Code">
+                    <input class="form-control" type="text" id="product_code" name="product_code" placeholder="Product Code">
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" name="Brand" placeholder="Brand">
+                  <select class="form-control text-color" name="brand">
+                                <option value="">Select Brand</option>
+                                <option value="Sansung">Sansung</option>
+                                <option value="Nokia">Nokia</option>
+                                <option value="One Plus">One Plus</option>
+                            </select>
+                   
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <select class="form-control">
-                      <option selected="selected">Select Category</option>
-                      <option>Select Category 1</option>
-                      <option>Select Category 2</option>
+                    <select class="form-control" name="category">
+                    <option value="">Select Category</option>
+                    @foreach($categories as $category)
+                    <option value="Red">Red</option>
+                    @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" name="Total" placeholder="Total Quantity(in Numbers)">
+                    <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Quantity (In Number)">
                   </div>
                 </div>
                 <div class="col-md-12 col-sm-12">
@@ -46,37 +54,35 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                  <div class="form-group inline-blockbox">
-                    <div class="checkbox-clr">
-                      <input type="checkbox" class="checkbox-input" name="color">
-                      <span>Color</span>
-                    </div>
-                  </div>
                   <div class="form-group inline-blockbox select-bluebox">
-                    <select class="form-control">
-                      <option selected="selected">Select Color</option>
-                      <option>Blue</option>
-                      <option>Red</option>
-                    </select>
+                    <select class="form-control" name="color">
+                                <option value="N/A">Select Color</option>
+                                <option value="Red">Red</option>
+                                <option value="Green">Green</option>
+                                <option value="Green">Black</option>
+                            </select>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                  <div class="form-group inline-blockbox">
-                    <div class="checkbox-Ssize ">
-                      <input type="checkbox" class="checkbox-input" name="color">
-                      <span>Size/Variation</span>
-                    </div>
-                  </div>
+                  
                   <div class="form-group inline-blockbox select-bluesize">
-                    <select class="form-control">
-                      <option selected="selected">Select Size</option>
-                      <option>20</option>
-                      <option>50</option>
-                    </select>
+                    <select class="form-control" name="size">
+                                <option value="N/A">Select Size</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
                   </div>
                 </div>
               </div>
-            </form>
+           
           </div>
           <div class="product-photosbox">
             <h4>Product Photos</h4>
@@ -84,13 +90,12 @@
               <div class="col-md-5">
                 <label>Upload Title Photo*</label>
                 <div class="placeholder-img">
-                  <img src="images/placeholder.png" alt="img" />
+                  <img id="imgPreview" src="images/placeholder.png" alt="img" />
                 </div>
                 <div class="placeholder-textbox">
                   <p>600 X 600 px<br /> Minimum Size in pixel</p>
                   <div class="upload-filebox ">
-                      <input type="file" class="upload-box" value="upload">
-                      <span class="upload-box">upload</span>
+                      <input type="file"  id="image" name="image" value="upload">
                     </div>
                 </div>
               </div>
@@ -108,7 +113,7 @@
                   </span>
                   <span class="pull-right">
                     <div class="upload-filebox ">
-                      <input type="file" class="upload-box" value="upload">
+                      <input type="file" class="upload-box" multiple id="photo_image" name="photo_image[]">
                       <span class="upload-box">upload</span>
                     </div>
                   </span>
@@ -118,15 +123,15 @@
           </div>
           <div class="pricinginc_box">
             <h4>Pricing <small>(Inclusive GST)</small></h4>
-            <form class="pricinginc_from">
+           
               <div class="pricinginc-input form-group">
                 <label>Normal Price</label>
-                <input type="text" name="Price" class="form-control" placeholder="00">
+                <input type="text" name="Price" class="form-control" id="price" name="price"  placeholder="00">
                 <span class="doller">$</span>
               </div>
               <div class="pricinginc-input  form-group">
                 <label>Special Price</label>
-                <input type="text" name="Price" class="form-control" placeholder="00">
+                <input type="text" name="Price" class="form-control" id="special_price" name="special_price" placeholder="00">
                 <span class="doller">$</span>
               </div>
               <div class="stock-lasts-box">
@@ -153,7 +158,7 @@
                   </select>
                 </div>
               </div>
-            </form>
+           
           </div>
           <div class="shipping-box-date">
             <h4>Shipping</h4>
@@ -175,10 +180,27 @@
             </div>
           </div>
           <div class="btn-addprod ">
-            <button type="button" class="add-prodbtn">ADD PRODUCT</button>
+            <button type="submit" class="add-prodbtn">ADD PRODUCT</button>
           </div>
+          </form>
 		    </div>
       </div>
     </div>
   </div>
+ 
+        <script>
+            $(document).ready(() => {
+                $("#image").change(function () {
+                    const file = this.files[0];
+                    if (file) {
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            $("#imgPreview")
+                              .attr("src", event.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        </script>
 @stop
