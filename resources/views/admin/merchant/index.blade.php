@@ -63,6 +63,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 </style>
+
 <div class="extrapad-wapper">
     <div class="row">
         <div class="col-md-5  heading-full">

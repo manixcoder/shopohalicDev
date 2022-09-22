@@ -38,8 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::get('active-inactive', 'Admin\UsersManagementController@active');
     });
     Route::group(['prefix' => 'marchant-management'], function () {
-        Route::get('/', 'Admin\MarchantManagementController@index');
-        Route::get('/', ['uses' => 'Admin\MarchantManagementController@index', 'as' => 'users.index']);
+        Route::get('/', ['uses'=>'Admin\MarchantManagementController@index', 'as'=>'users.index']);
         Route::get('users-data', 'Admin\MarchantManagementController@studentData');
         Route::get('create', 'Admin\MarchantManagementController@create');
         Route::post('/save-users', 'Admin\MarchantManagementController@store');
@@ -89,6 +88,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::get('{id}/view', 'Admin\CommissionManagementController@show');
         Route::get('delete/{id}', 'Admin\CommissionManagementController@destroy');
     });
+    
 });
 
 
@@ -109,6 +109,7 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], fun
         Route::get('/', 'Merchant\ProductManagementController@index');
         Route::get('create', 'Merchant\ProductManagementController@create');
         Route::post('/save', 'Merchant\ProductManagementController@store');
+       
     });
     Route::group(['prefix' => 'shipping-management'], function () {
         Route::get('/', 'Merchant\ShippingManagementController@index');
@@ -134,7 +135,7 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], fun
 
 /*=====================================Users=====================================*/
 Route::group(['prefix' => 'users', 'middleware' => ['users', 'auth']], function () {
-
+    
     // return "Student";
     Route::get('/', 'Users\DashboardController@index');
     /*

@@ -47,6 +47,9 @@ class ProductManagementController extends Controller
      */
     public function store(Request $request)
     {
+        echo '<pre>';
+        print_r($_FILES);
+        die;
         $data =new Products();
         $data->product_name=$request->input('product_name');
         $data->product_code=$request->input('product_code');

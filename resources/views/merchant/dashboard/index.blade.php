@@ -16,58 +16,7 @@
 </div>
 <div class="samll-container">
 
-  <table border="0" width="100%">
-    <tr>
-
-      <th class="Reports">
-        <div class="form-group">
-          <input type="name" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="Reports">
-        </div>
-
-      </th>
-      <th>
-        <div class="form-group">
-          <input type="name" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="Select Date Range">
-        </div>
-      </th>
-      <th>
-        <div class="form-group">
-          <input type="date" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="01-Aug-2021">
-        </div>
-      </th>
-      <th>To</th>
-      <th>
-        <div class="form-group">
-          <input type="date" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="01-Aug-2021">
-        </div>
-      </th>
-    </tr>
-    <tr>
-      <td class="text-left" colspan="2">Transaction</td>
-      <td class="text-right" colspan="3">
-        <div class="form-group pull-right">
-          <button type="submit" class="btn btn-primary bg-color">GENERATE</button>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="text-left" colspan="2">Transaction</td>
-      <td class="text-right" colspan="3">
-        <div class="form-group pull-right">
-          <button type="submit" class="btn btn-primary bg-color">GENERATE</button>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="text-left" colspan="2">Transaction</td>
-      <td class="text-right" colspan="3">
-        <div class="form-group pull-right">
-          <button type="submit" class="btn btn-primary bg-color">GENERATE</button>
-        </div>
-      </td>
-    </tr>
-  </table>
-
+  
 </div>
 <div class="samll-container footer-sec">
   <div class="row">
