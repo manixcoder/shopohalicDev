@@ -26,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_image',
         'address',
         'city',
-        'zip_code',
+        'zip_code',        
         'general_layality',
         'status',
         'gender',
@@ -80,11 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->first();
         return $role->name == 'merchant' ? true : false;
     }
-    public function isCustomer()
+    public function isUser()
     {
         $role = Role::join('role_user', 'roles.id', '=', 'role_user.role_id')
             ->where('user_id', Auth::user()->id)
             ->first();
-        return $role->name == 'customer' ? true : false;
+        return $role->name == 'users' ? true : false;
     }
 }
