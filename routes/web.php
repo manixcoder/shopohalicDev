@@ -95,6 +95,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
 /*=====================================merchant=====================================*/
 Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], function () {
     Route::get('/', 'Merchant\DashboardController@index');
+    Route::post('/', 'Merchant\DashboardController@index');
     Route::group(['prefix' => 'order-management'], function () {
         Route::get('/', 'Merchant\OrderManagementController@index');
         Route::get('users-data', 'Merchant\OrderManagementController@studentData');
@@ -109,7 +110,8 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], fun
         Route::get('/', 'Merchant\ProductManagementController@index');
         Route::get('create', 'Merchant\ProductManagementController@create');
         Route::post('/save', 'Merchant\ProductManagementController@store');
-       
+        Route::get('{id}/edit', 'Merchant\ProductManagementController@edit');
+        Route::post('{id}/update', 'Merchant\ProductManagementController@update');
     });
     Route::group(['prefix' => 'shipping-management'], function () {
         Route::get('/', 'Merchant\ShippingManagementController@index');

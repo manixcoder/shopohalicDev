@@ -95,7 +95,7 @@
                 <div class="placeholder-textbox">
                   <p>600 X 600 px<br /> Minimum Size in pixel</p>
                   <div class="upload-filebox ">
-                      <input type="file" class="upload-box" id="image" value="upload">
+                      <input type="file" class="upload-box" id="image" name="image" value="upload">
                       <span class="upload-box">upload</span>
                     </div>
                  
@@ -104,6 +104,11 @@
               <div class="col-md-5 uploadOther-photo">
                 <label>Upload Other Photos</label>
                 <div class="placeholder-img" id="image_preview">
+                <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
+                <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
+                <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
+                <span class="photobox-img"><img src="images/placeholder.png" alt="img" /></span>
+                
                 </div>
                 <div class="placeholder-textbox">
                   <span class="pull-left">
@@ -124,36 +129,26 @@
            
               <div class="pricinginc-input form-group">
                 <label>Normal Price</label>
-                <input type="text" name="Price" class="form-control" id="price" name="price"  placeholder="00">
+                <input type="text"  class="form-control" id="price" name="price"  placeholder="00">
                 <span class="doller">$</span>
               </div>
               <div class="pricinginc-input  form-group">
                 <label>Special Price</label>
-                <input type="text" name="Price" class="form-control" id="special_price" name="special_price" placeholder="00">
+                <input type="text"  class="form-control" id="special_price" name="special_price" placeholder="00">
                 <span class="doller">$</span>
               </div>
               <div class="stock-lasts-box">
-                <input type="radio" name="radio_box" class="radioinput" />
+                <input type="radio" name="stock_type" value="till_stock_last" />
                 <label>Till Stock Lasts</label>
+                <input type="radio" name="stock_type" value="date_range" />
+                <label>Date Range</label>
               </div>
-              <div class="date-rangebox">
-                <div class="form-group daterange-label">
-                  <input type="radio" name="radiobox">
-                  Date Range
-                </div>
+              <div class="date-rangebox" style="display:none;" >
                 <div class="start-date">
-                  <select class="form-control">
-                    <option selected="selected">Start Date</option>
-                    <option>1</option>
-                    <option>2</option>
-                  </select>
+                <input type="text"  class="form-control" id="start_date" name="start_date" placeholder="Start date">
                 </div>
                 <div class="start-date end-date">
-                  <select class="form-control">
-                    <option selected="selected">End Date</option>
-                    <option>1</option>
-                    <option>2</option>
-                  </select>
+                <input type="text"  class="form-control" id="end_date" name="end_date" placeholder="End date">
                 </div>
               </div>
            
@@ -201,12 +196,51 @@
                 });
             });
             function preview_image() 
-{
- var total_file=document.getElementById("upload_file").files.length;
- for(var i=0;i<total_file;i++)
- {
-  $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
- }
-}
+              {
+                $('#image_preview').html(''); 
+              var total_file=document.getElementById("upload_file").files.length;
+             if(total_file<5)
+             {
+              for(var i=0;i<total_file;i++)
+              {
+                $('#image_preview').append("<span class='photobox-img'><img src='"+URL.createObjectURL(event.target.files[i])+"'></span>");
+              }
+            }else{
+              alert('More than 4 images not allowed');
+            }
+              }
         </script>
+        
+        <link href=
+'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/
+ui-lightness/jquery-ui.css'
+        rel='stylesheet'>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" >
+    </script>
+    <script>
+        $(document).ready(function() {
+          
+            $(function() {
+                $( "#start_date").datepicker({
+                  dateFormat:"yy-mm-dd",
+                });
+                $( "#end_date").datepicker({
+                  dateFormat:"yy-mm-dd",
+                });
+                $("input[name='stock_type']").click(function(){
+             if($(this).val()=='till_stock_last')
+             {
+              $('.date-rangebox').css('display','none');
+             }
+             else if($(this).val()=='date_range')
+             {
+              $('.date-rangebox').css('display','block');
+             }
+        });
+            });
+
+            
+      });
+    </script>
 @stop

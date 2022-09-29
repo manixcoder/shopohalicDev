@@ -1,11 +1,11 @@
 
         <div class="marcntsidebar-menu">
           <ul class="menu_box">
-            <li class="active"><a href="#">Dashboard</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Special Price</a></li>
-            <li><a href="#">Shipping Costs</a></li>
-            <li><a href="#">My Account</a></li>
+            <li class="active"><a href="{{ url('merchant') }}">Dashboard</a></li>
+            <li><a href="{{ url('merchant/order-management') }}">Orders</a></li>
+            <li><a href="{{ url('merchant/products-management') }}">Products</a></li>
+            <li><a href="{{ url('merchant/marchant-management') }}">Special Price</a></li>
+            <li><a href="{{ url('merchant/shipping-management') }}">Shipping Costs</a></li>
+            <li><a href="{{ url('merchant/account-management') }}">My Account</a></li>
           </ul>
         </div>

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User;
 use App\Models\Products;
 use App\Models\PhotoImaage;
 use App\Models\Category;
+use Auth;
 use DB;
 
 class ProductManagementController extends Controller
@@ -19,10 +20,18 @@ class ProductManagementController extends Controller
      */
     public function index()
     {
-        $productData =array();
-        return view('merchant.product.index')->with(array(
-            'productData' => $productData,
-        ));
+        $categories=Category::get();
+        $alls=Products::get();
+        $Mobiles=Products::where('category',1)->get()->toArray();
+        $Fashion=Products::where('category',2)->get()->toArray();
+        $Electronics=Products::where('category',3)->get()->toArray();
+        $Male=Products::where('category',4)->get()->toArray();
+        $Female=Products::where('category',5)->get()->toArray();
+        $Special_prices=Products::where('category',6)->get()->toArray();
+        $Grocery=Products::where('category',7)->get()->toArray();
+        $Beauty=Products::where('category',8)->get()->toArray();
+        $Toys=Products::where('category',9)->get()->toArray();
+        return view('merchant.product.index')->with(array('categories'=>$categories,'alls' => $alls,'Mobiles' => $Mobiles,'Fashion' => $Fashion,'Electronics' => $Electronics,'Male' => $Male,'Female' => $Female,'Special_prices' => $Special_prices,'Grocery' => $Grocery,'Beauty' => $Beauty,'Toys' => $Toys));
     }
 
     /**
@@ -47,9 +56,7 @@ class ProductManagementController extends Controller
      */
     public function store(Request $request)
     {
-        echo '<pre>';
-        print_r($_FILES);
-        die;
+      
         $data =new Products();
         $data->product_name=$request->input('product_name');
         $data->product_code=$request->input('product_code');
@@ -62,9 +69,12 @@ class ProductManagementController extends Controller
         $data->size=$request->input('size');
         $data->price=$request->input('price');
         $data->special_price=$request->input('special_price');
+        $data->stock_type=$request->input('stock_type');
+        $data->start_date=$request->input('start_date');
+        $data->end_date=$request->input('end_date');
         $imageName = time().'.'.$request->image->extension();  
         $data->image=$imageName;
-        $request->image->move(public_path('images'), $imageName);
+        $request->image->move(public_path('uploads/products'), $imageName);
         $data->save();
         $files = [];
        
@@ -72,7 +82,7 @@ class ProductManagementController extends Controller
             $images = $request->file('photo_image');
             foreach($images as $image) {
                 $imageName = time().'.'.$image->extension();  
-                $image->move(public_path('images/product_image'), $imageName);
+                $image->move(public_path('uploads/product_image'), $imageName);
                 $file= new PhotoImaage();
                 $file->product_id = $data->id;
                 $file->product_image = $imageName;
@@ -80,7 +90,7 @@ class ProductManagementController extends Controller
             }
          }
       
-       return redirect('/merchant/products-management')->with('success', 'Holiday created successfully.');
+       return redirect('/merchant/products-management')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -91,7 +101,7 @@ class ProductManagementController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -102,7 +112,14 @@ class ProductManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $productData = Products::where('id',$id)->first();
+       $categorylist  = Category::where('parent_id','N/A')->get();
+       $photoimage  = PhotoImaage::select('product_image')->where('product_id',$id)->get();
+       
+      // dd($categoryData);
+       return view('merchant.product.edit')->with(array(
+           'product' => $productData, 'categories' => $categorylist,'photoimages' => $photoimage,
+       ));
     }
 
     /**
@@ -113,8 +130,45 @@ class ProductManagementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    { 
+        
+       $user_id=Auth::user()->id;
+        $data=Products::find($id);
+        $data->product_name=$request->input('product_name');
+        $data->product_code=$request->input('product_code');
+        $data->brand=$request->input('brand');
+        $data->category=$request->input('category');
+        $data->quantity=$request->input('quantity');
+        $data->description=$request->input('description');
+        $data->color=$request->input('color');
+        $data->created_by=$user_id;
+        $data->size=$request->input('size');
+        $data->price=$request->input('price');
+        $data->special_price=$request->input('special_price');
+        $data->stock_type=$request->input('stock_type');
+        $data->start_date=$request->input('start_date');
+        $data->end_date=$request->input('end_date');
+        if ($request->hasfile('image')) {
+        $imageName = time().'.'.$request->image->extension();  
+        $data->image=$imageName;
+        $request->image->move(public_path('uploads/products'), $imageName);
+        }
+        $data->save();
+        $files = [];
+       
+        if ($request->hasfile('photo_image')) {
+            $images = $request->file('photo_image');
+            foreach($images as $image) {
+                $imageName = time().'.'.$image->extension();  
+                $image->move(public_path('uploads/product_image'), $imageName);
+                $file= new PhotoImaage();
+                $file->product_id = $data->id;
+                $file->product_image = $imageName;
+                $file->save();
+            }
+         }
+      
+       return redirect('/merchant/products-management')->with('success', 'Product created successfully.');
     }
 
     /**
