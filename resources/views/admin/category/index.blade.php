@@ -1,34 +1,16 @@
 @extends('admin.master')
-@section('pageTitle','Uses Management')
+@section('pageTitle', 'Category Management')
 @section('content')
-
-
-<div class="Merchants-sec">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7 heading-full">
-        <h3>Category</h3>
-      </div>
-      <div class="col-md-5  select-box">
-        <div class="row">
-          <div class="col-md-5">
-            <select name="abc" id="name">
-              <option value="">All</option>
-              <option value="">All</option>
-            </select>
-          </div>
-          <div class="col-md-7 text-right">
-            <div class="form-group">
-              <a href="{{ url('admin/category/create') }}" class="btn btn-primary bg-color  btn-section">ADD NEW CATEGORY</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-
-    <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+<<div class="dashboard-marchent">
+    <div class="container">
+      <h3>Marchant Management</h3>
+      <div class="marchent-wapperbox">
+      @include('admin.includes.sidebar')
+        <div class="right-marchent-wapper">
+          <div class="row">
+          <div class="table-responive">
+            <!-- <table border="0" width="100%"> -->
+           <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
       <thead>
         <tr>
           <th class="no-sort">Id</th>
@@ -93,54 +75,80 @@
 
       </tbody>
     </table>
-
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-
-
-@stop
-@section('pagejs')
 <script type="text/javascript">
+$(function () {
 
- /* Status toggle starts */
- $(window).load(function() {
-        $('.togBtn').click(function() {
-            var btnId = $(this).attr('id');
-            var ret = btnId.split("_");
-            var id = ret[1];
-            var status = $('#' + btnId).val();
-            if (status == 1) {
-                var changedStatus = $(this).val('0');
-                var statusNew = changedStatus.attr('value');
-                $('#' + btnId).val(statusNew);
-                var textStatus = $("#statusText_" + id).text("InActive");
-                $("#statusText_" + id).removeClass("badge-success").addClass("badge-danger");
-            } else {
-                var changedStatus = $(this).val('1');
-                var statusNew = changedStatus.attr('value');
-                $('#' + btnId).val(statusNew);
-                $('input[name=' + btnId + '][value=' + statusNew + ']').prop('checked', true);
-                var textStatus = $('#statusText_' + id).text('Active');
-                $("#statusText_" + id).removeClass("badge-danger").addClass("badge-success");
-            }
+var table = $('.data-table').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "{{ route('users.index') }}",
+    columns: [
+        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+        {data: 'name', name: 'name'},
+        {data: 'email', name: 'email'},
+        {data: 'action', name: 'action', orderable: false, searchable: false},
+    ]
+});
 
-            $.ajax({
-                url: "{{url('update-user-status')}}" + '/' + id,
-                method: "GET",
-                contentType: 'application/json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    "id": id,
-                    "status": statusNew
-                },
-                success: function(response) {
-                    console.log(response);
-                }
-            });
-        });
-    });
+});
 </script>
+
+<script>
+function changeStatus(id,status){
+    var status=($('#statustype').text());
+    $.ajax({
+            url: "{{url('admin/marchant-management/active-inactive')}}",
+            method: "GET",
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "id": id,
+                "status": status
+            },
+            dataType: 'html',
+            success: function(response) {
+               if(response)
+               {
+                var type=status=='Active'?'In-Active':'Active';
+                $('#statustype').text(type);
+               }
+            }
+        });
+}
+function deleteStatus(id){
+    if (confirm("Are you sure?")) {
+        $.ajax({
+            url: "{{url('admin/marchant-management/delete')}}",
+            method: "GET",
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "id": id
+            },
+            dataType: 'html',
+            success: function(response) {
+               if(response)
+               {
+                $('#row_'+id).hide();
+               }
+            }
+        });
+       
+        }
+}
+</script>
+@endsection
+@section('pagejs')
 @stop

@@ -77,9 +77,10 @@ class CategoryManagementController extends Controller
     {
        
        $categoryData = Category::where('id',$id)->first();
+       $categorylist  = DB::table('category')->get();
       // dd($categoryData);
        return view('admin.category.edit_category')->with(array(
-           'categoryD' => $categoryData,
+           'categoryD' => $categoryData, 'categoryData' => $categorylist,
        ));
     }
 

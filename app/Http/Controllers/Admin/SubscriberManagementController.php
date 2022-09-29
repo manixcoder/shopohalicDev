@@ -17,6 +17,7 @@ class SubscriberManagementController extends Controller
     public function index()
     {
         $subscriptionData = Subscription::get();
+    
          return view('admin.Subscribers.index')->with(array(
              'subscriptionData' => $subscriptionData
          ));
