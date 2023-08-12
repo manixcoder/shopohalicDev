@@ -33,7 +33,7 @@
                   <img src="{{ asset('public/merchantassets/images/new_user.svg') }}" alt="icon">
                 </div>
                 <div class="imgmarchent-text">
-                  <h4>150</h4>
+                  <h4>{{ $usersData }}</h4>
                   <p>New User</p>
                 </div>
               </div>
@@ -44,7 +44,7 @@
                   <img src="{{ asset('public/merchantassets/images/new_merchant.svg') }}" alt="icon">
                 </div>
                 <div class="imgmarchent-text">
-                  <h4>150</h4>
+                  <h4>{{ $merchantData }}</h4>
                   <p>New Merchant</p>
                 </div>
               </div>
@@ -55,7 +55,7 @@
                   <img src="{{ asset('public/merchantassets/images/total_order.svg') }}" alt="icon">
                 </div>
                 <div class="imgmarchent-text">
-                  <h4>{{ $usersData }}</h4>
+                  <h4>2</h4>
                   <p>Total Order</p>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                   <img src="{{ asset('public/merchantassets/images/delivered.svg') }}" alt="icon">
                 </div>
                 <div class="imgmarchent-text">
-                  <h4>{{ $merchantData }}</h4>
+                  <h4>3</h4>
                   <p>Delivered</p>
                 </div>
               </div>

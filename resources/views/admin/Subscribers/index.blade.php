@@ -62,41 +62,44 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 </style>
-<<div class="dashboard-marchent">
+<div class="dashboard-marchent">
     <div class="container">
       <h3>User Management</h3>
       <div class="marchent-wapperbox">
       @include('admin.includes.sidebar')
+
         <div class="right-marchent-wapper">
         <button type="submit" class="btn btn-primary bg-color  btn-section">EXPORT AS CSV</button>
-        <div class="form-group">
+        <!-- <div class="form-group">
                             <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
-                        </div>
-          <div class="row">
-          <div class="table-responive">
-            <!-- <table border="0" width="100%"> -->
-            <table border="0  " width="100%">
+                        </div> -->
+                        <table class="table">
+    <thead>
+      <tr>
+        <th><input type="checkbox"></th>
+        <th> Email</th>
+        <th>Date of Subscription</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+       @foreach($subscriptionData as $key=> $subscription)
             <tr>
-                <th> <input type="checkbox"></th>
-                <th class="category-box email-box">Email </th>
-                <th>Date of Subscription</th>
-                <th>Action</th>
-            </tr>
-            @foreach($subscriptionData as $key=> $subscription)
-            <tr>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox"> </td>
                 <td>{{$subscription->email}}</td>
                 <td>{{date('d M Y', strtotime($subscription->created_at))}}</td>
-                <td class="text-color-red" style="cursor:pointer;" onclick="deleteStatus({{$subscription->id}});">Delete</td>
+                <td class="text-color-red" style="cursor:pointer;" ><small class="delete-icon">
+                    <img src="http://localhost/shopohalicDev/public/adminAssets/images/delete.svg" alt="icon" onclick="deleteStatus({{$subscription->id}});">
+            </small></td>
             </tr>
             @endforeach
-        </table>
-        </div>
-          </div>
+    </tbody>
+  </table>
         </div>
       </div>
     </div>
   </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
   function changeStatus(id,status){

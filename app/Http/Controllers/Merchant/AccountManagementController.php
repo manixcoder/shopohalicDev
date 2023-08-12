@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
-use DB;
+use DB,File;
 
 class AccountManagementController extends Controller
 {
@@ -16,13 +16,41 @@ class AccountManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user_id=Auth::user()->id;
-        $productData =array();
-        return view('merchant.account.index')->with(array(
+        $user=User::where('id',$user_id)->first();
+         if($request->isMethod('get')){
+             return view('merchant.account.index')->with(array(
             'user_id' => $user_id,
+            'user' => $user,
         ));
+        }
+         if($request->isMethod('post')){
+            $data=User::find($user_id);
+            $data->first_name=$request->input('first_name');
+            $data->last_name=$request->input('last_name');
+            $data->address=$request->input('address');
+            $data->city=$request->input('city');
+            $data->zip_code=$request->input('zip_code');
+            $delete_image=$request->input('delete_image');
+            if ($request->hasfile('profile_image')) {
+                if (File::exists(public_path('uploads/users/merchant/'.$delete_image))) {
+                 File::delete(public_path('uploads/users/merchant/'.$delete_image));
+                  }
+             $image = $request->file('profile_image');
+             $imageName = time().'.'.$image->extension();  
+             $data->profile_image=$imageName;
+            $image->move(public_path('uploads/users/merchant'), $imageName);
+        }
+            $data->save();
+             return redirect('/merchant/account-management')->with('success','Update record successfully.');
+         }
+        // $user_id=Auth::user()->id;
+        // $productData =array();
+        // return view('merchant.account.index')->with(array(
+        //     'user_id' => $user_id,
+        // ));
     }
 
     /**
@@ -76,13 +104,23 @@ class AccountManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function changePassword(){
+         $user_id=Auth::user()->id;
+        return view('merchant.account.change-password')->with(array(
+            'user_id' => $user_id,
+        ));
+    }
     public function update(Request $request, $id)
     {
      
         $data=User::find($id);
-        $data->password=bcrypt($request->input('newpassord'));
+
+        if(!Hash::check($request->oldpassword,$data->password)) {
+     return redirect()->back()->with('fail','Current Password not match from login password');
+            } 
+        $data->password=hash::make($request->input('newpassord'));
        $data->save();
-        return redirect('/merchant/account-management')->with(array('status' => 'success', 'message' => 'Update record successfully.'));
+        return redirect('/merchant/account-management')->with('success','Update record successfully.');
     }
 
     /**
