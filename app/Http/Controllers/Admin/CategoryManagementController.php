@@ -45,10 +45,18 @@ class CategoryManagementController extends Controller
      */
     public function store(Request $request)
     {
-      //dd($request->all());
+        if($request->parent_cat>0)
+        {
+           $child=1; 
+           Category::where('id',$request->parent_cat)->update(['child'=>1]);
+        }else{
+            $child=0;  
+        }
+       // dd($request->all());
         Category::create([
             'category_name'=>$request->category_name,
-            'parent_id'=>$request->has('parent_cat') ? $request->parent_cat : "N/A"
+            'parent_id'=>$request->has('parent_cat') ? $request->parent_cat : "N/A",
+            'child'=>$child
         ]);
         return redirect('/admin/category')->with(array(
             'status' => 'success',
@@ -95,7 +103,7 @@ class CategoryManagementController extends Controller
     {
         //dd($request->all());
        
-        DB::table('category')->where('id', $request->category_id)->update(array('category_name' => $request->category_name, "parent_id" => $request->parent_cat ,)); 
+        DB::table('category')->where('id', $request->category_id)->update(array('category_name' => $request->category_name, "parent_id" => $request->parent_cat)); 
         return redirect('/admin/category')->with(array('status' => 'success', 'message' => 'Update record successfully.'));
         
     }

@@ -8,15 +8,15 @@ $(document).ready(function() {
   var rangeSlider = document.getElementById('slider-range');
   var moneyFormat = wNumb({
     decimals: 0,
-    thousand: ',',
+   // thousand: ',',
     prefix: '$'
   });
   noUiSlider.create(rangeSlider, {
-    start: [5, 2500],
-    step: 1,
+    start: [100, 25000],
+    step: 100,
     range: {
-      'min': [5],
-      'max': [2500]
+      'min': [100],
+      'max': [25000]
     },
     format: moneyFormat,
     connect: true
@@ -26,11 +26,35 @@ $(document).ready(function() {
   rangeSlider.noUiSlider.on('update', function(values, handle) {
     document.getElementById('slider-range-value1').innerHTML = values[0];
     document.getElementById('slider-range-value2').innerHTML = values[1];
+    var value1=values[0];
+    value1 = value1.replace('$','');
+    var value2=values[1];
+    value2 = value2.replace('$','');
+  $.ajax({
+                url: "http://development.theinternify.com/searchItem",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "value1": value1,"value2": value2
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {                   
+                    $('#productDisplay').html(response);
+                   }
+                }
+            });
+
     document.getElementsByName('min-value').value = moneyFormat.from(
       values[0]);
     document.getElementsByName('max-value').value = moneyFormat.from(
       values[1]);
   });
+
 });
 
 

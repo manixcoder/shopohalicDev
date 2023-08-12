@@ -1,88 +1,81 @@
 @extends('merchant.master')
 @section('pageTitle','Products Management')
 @section('content')
+@php
+$productColor=explode(',',$productData->color);
+$sizeData=explode(',',$productData->size);
+@endphp
+
 <div class="dashboard-marchent">
     <div class="container">
-      <h3>Edit New Product</h3>
+      <h3>Add New Product</h3>
       <div class="marchent-wapperbox">
       @include('merchant.includes.sidebar')
 <div class="right-marchent-wapper">
           <div class="product-detailform">
             <h4>Product Details</h4>
-            <form method="POST" action="{{ url('/merchant/products-management/'.$product->id.'/update') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('/merchant/products-management/'.$productData->id.'/update') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
-            <input type="hidden" id="check_stock_type" value="{{$product->stock_type}}">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                   <div class="form-group">
-                    <input class="form-control" type="text" id="product_name" name="product_name" value="{{$product->product_name}}" placeholder="Product Title" >
+                    <input class="form-control" type="text" id="product_name" name="product_name" placeholder="Product Title" required value="{{$productData->product_name}}">
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" id="product_code" name="product_code" value="{{$product->product_code}}" placeholder="Product Code">
+                    <input class="form-control" type="text" id="product_code" name="product_code" placeholder="Product Code" required value="{{$productData->product_code}}">
+                  </div>
+                </div>
+                
+                <div class="col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <textarea class="form-control" type="text" name="description" placeholder="Product Description" required>{{$productData->description}}</textarea>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                  <select class="form-control text-color" name="brand">
-                                <option value="">Select Brand</option>
-                                <option value="Sansung" @if($product->brand=='Sansung') selected @endif>Sansung</option>
-                                <option value="Nokia" @if($product->brand=='Nokia') selected @endif>Nokia</option>
-                                <option value="One Plus" @if($product->brand=='One Plus') selected @endif>One Plus</option>
-                            </select>
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                  <div class="form-group">
-                    <select class="form-control" name="category">
+                    <select class="form-control" name="category" id="category" onchange="getSubCategory(this.value),getBrand('category',this.value);" required>
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
-                    <option value="{{$category->id}}" @if($product->category==$category->id) selected @endif>{{$category->category_name}}</option>
+                    <option value="{{$category->id}}" @if($productData->category==$category->id) selected @endif>{{$category->category_name}}</option>
                     @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" id="quantity" name="quantity" value="{{$product->quantity}}" placeholder="Quantity (In Number)">
+                    <select class="form-control" name="sub_category_id" id="sub_category_id" onchange="getBrand('sub_category',this.value);">
+                    <option value="">Select Sub Category</option>
+                    @foreach($sub_categories as $sub_category)
+                    <option value="{{$sub_category->id}}" @if($productData->sub_category_id==$sub_category->id) selected @endif>{{$sub_category->category_name}}</option>
+                    @endforeach                  
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <textarea class="form-control" type="text" name="description" placeholder="Product Description">{{$product->description}}</textarea>
+                    <select class="form-control" name="brand" id="brand_id" onchange="getSize(this.value);" required>
+                    <option value="">Select Brand</option>
+                    @foreach($brands as $brand)
+                    <option value="{{$brand->id}}" @if($productData->brand==$brand->id) selected @endif>{{$brand->brand_name}}</option>
+                    @endforeach   
+                   
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
-                  <div class="form-group inline-blockbox select-bluebox">
-                    <select class="form-control" name="color">
-                                <option value="N/A">Select Color</option>
-                                <option value="Red" @if($product->color=='Red') selected @endif>Red</option>
-                                <option value="Green" @if($product->color=='Green') selected @endif>Green</option>
-                                <option value="Black" @if($product->color=='Black') selected @endif>Black</option>
-                            </select>
+
+                
+                 <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <select class="form-control" name="color[]" id="color" multiple required>
+                    <option value="">Select Color</option>
+                    @foreach($colors as $color)
+                    <option value="{{$color->id}}" {{is_array($productColor) && in_array($color->id, $productColor) ? 'selected' : '' }}>{{$color->color_name}}</option>
+                    @endforeach
+                    </select>
                   </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                  
-                  <div class="form-group inline-blockbox select-bluesize">
-                    <select class="form-control" name="size">
-                                <option value="N/A">Select Size</option>
-                                <option value="1" @if($product->size=='1') selected @endif>1</option>
-                                <option value="2" @if($product->size=='2') selected @endif>2</option>
-                                <option value="3" @if($product->size=='3') selected @endif>3</option>
-                                <option value="4" @if($product->size=='4') selected @endif>4</option>
-                                <option value="5" @if($product->size=='5') selected @endif>5</option>
-                                <option value="6" @if($product->size=='6') selected @endif>6</option>
-                                <option value="7" @if($product->size=='7') selected @endif>7</option>
-                                <option value="8" @if($product->size=='8') selected @endif>8</option>
-                                <option value="9" @if($product->size=='9') selected @endif>9</option>
-                                <option value="10" @if($product->size=='10') selected @endif>10</option>
-                            </select>
-                  </div>
-                </div>
-              </div>
-           
+                </div>               
           </div>
           <div class="product-photosbox">
             <h4>Product Photos</h4>
@@ -90,24 +83,24 @@
               <div class="col-md-5">
                 <label>Upload Title Photo*</label>
                 <div class="placeholder-img">
-                  <img id="imgPreview" src="{{url('/public/uploads/products')}}/{{$product->image}}" alt="img" />
+                  <img id="imgPreview" src="{{url('/public/uploads/products')}}/{{$productData['image']}}" alt="img" />
                 </div>
                 <div class="placeholder-textbox">
                   <p>600 X 600 px<br /> Minimum Size in pixel</p>
                   <div class="upload-filebox ">
-                      <input type="file" class="upload-box" id="image" name="image" value="upload">
+                      <input type="file" class="upload-box" id="image" name="image" value="upload" >
                       <span class="upload-box">upload</span>
                     </div>
-                 
                 </div>
               </div>
               <div class="col-md-5 uploadOther-photo">
                 <label>Upload Other Photos</label>
                 <div class="placeholder-img" id="image_preview">
-                  @foreach($photoimages as $photoimage)
-                <span class="photobox-img"><img src="{{url('/public/uploads/product_image')}}/{{$photoimage->product_image}}" alt="img" /></span>
-                @endforeach
-              </div>
+                  @foreach($photoimage as $image)
+                <span class="photobox-img"><img src="{{url('/public/uploads/product_image')}}/{{$image['product_image']}}" alt="img" /></span>
+               @endforeach
+                
+                </div>
                 <div class="placeholder-textbox">
                   <span class="pull-left">
                     <p>Maximum 4 Photos <br/>can be uploaded</p>
@@ -127,58 +120,124 @@
            
               <div class="pricinginc-input form-group">
                 <label>Normal Price</label>
-                <input type="text"  class="form-control" id="price" name="price"  value="{{$product->price}}" placeholder="00">
+                <input type="text"  class="form-control" id="price" name="price"  placeholder="00" required value="{{$productData->price}}">
                 <span class="doller">$</span>
               </div>
               <div class="pricinginc-input  form-group">
                 <label>Special Price</label>
-                <input type="text"  class="form-control" id="special_price" name="special_price" value="{{$product->special_price}}" placeholder="00">
+                <input type="text"  class="form-control" id="special_price" name="special_price" placeholder="00" required value="{{$productData->special_price}}">
                 <span class="doller">$</span>
               </div>
               <div class="stock-lasts-box">
-                <input type="radio" name="stock_type" @if($product->stock_type) checked @endif value="till_stock_last" />
+                <input type="radio" name="stock_type" value="till_stock_last" />
                 <label>Till Stock Lasts</label>
-                <input type="radio" name="stock_type" @if($product->stock_type) checked @endif value="date_range" />
+                <input type="radio" name="stock_type" value="date_range"  />
                 <label>Date Range</label>
               </div>
               <div class="date-rangebox" style="display:none;" >
                 <div class="start-date">
-                <input type="text"  class="form-control" id="start_date" name="start_date" value="{{$product->start_date}}" placeholder="Start date">
+                <input type="text"  class="form-control" id="start_date" name="start_date" placeholder="Start date">
                 </div>
                 <div class="start-date end-date">
-                <input type="text"  class="form-control" id="end_date" name="end_date" value="{{$product->end_date}}" placeholder="End date">
+                <input type="text"  class="form-control" id="end_date" name="end_date" placeholder="End date">
                 </div>
               </div>
            
           </div>
+             <div class="shipping-box-date">
+            <h4>Pickup</h4>
+              <div class="col-md-4">
+               <input type="radio" name="pickup" @if($productData->pickup==0) checked @endif value="0" />
+                <label>No</label>
+                <input type="radio" name="pickup" @if($productData->pickup==1) checked @endif value="1" />
+                <label>Yes</label>
+              </div>
+          </div>
           <div class="shipping-box-date">
             <h4>Shipping</h4>
+            <div class="row-table">
+               @foreach($shippings as $shipping)
+               @php
+               if($shipping->location=='Pickup')
+               continue;
+               @endphp
             <div class="row">
-              <div class="col-md-6">
-                <select class="form-control">
-                  <option selected="selected">Shipping Area</option>
-                  <option>Shipping 2</option>
-                  <option>Shipping 3</option>
-                </select>
+              <div class="col-md-4">
+                <input type="text" class="form-control" name="location[]" value="{{$shipping->location}}" placeholder="Location">
+                
               </div>
-              <div class="col-md-6">
-                <select class="form-control">
-                  <option selected="selected">Expected Delivery Days</option>
-                  <option>Expected Delivery Days 2</option>
-                  <option>Expected Delivery Days 3</option>
-                </select>
+              <div class="col-md-2">
+                <input type="text" class="form-control" name="cost[]" value="{{$shipping->cost}}" placeholder="Cost">
+              </div>
+              <div class="col-md-4">
+      <input type="text" class="form-control" name="delivery[]" value="{{$shipping->expected}}" placeholder="Delivery Expected day">
               </div>
             </div>
+            @endforeach
           </div>
+          </div>
+          <div class="btnbox addother-shiping">
+              <a href="javascript:void(0);" class="add_button btn"><i class="fa fa-plus-circle" aria-hidden="true"></i> ADD ANOTHER SHIPPING AREA</a>
+            </div>
           <div class="btn-addprod ">
-            <button type="submit" class="add-prodbtn">UPDATE PRODUCT</button>
+            <button type="submit" class="add-prodbtn">ADD PRODUCT</button>
           </div>
           </form>
-		    </div>
+        </div>
       </div>
     </div>
   </div>
- 
+ <script type="text/javascript">
+$(document).ready(function(){    
+    var maxField = 10; //Input fields increment limitation
+
+    
+    var fieldHTML = '<div class="row" id="row"><div class="col-md-4"> <input type="text" class="form-control" name="location[]" placeholder="Location"></div> <div class="col-md-2"><input type="text" class="form-control" name="cost[]" placeholder="Cost"> </div><div class="col-md-4"><input type="text" class="form-control" name="delivery[]" placeholder="Delivery Expected day"> </div></div>';
+   // fieldHTML +=' <div class="col-md-2"><i class="fa fa-trash " id="DeleteRow"  aria-hidden="true"></i> </div>';
+  
+    
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $('.add_button').click(function(){
+     
+      
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+           
+            $('.row-table').after(fieldHTML); //Add field html
+        }
+    });
+    $("body").on("click", "#DeleteRow", function () {
+            $(this).parents("#row").remove();
+        })
+    
+});
+function deleteRow(id){
+    if (confirm("Are you sure?")) {
+          $.ajax({
+                url: "{{url('merchant/shipping-management/delete')}}",
+                method: "GET",
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "id": id
+                },
+                dataType: 'html',
+                success: function(response) {
+                   if(response)
+                   {
+                    $('#row_'+id).hide();
+                   }
+                }
+            });
+           
+            }
+    }
+</script>
         <script>
             $(document).ready(() => {
                 $("#image").change(function () {
@@ -218,12 +277,7 @@ ui-lightness/jquery-ui.css'
     </script>
     <script>
         $(document).ready(function() {
-          if($('#check_stock_type').val()=='date_range')
-          {
-            $('.date-rangebox').css('display','block');
-          }else{
-            $('.date-rangebox').css('display','none');
-          }
+          
             $(function() {
                 $( "#start_date").datepicker({
                   dateFormat:"yy-mm-dd",
@@ -242,8 +296,179 @@ ui-lightness/jquery-ui.css'
              }
         });
             });
-
-            
       });
+        
     </script>
+   <script>
+$(function(){ // DOM ready
+
+  // ::: TAGS BOX
+var arr=[];
+  $("#brand_tags #brand").on({
+    focusout : function() {
+      var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); // allowed characters
+   // alert(txt);
+     arr.push(txt);
+     
+      if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
+      this.value =  "";
+
+      $('#brandtext').val(arr.toString());
+    },
+    keyup : function(ev) {
+      // if: comma|enter (delimit more keyCodes with | pipe)
+      if(/(188|13)/.test(ev.which)) $(this).focusout(); 
+    }
+  });
+  $('#brand_tags').on('click', 'span', function() {
+    if(confirm("Remove "+ $(this).text() +"?")) $(this).remove(); 
+    arr.splice($.inArray($(this).text(),arr), 1);
+$('#brandtext').val(arr.toString());
+
+  });
+
+});
+</script>
+<script>
+$(function(){ // DOM ready
+
+  // ::: TAGS BOX
+var arr=[];
+  $("#color_tags #color").on({
+    focusout : function() {
+      var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); // allowed characters
+   // alert(txt);
+     arr.push(txt);
+     
+      if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
+      this.value =  "";
+
+      $('#colortext').val(arr.toString());
+    },
+    keyup : function(ev) {
+      // if: comma|enter (delimit more keyCodes with | pipe)
+      if(/(188|13)/.test(ev.which)) $(this).focusout(); 
+    }
+  });
+  $('#color_tags').on('click', 'span', function() {
+    if(confirm("Remove "+ $(this).text() +"?")) $(this).remove(); 
+    arr.splice($.inArray($(this).text(),arr), 1);
+$('#colortext').val(arr.toString());
+
+  });
+
+});
+</script>
+<script>
+$(function(){ // DOM ready
+
+  // ::: TAGS BOX
+var arr=[];
+  $("#size_tags #size").on({
+    focusout : function() {
+      var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); // allowed characters
+   // alert(txt);
+     arr.push(txt);
+     
+      if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
+      this.value =  "";
+
+      $('#sizetext').val(arr.toString());
+    },
+    keyup : function(ev) {
+      // if: comma|enter (delimit more keyCodes with | pipe)
+      if(/(188|13)/.test(ev.which)) $(this).focusout(); 
+    }
+  });
+  $('#size_tags').on('click', 'span', function() {
+    if(confirm("Remove "+ $(this).text() +"?")) $(this).remove(); 
+    arr.splice($.inArray($(this).text(),arr), 1);
+$     ('#sizetext').val(arr.toString());
+
+  });
+
+});
+ function getSubCategory(id){
+              
+    $.ajax({
+            url: "{{url('get-subcategory')}}",
+            method: "GET",
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "id": id              
+            },
+            dataType: 'json',
+            success: function(response) {
+            var html='<option value="">select</option>';              
+               if(response)
+               {
+               $.each(response, function(index,value){
+              html+='<option value="'+value.id+'">'+value.category_name+'</option>';
+                });
+               }
+               $('#sub_category_id').html(html);
+            }
+        });
+            }
+
+            function getBrand(type,category_id){
+
+
+    $.ajax({
+            url: "{{url('get-brand')}}",
+            method: "GET",
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "type": type,
+                "category": category_id,              
+            },
+            dataType: 'json',
+            success: function(response) {
+            var html='<option value="">select</option>';              
+               if(response)
+               {
+               $.each(response, function(index,value){
+              html+='<option value="'+value.id+'">'+value.brand_name+'</option>';
+                });
+               }
+               $('#brand_id').html(html);
+            }
+        });
+            }
+            function getSize(brand_id){
+            var category = $('#category').val();
+            var sub_category_id = $('#sub_category_id').val();
+           
+    $.ajax({
+            url: "{{url('get-size')}}",
+            method: "GET",
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {                
+                "brand_id": brand_id,
+                "category_id": category,
+                "sub_category_id": sub_category_id,              
+            },
+            dataType: 'json',
+            success: function(response) {
+            var html='<option value="">select</option>';              
+               if(response)
+               {
+               $.each(response, function(index,value){
+              html+='<option value="'+value.id+'">'+value.size_name+'</option>';
+                });
+               }
+               $('#size').html(html);
+            }
+        });
+            }
+</script>
 @stop

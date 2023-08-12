@@ -3,7 +3,9 @@
 @section('content')
 <<div class="dashboard-marchent">
     <div class="container">
-      <h3>Marchant Management</h3>
+      <h3>Category Management
+ <span class="pull-right"><a href="{{url('admin/category/create')}}" class="addproduct-btn">ADD NEW CATEGORY</a></span>
+      </h3>
       <div class="marchent-wapperbox">
       @include('admin.includes.sidebar')
         <div class="right-marchent-wapper">
@@ -16,7 +18,7 @@
           <th class="no-sort">Id</th>
           <th class="no-sort">Category Name</th>
           <th class="no-sort">Parent Category</th>
-          <th class="no-sort">Status</th>
+         <!--  <th class="no-sort">Status</th> -->
           <th class="no-sort">Actions</th>
 
         </tr>
@@ -25,11 +27,11 @@
         @foreach($categoryData as $key=> $category)
         <?php
         if ($category->parent_id  === "N/A") {
-          echo   $parentCat = '';
+             $parentCat = '';
         } else {
           $part_catData = DB::table('category')->where('id', $category->parent_id)->first();
           // dd($part_catData->category_name);
-          echo $parentCat = $part_catData->category_name;
+          $parentCat = $part_catData->category_name;
         }
 
 
@@ -38,7 +40,7 @@
           <td>{{$key+1}}</td>
           <td>{{$category->category_name}}</td>
           <td>{{$parentCat}}</td>
-          <td>
+         <!--  <td>
             <p class="mb-0">
 
               <label class="switch">
@@ -58,7 +60,7 @@
               </label>
 
             </p>
-          </td>
+          </td> -->
           <td class="actions">
             &nbsp;&nbsp;&nbsp;
             <span>
