@@ -55,16 +55,11 @@
                     </select>
                   </div>
                 </div>
-                 <div class="col-md-6 col-sm-6">
+                  <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <select class="form-control" name="color[]" id="color" multiple required>
-                    <option value="">Select Color</option>
-                    @foreach($colors as $color)
-                    <option value="{{$color->id}}">{{$color->color_name}}</option>
-                    @endforeach
-                    </select>
+                    <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Quantity" required>
                   </div>
-                </div>               
+                </div>              
           </div>
           <div class="product-photosbox">
             <h4>Product Photos</h4>

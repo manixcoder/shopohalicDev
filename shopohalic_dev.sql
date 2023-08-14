@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2023 at 02:47 AM
+-- Generation Time: Aug 12, 2023 at 05:05 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -62,7 +62,9 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `category_id`, `sub_category_id`, `brand_name`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'Test', NULL, NULL);
+(1, 1, 2, 'Test', NULL, NULL),
+(2, 7, 8, 'M 62 nokia', NULL, NULL),
+(3, 11, 12, 'Fair & Lovely', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -110,7 +112,13 @@ INSERT INTO `category` (`id`, `category_name`, `parent_id`, `child`, `status`, `
 (3, 'Nokia', '1', 0, '0', NULL, '2023-05-04 23:49:26', '2023-05-04 23:49:26'),
 (4, 'Toy', 'N/A', 1, '0', NULL, '2023-05-04 23:49:56', '2023-05-04 23:55:57'),
 (5, 'Sanjeev', '4', 0, '0', '2023-05-05 01:02:28', '2023-05-04 23:50:32', '2023-05-05 01:02:28'),
-(6, 'manish1', '4', 0, '0', '2023-05-05 01:02:25', '2023-05-04 23:55:57', '2023-05-05 01:02:25');
+(6, 'manish1', '4', 0, '0', '2023-05-05 01:02:25', '2023-05-04 23:55:57', '2023-05-05 01:02:25'),
+(7, 'Mobile 2', 'N/A', 1, '0', NULL, '2023-08-05 05:13:33', '2023-08-05 05:14:00'),
+(8, 'Mobile Nokia', '7', 0, '0', NULL, '2023-08-05 05:14:00', '2023-08-05 05:14:00'),
+(9, 'Femaile', 'N/A', 1, '0', '2023-08-05 05:34:40', '2023-08-05 05:34:16', '2023-08-05 05:34:40'),
+(10, 'Cream', '9', 0, '0', '2023-08-05 05:34:37', '2023-08-05 05:34:29', '2023-08-05 05:34:37'),
+(11, 'Cream', 'N/A', 1, '0', NULL, '2023-08-05 05:35:05', '2023-08-05 05:35:47'),
+(12, 'Facial Cream', '11', 0, '0', NULL, '2023-08-05 05:35:47', '2023-08-05 05:35:47');
 
 -- --------------------------------------------------------
 
@@ -130,7 +138,9 @@ CREATE TABLE `colors` (
 
 INSERT INTO `colors` (`id`, `color_name`, `color_code`) VALUES
 (1, 'Red', '000000'),
-(2, 'Green', '#4F7942');
+(2, 'Green', '#4F7942'),
+(3, 'Yellow', '#FFFF00'),
+(4, 'White', '#ffffff');
 
 -- --------------------------------------------------------
 
@@ -242,7 +252,10 @@ INSERT INTO `order_item` (`id`, `order_no`, `product_id`, `quantity`, `price`, `
 (25, 'OR_3-6', 16, 1, 7000, 1, 1, 30, 0, 'ftqmb58fs15540e3t9ali17iit', '::1', '3', '2023-06-04 08:36:24', '2023-06-04 08:36:37'),
 (26, NULL, 17, 1, 11000, 1, 1, 32, 0, 't0nfp9tbrnudog4h3jghasr2cp', '::1', '3', '2023-06-05 19:43:33', '2023-06-05 19:43:33'),
 (27, NULL, 19, 2, 18000, 2, 2, 34, 100, '76ab3kdq32vkvauqn7odrjodl5', '::1', '3', '2023-07-30 02:52:56', '2023-07-30 02:52:56'),
-(28, NULL, 18, 1, 12000, 1, 1, 33, 20, '76ab3kdq32vkvauqn7odrjodl5', '::1', '3', '2023-07-30 02:52:56', '2023-07-30 02:52:56');
+(28, NULL, 18, 1, 12000, 1, 1, 33, 20, '76ab3kdq32vkvauqn7odrjodl5', '::1', '3', '2023-07-30 02:52:56', '2023-07-30 02:52:56'),
+(29, NULL, 23, 4, 720, 4, 4, 37, 10, 'v960l3fle93l6ek43kn6pm3nm9', '::1', '3', '2023-08-05 05:52:06', '2023-08-05 05:52:06'),
+(30, 'OR_3-7', 23, 3, 540, 3, 3, 37, 10, 'tndfee1835c563icfr97j470d4', '::1', '3', '2023-08-12 09:17:07', '2023-08-12 09:31:05'),
+(31, 'OR_3-7', 24, 3, 180, NULL, NULL, 38, 100, 'tndfee1835c563icfr97j470d4', '::1', '3', '2023-08-12 09:30:11', '2023-08-12 09:31:05');
 
 -- --------------------------------------------------------
 
@@ -356,7 +369,8 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`id`, `order_no`, `session_id`, `amount`, `user_id`, `status`, `response`, `order_date`, `payment_date`, `order_status`, `created_at`, `updated_at`) VALUES
 (4, 'OR_3-4', 'lkqkrn694vem4v120sen4ogshk', 10580, 3, 'succeeded', '{\"amount\":10580,\"balance_transaction\":\"txn_3NCJriK7pBe3EMFY0ZyadbD1\",\"calculated_statement_descriptor\":\"SHOPAHOLICSALE\",\"captured\":\"succeeded\",\"payment_date\":\"2023-05-27 09:56\",\"currency\":\"usd\",\"object\":null,\"shopping_card_id\":\"ch_3NCJriK7pBe3EMFY0VHzM5ET\"}', '2023-05-27 09:56:00', '2023-05-27 09:56:00', 11, NULL, NULL),
 (5, 'OR_3-5', 'ftqmb58fs15540e3t9ali17iit', 18860, 3, NULL, NULL, '2023-06-04 01:26:00', NULL, 0, NULL, NULL),
-(6, 'OR_3-6', 'ftqmb58fs15540e3t9ali17iit', 18860, 3, 'succeeded', '{\"amount\":18860,\"balance_transaction\":\"txn_3NFHaFK7pBe3EMFY1WSFVRbC\",\"calculated_statement_descriptor\":\"SHOPAHOLICSALE\",\"captured\":\"succeeded\",\"payment_date\":\"2023-06-04 02:07\",\"currency\":\"usd\",\"object\":null,\"shopping_card_id\":\"ch_3NFHaFK7pBe3EMFY1SSEfLpT\"}', '2023-06-04 02:06:00', '2023-06-04 02:07:00', 0, NULL, NULL);
+(6, 'OR_3-6', 'ftqmb58fs15540e3t9ali17iit', 18860, 3, 'succeeded', '{\"amount\":18860,\"balance_transaction\":\"txn_3NFHaFK7pBe3EMFY1WSFVRbC\",\"calculated_statement_descriptor\":\"SHOPAHOLICSALE\",\"captured\":\"succeeded\",\"payment_date\":\"2023-06-04 02:07\",\"currency\":\"usd\",\"object\":null,\"shopping_card_id\":\"ch_3NFHaFK7pBe3EMFY1SSEfLpT\"}', '2023-06-04 02:06:00', '2023-06-04 02:07:00', 0, NULL, NULL),
+(7, 'OR_3-7', 'tndfee1835c563icfr97j470d4', 1208, 3, NULL, NULL, '2023-08-12 03:01:00', NULL, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -435,7 +449,9 @@ INSERT INTO `products` (`id`, `product_name`, `product_code`, `brand`, `category
 (19, 'product 11', 'dffds', '1', 1, 2, NULL, 'sdfsdfd', '1,2', NULL, '1689091939.jpg', 10000.00, 9000.00, '0', 2, '2023-07-11 10:42:19', '2023-07-11 10:42:19', 'till_stock_last', NULL, NULL, NULL, NULL, '0'),
 (20, 'testing', '123111', '1', 1, 2, NULL, 'sddsds', '1', NULL, '1690822334.png', 100100.00, 10000.00, '0', 2, '2023-07-31 11:22:14', '2023-07-31 11:22:14', 'till_stock_last', NULL, NULL, NULL, NULL, '0'),
 (21, 'Test Product Manish', '123', '1', 1, 2, NULL, 'test', '1,2', NULL, '1690850593.png', 20000.00, 15000.00, '0', 2, '2023-07-31 19:13:13', '2023-07-31 19:13:13', 'till_stock_last', NULL, NULL, NULL, NULL, '0'),
-(22, 'Test Product Manish', '123', '1', 1, 2, NULL, 'test', '1,2', NULL, '1690850597.png', 20000.00, 15000.00, '0', 2, '2023-07-31 19:13:17', '2023-07-31 19:13:17', 'till_stock_last', NULL, NULL, NULL, NULL, '0');
+(22, 'Test Product Manish', '123', '1', 1, 2, NULL, 'test', '1,2', NULL, '1690850597.png', 20000.00, 15000.00, '0', 2, '2023-07-31 19:13:17', '2023-07-31 19:13:17', 'till_stock_last', NULL, NULL, NULL, NULL, '0'),
+(23, 'Fair & Lovely', 'F&L', '3', 11, 12, NULL, 'test', '4', NULL, '1691233958.jpg', 200.00, 180.00, '0', 2, '2023-08-05 05:42:38', '2023-08-05 05:42:38', 'till_stock_last', NULL, NULL, NULL, NULL, '0'),
+(24, 'T-Shirt excel size green', 'ssds', '3', 11, 12, 100, NULL, NULL, NULL, '1691850834.jpg', 100.00, 60.00, '0', 2, '2023-08-12 09:03:54', '2023-08-12 09:03:54', 'till_stock_last', NULL, NULL, NULL, NULL, '0');
 
 -- --------------------------------------------------------
 
@@ -535,7 +551,12 @@ INSERT INTO `product_image` (`id`, `product_id`, `product_image`, `created_at`, 
 (77, 22, '1690850597.jpg', '2023-07-31 19:13:17', '2023-07-31 19:13:17'),
 (78, 22, '1690850597.jpg', '2023-07-31 19:13:17', '2023-07-31 19:13:17'),
 (79, 22, '1690850597.jpg', '2023-07-31 19:13:17', '2023-07-31 19:13:17'),
-(80, 22, '1690850597.jpg', '2023-07-31 19:13:17', '2023-07-31 19:13:17');
+(80, 22, '1690850597.jpg', '2023-07-31 19:13:17', '2023-07-31 19:13:17'),
+(81, 23, '1691233958.jpg', '2023-08-05 05:42:38', '2023-08-05 05:42:38'),
+(82, 24, '1691850834.jpg', '2023-08-12 09:03:54', '2023-08-12 09:03:54'),
+(83, 24, '1691850834.jpg', '2023-08-12 09:03:54', '2023-08-12 09:03:54'),
+(84, 24, '1691850834.jpg', '2023-08-12 09:03:54', '2023-08-12 09:03:54'),
+(85, 24, '1691850834.jpg', '2023-08-12 09:03:54', '2023-08-12 09:03:54');
 
 -- --------------------------------------------------------
 
@@ -575,7 +596,17 @@ INSERT INTO `product_item_store` (`id`, `product_id`, `color_id`, `size_id`, `qu
 (29, 19, 1, 1, 0, '2023-07-30 08:37:38'),
 (30, 19, 1, 2, 0, '2023-07-30 08:37:38'),
 (31, 12, 1, 1, 100, '2023-08-01 00:40:00'),
-(32, 12, 1, 2, 200, '2023-08-01 00:40:00');
+(32, 12, 1, 2, 200, '2023-08-01 00:40:00'),
+(33, 22, 1, 1, 100, '2023-08-05 10:42:08'),
+(34, 22, 1, 2, 200, '2023-08-05 10:42:08'),
+(35, 22, 1, 1, 200, '2023-08-05 11:00:43'),
+(36, 22, 1, 2, 300, '2023-08-05 11:00:43'),
+(37, 22, 1, 1, 0, '2023-08-05 11:01:06'),
+(38, 22, 1, 2, 200, '2023-08-05 11:01:06'),
+(39, 23, 4, 4, 100, '2023-08-05 11:16:57'),
+(40, 23, 4, 5, 200, '2023-08-05 11:16:57'),
+(41, 23, 4, 4, 20, '2023-08-05 11:17:17'),
+(42, 23, 4, 5, 40, '2023-08-05 11:17:17');
 
 -- --------------------------------------------------------
 
@@ -601,7 +632,11 @@ INSERT INTO `product_total_item_store` (`id`, `product_id`, `color_id`, `size_id
 (7, 19, 1, 1, 60),
 (8, 19, 1, 2, 10),
 (9, 12, 1, 1, 100),
-(10, 12, 1, 2, 200);
+(10, 12, 1, 2, 200),
+(11, 22, 1, 1, 300),
+(12, 22, 1, 2, 700),
+(13, 23, 4, 4, 120),
+(14, 23, 4, 5, 240);
 
 -- --------------------------------------------------------
 
@@ -688,7 +723,9 @@ INSERT INTO `shipping_costs` (`id`, `merchant_id`, `product_id`, `location`, `co
 (33, 2, 18, 'location 1', 20.00, '2 days', '2023-07-05 04:35:05', '2023-07-05 04:35:05'),
 (34, 2, 19, 'location 1', 100.00, '1 days', '2023-07-11 10:42:20', '2023-07-11 10:42:20'),
 (35, 2, 21, 'localtion 1', 200.00, '10 days', '2023-07-31 19:13:13', '2023-07-31 19:13:13'),
-(36, 2, 22, 'localtion 1', 200.00, '10 days', '2023-07-31 19:13:17', '2023-07-31 19:13:17');
+(36, 2, 22, 'localtion 1', 200.00, '10 days', '2023-07-31 19:13:17', '2023-07-31 19:13:17'),
+(37, 2, 23, 'Location 1', 10.00, '1 day', '2023-08-05 05:42:38', '2023-08-05 05:42:38'),
+(38, 2, 24, 'locatin 1', 100.00, '1 days', '2023-08-12 09:03:54', '2023-08-12 09:03:54');
 
 -- --------------------------------------------------------
 
@@ -712,7 +749,10 @@ CREATE TABLE `sizes` (
 
 INSERT INTO `sizes` (`id`, `category_id`, `sub_category_id`, `brand_id`, `size_name`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 1, '12 inch', NULL, NULL),
-(2, 1, 2, 1, '10 inch', NULL, NULL);
+(2, 1, 2, 1, '10 inch', NULL, NULL),
+(3, 7, 8, 2, '6 inch', NULL, NULL),
+(4, 11, 12, 3, '100g', NULL, NULL),
+(5, 11, 12, 3, '200g', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -821,7 +861,8 @@ INSERT INTO `user_order_address` (`id`, `order_no`, `session_id`, `name`, `addre
 (14, NULL, 'o48ej740k5nt7o1to3m0af2g0l', 'User User', 'raj', 'pick_up', 'asdsad', 'ss', 'assas', NULL, '12332', '3', '2023-05-28 14:37:56', '2023-05-28 14:37:56'),
 (15, 'OR_3-6', 'ftqmb58fs15540e3t9ali17iit', 'User User', 'Jereeth', 'ship_it', 'dsdfds', 'gaya', 'gaya', NULL, '123456', '3', '2023-06-04 07:53:37', '2023-06-04 08:36:37'),
 (16, 'OR_3-6', 'ftqmb58fs15540e3t9ali17iit', 'User User', 'Jereeth', 'ship_it', 'dsdfds', 'gaya', 'gaya', NULL, '123456', '3', '2023-06-04 08:36:31', '2023-06-04 08:36:37'),
-(17, NULL, '76ab3kdq32vkvauqn7odrjodl5', 'User User', 'raj', 'pick_up', 'asdsad', 'ss', 'assas', NULL, '12332', '3', '2023-07-30 02:59:14', '2023-07-30 02:59:14');
+(17, NULL, '76ab3kdq32vkvauqn7odrjodl5', 'User User', 'raj', 'pick_up', 'asdsad', 'ss', 'assas', NULL, '12332', '3', '2023-07-30 02:59:14', '2023-07-30 02:59:14'),
+(18, 'OR_3-7', 'tndfee1835c563icfr97j470d4', 'User User', 'raj', 'pick_up', 'asdsad', 'ss', 'assas', NULL, '12332', '3', '2023-08-12 09:30:53', '2023-08-12 09:31:05');
 
 --
 -- Indexes for dumped tables
@@ -1009,25 +1050,25 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `commission`
@@ -1051,7 +1092,7 @@ ALTER TABLE `order_address`
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `order_setting`
@@ -1081,7 +1122,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1093,25 +1134,25 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `product_item_store`
 --
 ALTER TABLE `product_item_store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `product_total_item_store`
 --
 ALTER TABLE `product_total_item_store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1123,13 +1164,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `shipping_costs`
 --
 ALTER TABLE `shipping_costs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
@@ -1147,7 +1188,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_order_address`
 --
 ALTER TABLE `user_order_address`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

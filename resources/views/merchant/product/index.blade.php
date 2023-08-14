@@ -59,7 +59,7 @@
         <td>{{$product['category_name']}}</td>
         <td><img src="{{url('/public/uploads/products')}}/{{$product['image']}}" width="80" height="80"></td>
         <th><a href="{{url('merchant/products-management/'.$product['id'].'/edit')}}"><i class="fa fa-pencil bg-orange" aria-hidden="true"></i> Edit</a></th>
-        <th><a href="{{url('merchant/products-management/'.$product['id'].'/color-variant')}}"><i class="fa fa-pencil bg-orange" aria-hidden="true"></i>Color Variant</a></th>
+        <!-- <th><a href="{{url('merchant/products-management/'.$product['id'].'/color-variant')}}"><i class="fa fa-pencil bg-orange" aria-hidden="true"></i>Color Variant</a></th> -->
       </tr>
       @endforeach
     </tbody>

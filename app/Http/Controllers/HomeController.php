@@ -100,8 +100,6 @@ class HomeController extends Controller
            $CartItem->ip_address=$_SERVER['REMOTE_ADDR'];
            $CartItem->session_id=session_id();
            $CartItem->quantity=1;
-           $CartItem->color=$request->input('color');
-           $CartItem->size=$request->input('size');
            $CartItem->shipping=$request->input('shipping');
            $CartItem->save();
        }
@@ -157,8 +155,6 @@ $products = Products::select('cart_item.id as cart_id','cart_item.shipping','pro
                 $data->product_id=$product_ids[$key];
                 $data->quantity=$quantity[$key];
                 $data->price=$quantity[$key]*$price[$key];
-                $data->color=$quantity[$key];
-                $data->size=$quantity[$key];
                 $data->ip_address=$_SERVER['REMOTE_ADDR'];
                 $data->session_id= $session_id;
                 $data->shipping= $shipping[$key];
@@ -193,7 +189,6 @@ if($request->isMethod('post')){
             $UserOrderAddress->state = $add['3'];
             $UserOrderAddress->address_type=$request->address_type;
             }else{
-               
             $UserOrderAddress->name =$request->first_name.' '.$request->last_name;
             $UserOrderAddress->session_id = session_id();
             $UserOrderAddress->user_id=$user_id;
