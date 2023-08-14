@@ -73,8 +73,7 @@ class ProductManagementController extends Controller
         $data->category=$request->input('category');
         $data->sub_category_id=$request->input('sub_category_id')??0;
         $data->brand=$request->input('brand');
-        $data->color=implode(',',$request->input('color'));       
-        $data->description=$request->input('description');        
+        $data->quantity=$request->input('quantity');        
         $data->created_by=$id;        
         $data->price=$request->input('price');
         $data->special_price=$request->input('special_price');

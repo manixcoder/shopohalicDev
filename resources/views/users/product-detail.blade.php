@@ -47,51 +47,10 @@
         </div>
         <div class="col-md-6 col-sm-6">
           <div class="product-detail">
-            <h1>{{$products->product_name}} ({{$products->color}}, {{$products->size}})</h1>
+            <h1>{{$products->product_name}}</h1>
             <p>Product ID:  {{$products->product_code}}</p>                                
             <h6>by<span> {{$products->category}}</span></h6>
-            <div class="product-phone-color product-switch">
-              <div class="row">
-                <div class="col-md-3 col-sm-3">
-                  <h3>Color</h3>
-                </div>
-                <div class="col-md-9 col-sm-9">
-                  <ul>    
-                    @foreach($colors as $color)   
-                    <li>
-                      <div class="control-checkbox">
-                        <input type="radio" required name="color" value="{{$color['id']}}">
-                       <h1 style="background-color:{{$color['color_code']}};width:30px;height: 20px;"></h1>
-                        <div class="control-indicator"></div>
-                      </div>  
-                    </li>
-                    @endforeach 
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="product-size product-switch">
-              <div class="row">
-                <div class="col-md-3 col-sm-3">
-                  <h3>Size</h3>
-                </div>
-                <div class="col-md-9 col-sm-9">
-                  <ul>
-                    
-                    @foreach($sizes as  $size)
-                    <li>
-                      <div class="control-checkbox">
-                        <input type="radio" required name="size" value="{{$size->id}}">
-                        <span>{{$size->size_name}}</span>
-                        <div class="control-indicator"></div>
-                      </div>  
-                    </li>
-                    @endforeach
-                  
-                  </ul>
-                </div>
-              </div>
-            </div>                                                                                                                        
+                                                                                                                                 
             <div class="product-price">
               <ul>                                                               
                 <li>                                                                                                                 
