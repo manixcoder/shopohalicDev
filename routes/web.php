@@ -6,6 +6,19 @@
  */
 //Route::get('/', 'PaymentController@index');
 //Route::post('/payment','PaymentController@payment');
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail for testing',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('skkustwar8@gmail.com')->send(new \App\Mail\MyTestMail($details));
+   
+    dd("Email is Sent.thank you");
+});
+
 Route::get('/admin/login', 'HomeController@adminLogin');
 Route::get('/', 'HomeController@index');
 Route::any('/product-detail/{id}', 'HomeController@productDetail'); 
@@ -211,6 +224,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['users', 'auth']], function 
     Route::any('myorder/{id}', 'Users\DashboardController@myOrderDetail');
     //Route::post('/save', 'Users\DashboardController@store');
     Route::get('deleteItem', 'Users\DashboardController@deleteItem');
+     Route::get('getDeliveryAddress', 'Users\DashboardController@getDeliveryAddress');
     Route::any('/cart', 'HomeController@cart'); 
 Route::any('/placeorder', 'HomeController@placeorder');
     

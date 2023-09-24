@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <select class="form-control" name="category" id="category" onchange="getSubCategory(this.value),getBrand('category',this.value);" required>
+                    <select class="form-control" name="category" id="category" onchange="getSubCategory(this.value);" required>
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -47,14 +47,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
-                  <div class="form-group">
-                    <select class="form-control" name="brand" id="brand_id" onchange="getSize(this.value);" required>
-                    <option value="">Select Brand</option>
-                   
-                    </select>
-                  </div>
-                </div>
+                
                   <div class="col-md-6 col-sm-6">
                   <div class="form-group">
                     <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Quantity" required>
@@ -102,20 +95,20 @@
             </div>
           </div>
           <div class="pricinginc_box">
-            <h4>Pricing <small>(Inclusive GST)</small></h4>
+            <h4>Pricing</h4>
            
               <div class="pricinginc-input form-group">
                 <label>Normal Price</label>
-                <input type="text"  class="form-control" id="price" name="price"  placeholder="00" required>
+                <input type="text"  class="form-control" id="price" name="price"  placeholder="Price" required>
                 <span class="doller">$</span>
               </div>
               <div class="pricinginc-input  form-group">
                 <label>Special Price</label>
-                <input type="text"  class="form-control" id="special_price" name="special_price" placeholder="00" required>
+                <input type="text"  class="form-control" id="special_price" name="special_price" placeholder="Special Price" >
                 <span class="doller">$</span>
               </div>
               <div class="stock-lasts-box">
-                <input type="radio" name="stock_type" value="till_stock_last" />
+                <input type="radio" name="stock_type" checked value="till_stock_last" />
                 <label>Till Stock Lasts</label>
                 <input type="radio" name="stock_type" value="date_range" />
                 <label>Date Range</label>
@@ -394,61 +387,7 @@ $     ('#sizetext').val(arr.toString());
         });
             }
 
-            function getBrand(type,category_id){
-
-
-    $.ajax({
-            url: "{{url('get-brand')}}",
-            method: "GET",
-            contentType: 'application/json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                "type": type,
-                "category": category_id,              
-            },
-            dataType: 'json',
-            success: function(response) {
-            var html='<option value="">select</option>';              
-               if(response)
-               {
-               $.each(response, function(index,value){
-              html+='<option value="'+value.id+'">'+value.brand_name+'</option>';
-                });
-               }
-               $('#brand_id').html(html);
-            }
-        });
-            }
-            function getSize(brand_id){
-            var category = $('#category').val();
-            var sub_category_id = $('#sub_category_id').val();
-           
-    $.ajax({
-            url: "{{url('get-size')}}",
-            method: "GET",
-            contentType: 'application/json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {                
-                "brand_id": brand_id,
-                "category_id": category,
-                "sub_category_id": sub_category_id,              
-            },
-            dataType: 'json',
-            success: function(response) {
-            var html='<option value="">select</option>';              
-               if(response)
-               {
-               $.each(response, function(index,value){
-              html+='<option value="'+value.id+'">'+value.size_name+'</option>';
-                });
-               }
-               $('#size').html(html);
-            }
-        });
-            }
+            
+            
 </script>
 @stop

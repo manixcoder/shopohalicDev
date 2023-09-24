@@ -53,21 +53,13 @@ $sizeData=explode(',',$productData->size);
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
-                  <div class="form-group">
-                    <select class="form-control" name="brand" id="brand_id" onchange="getSize(this.value);" required>
-                    <option value="">Select Brand</option>
-                    @foreach($brands as $brand)
-                    <option value="{{$brand->id}}" @if($productData->brand==$brand->id) selected @endif>{{$brand->brand_name}}</option>
-                    @endforeach   
-                   
-                    </select>
-                  </div>
-                </div>
+                
  <div class="col-md-6 col-sm-6">
                   <div class="form-group">
-                    <input class="form-control" type="text" id="product_code" name="product_code" placeholder="Quantity" required value="{{$productData->quantity}}">
+                    <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Quantity" required value="0">
+                    <span style="color:green"><strong>Left Quantity: {{$leftItem}}</strong></span>
                   </div>
+                 
                 </div>
                 
                                
@@ -92,7 +84,7 @@ $sizeData=explode(',',$productData->size);
                 <label>Upload Other Photos</label>
                 <div class="placeholder-img" id="image_preview">
                   @foreach($photoimage as $image)
-                <span class="photobox-img"><img src="{{url('/public/uploads/product_image')}}/{{$image['product_image']}}" alt="img" /></span>
+                <span class="photobox-img"><img src="{{url('/public/uploads/product_image/'.$productData->product_name)}}/{{$image['product_image']}}" alt="img" /></span>
                @endforeach
                 
                 </div>
@@ -111,30 +103,30 @@ $sizeData=explode(',',$productData->size);
             </div>
           </div>
           <div class="pricinginc_box">
-            <h4>Pricing <small>(Inclusive GST)</small></h4>
+            <h4>Pricing</h4>
            
               <div class="pricinginc-input form-group">
                 <label>Normal Price</label>
-                <input type="text"  class="form-control" id="price" name="price"  placeholder="00" required value="{{$productData->price}}">
+                <input type="text"  class="form-control" id="price" name="price"  placeholder="Price" required value="{{$productData->price}}">
                 <span class="doller">$</span>
               </div>
               <div class="pricinginc-input  form-group">
                 <label>Special Price</label>
-                <input type="text"  class="form-control" id="special_price" name="special_price" placeholder="00" required value="{{$productData->special_price}}">
+                <input type="text"  class="form-control" id="special_price" name="special_price" placeholder="Special Price"  value="{{$productData->special_price}}">
                 <span class="doller">$</span>
               </div>
               <div class="stock-lasts-box">
-                <input type="radio" name="stock_type" value="till_stock_last" />
+                <input type="radio" name="stock_type"  id="radio_1" @if($productData->stock_type=='till_stock_last') checked @endif value="till_stock_last" />
                 <label>Till Stock Lasts</label>
-                <input type="radio" name="stock_type" value="date_range"  />
+                <input type="radio" name="stock_type" id="radio_2" @if($productData->stock_type=='date_range') checked @endif value="date_range"  />
                 <label>Date Range</label>
               </div>
               <div class="date-rangebox" style="display:none;" >
                 <div class="start-date">
-                <input type="text"  class="form-control" id="start_date" name="start_date" placeholder="Start date">
+                <input type="text"  class="form-control" id="start_date" name="start_date" placeholder="Start date" value="{{$productData->start_date??''}}">
                 </div>
                 <div class="start-date end-date">
-                <input type="text"  class="form-control" id="end_date" name="end_date" placeholder="End date">
+                <input type="text"  class="form-control" id="end_date" name="end_date" placeholder="End date" value="{{$productData->end_date??''}}">
                 </div>
               </div>
            
@@ -175,7 +167,7 @@ $sizeData=explode(',',$productData->size);
               <a href="javascript:void(0);" class="add_button btn"><i class="fa fa-plus-circle" aria-hidden="true"></i> ADD ANOTHER SHIPPING AREA</a>
             </div>
           <div class="btn-addprod ">
-            <button type="submit" class="add-prodbtn">ADD PRODUCT</button>
+            <button type="submit" class="add-prodbtn">UPDATE PRODUCT</button>
           </div>
           </form>
         </div>
@@ -273,6 +265,16 @@ ui-lightness/jquery-ui.css'
     <script>
         $(document).ready(function() {
           
+if($("#radio_1").prop("checked"))
+{
+  $('.date-rangebox').css('display','none');
+   $('.date-rangebox').val('');
+}
+if($("#radio_2").prop("checked"))
+{
+  $('.date-rangebox').css('display','block');
+}
+
             $(function() {
                 $( "#start_date").datepicker({
                   dateFormat:"yy-mm-dd",
@@ -284,6 +286,7 @@ ui-lightness/jquery-ui.css'
              if($(this).val()=='till_stock_last')
              {
               $('.date-rangebox').css('display','none');
+              $('.date-rangebox').val('');
              }
              else if($(this).val()=='date_range')
              {

@@ -67,14 +67,27 @@
                     <h3 class="heading"><span>New Arrival</span></h3>
                 </div>
                 @foreach($alls as $all)
+                 @php
+
+                 $date1 = date("Y-m-d").''.'23:59:59';
+                 $date1=strtotime($date1);
+
+                  if($all->stock_type=='date_range' && strtotime($all->end_date.''.'23:59:59')<$date1)
+                  {
+                     continue;  
+                  }
+                  @endphp
                 <div class="col-md-3 col-sm-3 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                     <a href="{{URL::to('product-detail')}}/{{$all->id}}" class="arrival-content">
                         <figure>
                             <img src="{{url('/public/uploads/products')}}/{{$all->image}}" alt="i-phone-12" width="200" height="200">
                         </figure>
                         <h4>{{$all->product_name}}</h4>
-                        <p>Apple</p>
-                        <h5>$ {{$all->special_price}} <span>${{$all->price}}</span></h5>
+                        @if($all->special_price==Null || $all->special_price==0)
+                        <h5>${{$all->price}}</h5>
+                        @else
+                        <h5>$ {{$all->special_price}} <span><strike>${{$all->price}}</strike></span></h5>
+                        @endif
                     </a>
                 </div>
                 @endforeach
@@ -92,14 +105,27 @@
                 <div class="col-md-12 col-sm-12">
                     <h3 class="heading"><span>Featured Products</span></h3>
                      @foreach($alls as $all)
+                      @php
+
+                 $date1 = date("Y-m-d").''.'23:59:59';
+                 $date1=strtotime($date1);
+
+                  if($all->stock_type=='date_range' && strtotime($all->end_date.''.'23:59:59')<$date1)
+                  {
+                     continue;  
+                  }
+                  @endphp
                 <div class="col-md-3 col-sm-3 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
                     <a href="{{URL::to('product-detail')}}/{{$all->id}}" class="arrival-content">
                         <figure>
                             <img src="{{url('/public/uploads/products')}}/{{$all->image}}" alt="i-phone-12" width="200" height="200">
                         </figure>
                         <h4>{{$all->product_name}}</h4>
-                        <p>Apple</p>
-                        <h5>$ {{$all->special_price}} <span>${{$all->price}}</span></h5>
+                         @if($all->special_price==Null || $all->special_price==0)
+                        <h5>${{$all->price}}</h5>
+                        @else
+                        <h5>$ {{$all->special_price}} <span><strike>${{$all->price}}</strike></span></h5>
+                        @endif
                     </a>
                 </div>
                 @endforeach

@@ -81,9 +81,9 @@ input:checked + .slider:before {
             <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
       <thead>
         <tr>
-          <th class="no-sort">Banner Name</th>
-          <th class="no-sort">Category</th>
-           <th class="no-sort">Sub Category</th>
+          <th class="no-sort">Parent Category</th>
+          <th class="no-sort">Brand</th>
+           <th class="no-sort">Model</th>
           <th class="no-sort">Action</th>
 
         </tr>

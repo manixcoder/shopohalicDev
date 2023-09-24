@@ -6,8 +6,8 @@
       <li><a href="{{ url('admin/subscribers') }}">Subscribers</a></li>
       <li><a href="{{ url('admin/category') }}">Category</a></li>
       <li><a href="{{ url('admin/brands') }}">Brand</a></li>
-      <li><a href="{{ url('admin/colors') }}">Color</a></li>
-      <li><a href="{{ url('admin/sizes') }}">Size</a></li>
+      <!-- <li><a href="{{ url('admin/colors') }}">Color</a></li>
+      <li><a href="{{ url('admin/sizes') }}">Size</a></li> -->
       <li><a href="{{ url('admin/orderstatus') }}">Order Status</a></li>
       <li><a href="{{ url('admin/commission') }}">Commission</a></li>
       <li><a href="{{ url('admin/order-settings') }}">Order Settings</a></li>

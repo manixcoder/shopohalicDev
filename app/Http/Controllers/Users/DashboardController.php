@@ -164,6 +164,7 @@ public function getShippingAddress(Request $request){
         $order_no=$request->session()->get('order_no');
         $amounts=$request->session()->get('amount');
 
+
         $token = $this->createToken($request);
 
         if (!empty($token['error'])) {
@@ -191,6 +192,24 @@ public function getShippingAddress(Request $request){
           $array=array('status' =>$charge['status'],'response'=> $response,'payment_date'=>$response['payment_date']);
        
             Payment::where('order_no',$order_no)->update(['status' =>$charge['status'],'response'=> json_encode($response),'payment_date'=>$response['payment_date']]);
+            /////////////
+            $orderRecords=OrderItem::where('order_no',$order_no)->get();
+            foreach($orderRecords as $order)
+            {
+                 $count = \App\Models\ProductTotalSalesRecord::where('product_id',$order->product_id)->get()->count();
+                 if($count==1)
+                 {
+                    //update
+                    $productsRecord = \App\Models\ProductTotalSalesRecord::where('product_id',$order->product_id)->first();
+                    $product_quantity=$productsRecord->product_quantity;
+                    $sales_quantity=$productsRecord->sales_quantity+$order->quantity;
+                    $left_quantity=$product_quantity-$sales_quantity;
+                    \App\Models\ProductTotalSalesRecord::where('product_id',$order->product_id)->update(['sales_quantity' =>$sales_quantity,'left_quantity'=>$left_quantity]);
+                 }
+                
+            }
+
+
 
             $request->session()->flash('success', 'Payment completed.');
              return view('users/payment-completed');
@@ -230,7 +249,7 @@ public function getShippingAddress(Request $request){
     }
 
     private function createCharge($tokenId, $amount)
-    {
+    {  
         $charge = null;
         try {
             $charge = $this->stripe->charges->create([
@@ -244,6 +263,7 @@ public function getShippingAddress(Request $request){
         } catch (Exception $e) {
             $charge['error'] = $e->getMessage();
         }
+           
         return $charge;
     }
     public function myOrder()

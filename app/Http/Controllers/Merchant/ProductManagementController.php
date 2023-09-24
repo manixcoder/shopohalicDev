@@ -14,6 +14,7 @@ use App\Models\Shipping;
 use App\Models\Size;
 use App\Models\ProductItemStore;
 use App\Models\ProductTotalItemStore;
+use App\Models\ProductTotalSalesRecord;
 use Auth;
 use DB;
 
@@ -71,8 +72,8 @@ class ProductManagementController extends Controller
         $data->product_name=$request->input('product_name');
         $data->product_code=$request->input('product_code');
         $data->category=$request->input('category');
+        $data->description=$request->input('description');
         $data->sub_category_id=$request->input('sub_category_id')??0;
-        $data->brand=$request->input('brand');
         $data->quantity=$request->input('quantity');        
         $data->created_by=$id;        
         $data->price=$request->input('price');
@@ -86,15 +87,25 @@ class ProductManagementController extends Controller
              $imageName = time().'.'.$image->extension();  
              $data->image=$imageName;
             $request->image->move(public_path('uploads/products'), $imageName);
-            $data->save();
          }
+          $data->save();
+         //Sales Record
+        $salesRecord = new ProductTotalSalesRecord();
+        $salesRecord->product_id=$data->id;
+        $salesRecord->product_quantity=$request->input('quantity');
+        $salesRecord->sales_quantity=0;
+        $salesRecord->left_quantity=$request->input('quantity');
+        $salesRecord->save();
         $files = [];
        
+        
+
         if ($request->hasfile('photo_image')) {
             $images = $request->file('photo_image');
-            foreach($images as $image) {
-                $imageName = time().'.'.$image->extension();  
-                $image->move(public_path('uploads/product_image'), $imageName);
+            $product_folder_name=$request->input('product_name');
+            foreach($images as $key=>$image) {
+                $imageName = $key.'-'.time().'.'.$image->extension();  
+                $image->move(public_path('uploads/product_image/'.$product_folder_name), $imageName);
                 $file= new PhotoImaage();
                 $file->product_id = $data->id;
                 $file->product_image = $imageName;
@@ -104,6 +115,8 @@ class ProductManagementController extends Controller
          $locations=$request->input('location');
          $costs=$request->input('cost');
          $deliverys=$request->input('delivery');
+       
+       
          if (count($locations)>0) {
             if($request->input('pickup')==1)
             {
@@ -111,6 +124,8 @@ class ProductManagementController extends Controller
                 $costs[]=0;
                 $deliverys[]='0 Days';
             }
+            if($locations[0]!='')
+            {
             foreach($locations as $key=>$location) {               
                 $data1= new Shipping();
                 $data1->merchant_id = $id;
@@ -120,8 +135,12 @@ class ProductManagementController extends Controller
                 $data1->expected = $deliverys[$key];
                 $data1->save();
             }
+        } 
+       
          }
       
+
+
        return redirect('/merchant/products-management')->with('success', 'Product created successfully.');
     }
 
@@ -149,17 +168,12 @@ class ProductManagementController extends Controller
         $photoimage  = PhotoImaage::select('product_image')->where('product_id',$id)->get();
         $categories=Category::where('parent_id','N/A')->get();
         $shippings=Shipping::where('product_id',$id)->get();
-
-
-        $colors=Color::get();
-        $brands=Brand::get();
-        $sizes=Size::get();
-
+        $leftItem = leftItem($id);
         $sub_categories=Category::where('parent_id',$productData->category)->get();
       
         return view('merchant.product.edit')->with(array(
             'productData' => $productData,'categories'=>$categories,'shippings'=>$shippings,
-            'colors'=>$colors,'sub_categories'=>$sub_categories,'brands'=>$brands,'sizes'=>$sizes,'photoimage'=>$photoimage
+            'sub_categories'=>$sub_categories,'photoimage'=>$photoimage,'leftItem'=>$leftItem
         ));
       // // dd($categoryData);
       //  return view('merchant.product.edit')->with(array(
@@ -177,20 +191,18 @@ class ProductManagementController extends Controller
     public function update(Request $request, $id)
     { 
 
+
        $user_id=Auth::user()->id;
         $data=Products::find($id);
         $data->product_name=$request->input('product_name');
         $data->product_code=$request->input('product_code');
         $data->category=$request->input('category');
         $data->sub_category_id=$request->input('sub_category_id')??0;
-        $data->brand=$request->input('brand');
-        $data->color=implode(',',$request->input('color'));       
-        $data->description==$request->input('description');    
-        $data->created_by=$id; 
+        $data->description=$request->input('description');  
         $data->special_price=$request->input('special_price');
         $data->stock_type=$request->input('stock_type')??'';
-        $data->start_date=$request->input('start_date');
-        $data->end_date=$request->input('end_date');
+        $data->start_date=$request->input('stock_type')=='date_range'?$request->input('start_date'):NULL;
+        $data->end_date=$request->input('stock_type')=='date_range'?$request->input('end_date'):NULL;
         $data->shipping=$request->input('shipping');
         $data->expected=$request->input('expected');
         $data->pickup=$request->input('pickup');
@@ -199,8 +211,9 @@ class ProductManagementController extends Controller
              $imageName = time().'.'.$image->extension();  
              $data->image=$imageName;
             $request->image->move(public_path('uploads/products'), $imageName);
-            $data->save();
+           
          }
+          $data->save();
         $files = [];
        
         if ($request->hasfile('photo_image')) {
@@ -214,6 +227,13 @@ class ProductManagementController extends Controller
                 $file->save();
             }
          }
+         //update
+        $productsRecord = \App\Models\ProductTotalSalesRecord::where('product_id',$id)->first();
+          $product_quantity=$productsRecord->product_quantity+$request->input('quantity');
+          $left_quantity=$productsRecord->left_quantity+$request->input('quantity');
+          \App\Models\ProductTotalSalesRecord::where('product_id',$id)->update(['product_quantity' =>$product_quantity,'left_quantity'=>$left_quantity]);
+
+
          // $locations=$request->input('location');
          // $costs=$request->input('cost');
          // $deliverys=$request->input('delivery');
