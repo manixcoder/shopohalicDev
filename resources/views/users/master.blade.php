@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-2 col-sm-2">
-                        <a class="logo" href="{{ URL::to('/users') }}">
+                        <a class="logo" href="{{ URL::to('/') }}">
                             <img src="{{ asset('public/frontAssets/images/logo.jpg') }}" alt="logo">
                         </a>
                     </div>

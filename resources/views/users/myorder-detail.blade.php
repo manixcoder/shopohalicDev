@@ -17,8 +17,7 @@
         <th>Product</th>
         <th>Quantity</th>
         <th>Price</th>
-        <th>Size</th>
-        <th>Color</th>
+        
         
       </tr>
     </thead>
@@ -29,8 +28,7 @@
         <td>{{$order->product_id}}</td>
         <td>{{$order->quantity}}</td>
         <td>{{$order->price}}</td>
-        <td>{{$order->Size}}</td>
-        <td>{{$order->color}}</td>
+       
       
       </tr>
     @Endforeach

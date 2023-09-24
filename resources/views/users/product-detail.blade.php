@@ -19,7 +19,7 @@
       </div>                    
     </div>                                                                           
   </div>                                                                                                         @if(Session::has('message'))
-<p class="alert alert-info" id="alertMessage">{{ Session::get('message') }}</p>
+<p class="alert alert-danger" id="alertMessage">{{ Session::get('message') }}</p>
 @endif                                                                                                          <form method="POST" action="{{ url('/product-detail/'.$products->id) }}" enctype="multipart/form-data">                                                        
   <div class="single-product">
     <div class="container">                
@@ -37,7 +37,7 @@
             @foreach($product_image as $image)
             <li>
               <div class="thumbnail-box">
-                <img src="{{url('/public/uploads/product_image')}}/{{$image->product_image}}" height="60" width="60">
+                <img src="{{url('/public/uploads/product_image/'.$products->product_name)}}/{{$image->product_image}}" height="60" width="60">
               </div>
             </li>   
             @endforeach                
@@ -52,27 +52,71 @@
             <h6>by<span> {{$products->category}}</span></h6>
                                                                                                                                  
             <div class="product-price">
-              <ul>                                                               
-                <li>                                                                                                                 
+              <ul>                                                                               @if($products->special_price==Null || $products->special_price==0)
+                        <li>                                   
+                  <h3>Normal Price</h3>
+                  <h2>${{$products->price}}</h2>
+                  <p>Tax Included | Free Shipping</p>
+                </li>
+                @else
+                <li>                                   
                   <h3>Normal Price</h3>
                   <h4>${{$products->price}}</h4>
-                </li>                                                                                                                       
+                </li>
                 <li>                                             
                   <h3>Special Price</h3>
                   <h2>${{$products->special_price}}</h2>
                 </li>                                 
-                <li>                                                                                                                       
+                <li>
                   <h3>Save</h3>                                          
-                  <h5>${{$products->price-$products->special_price}} <span>5% off</span></h5>
-                </li>
+                  <h5>${{$products->price-$products->special_price}} </h5>
+                   </li>
+                        @endif                                           
+                   <li>
+                  <h3>Stock</h3>                                          
+                  <h5>@if($leftItem>0) Only {{$leftItem}} units left @else Out of Stock @endif</h5>
+                   </li>                                                                                                                    
+                  
+               
               </ul>
-            </div>                            
+            </div>  
+              @if($shippings->count()>0)
+            <div class="col-md-12 col-sm-12 product-shipping">
+             
+          <h3>Shipping</h3>
+          <div class="table-responsive">
+            <table class="table">
+                <thead> 
+                  <tr>                                                                    
+                   <th></th> <th>Location</th><th>Cost</th><th>Delivery Day</th> 
+                  </tr> 
+                </thead> 
+              <tbody> 
+               
+                @foreach($shippings as $shipping)
+
+                <tr>
+                  <td><input type="radio" name="shipping" value="{{$shipping->id.','.$shipping->location}}" required></td>
+                  <td>{{$shipping->location}}</td>
+                  <td>{{$shipping->cost}}</td>
+                   <td>{{$shipping->expected}}</td>
+                </tr> 
+               @endforeach
+              
+              </tbody>
+             </table> 
+          </div>
+         
+        </div>      
+          @endif                    
             <div class="cart-btn">
            
             {{ csrf_field() }}
+            @if($leftItem>0)
               <button>ADD TO CART</button>
+              @endif
 
-              <button class="buy-btn">BUY NOW</button>
+              <!-- <button class="buy-btn">BUY NOW</button> -->
             </div>
           </div>
         </div>
@@ -87,32 +131,46 @@
           <h3>Product Description</h3>
          {{$products->description}}
         </div>                                                                                                          
-        <div class="col-md-12 col-sm-12 product-shipping">
-          <h3>Shipping</h3>
-          <div class="table-responsive">
-            <table class="table">
-                <thead> 
-                  <tr>                                                                    
-                   <th></th> <th>Location</th><th>Cost</th><th>Delivery Day</th> 
-                  </tr> 
-                </thead> 
-              <tbody> 
-                @foreach($shippings as $shipping)
-                <tr>
-                  <td><input type="radio" name="shipping" value="{{$shipping->id}}" required></td>
-                  <td>{{$shipping->location}}</td>
-                  <td>{{$shipping->cost}}</td>
-                   <td>{{$shipping->expected}}</td>
-                </tr> 
-               @endforeach
-              </tbody>
-             </table> 
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
   </form>  
+   <div class="arrival-sec featured-sec">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h3 class="heading"><span>similar products</span></h3>
+                     @foreach($alls as $all)
+                      @php
+
+                 $date1 = date("Y-m-d").''.'23:59:59';
+                 $date1=strtotime($date1);
+
+                  if($all->stock_type=='date_range' && strtotime($all->end_date.''.'23:59:59')<$date1)
+                  {
+                     continue;  
+                  }
+                  @endphp
+                <div class="col-md-3 col-sm-3 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                    <a href="{{URL::to('product-detail')}}/{{$all->id}}" class="arrival-content">
+                        <figure>
+                            <img src="{{url('/public/uploads/products')}}/{{$all->image}}" alt="i-phone-12" width="200" height="200">
+                        </figure>
+                        <h4>{{$all->product_name}}</h4>
+                         @if($all->special_price==Null || $all->special_price==0)
+                        <h5>${{$all->price}}</h5>
+                        @else
+                        <h5>$ {{$all->special_price}} <span><strike>${{$all->price}}</strike></span></h5>
+                        @endif
+                    </a>
+                </div>
+                @endforeach
+                </div>
+               
+            </div>
+        </div>
+    </div>
   <!-- Optional JavaScript; choose one of the two! -->
   <script src="{{ asset('public/frontAssets/js/pgwslider.min.js') }}"></script>
     <script>
@@ -124,20 +182,6 @@
     $('#alertMessage').fadeOut('show');
 }, 2000); // <-- time in milliseconds
     </script>
-    <script>
-var options1 = {
-    width: 400,
-    zoomWidth: 500,
-    offset: {vertical: 0, horizontal: 10}
-};
-
-// If the width and height of the image are not known or to adjust the image to the container of it
-var options2 = {
-    fillContainer: true,
-    offset: {vertical: 0, horizontal: 10}
-};
-new ImageZoom(document.getElementById("img-container"), options2);
-
-</script>
+    
 
     @stop

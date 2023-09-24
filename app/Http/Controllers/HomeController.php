@@ -20,6 +20,8 @@ use App\Models\Shipping;
 use App\Models\Payment;
 use App\models\Subscription;
 use App\Models\UserOrderAddress;
+use App\Models\UserDeliveryAddress;
+
 use DB,Session;
 
 class HomeController extends Controller
@@ -39,7 +41,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
+
         $categories=Category::get();
         $alls=Products::get();
         return view('users.index')->with(array('categories'=>$categories,'alls' => $alls));
@@ -71,48 +73,42 @@ class HomeController extends Controller
             'message' => 'you are not authorized to login here !'
         ]);
     }
-    public function getLicenseClassByCountry(Request $request, $id)
-    {
-        try {
-            $list = LicenseClassModel::Where('country_id', $id)
-                ->orderBy('license_class', 'ASC')
-                ->get();
-            if ($list) {
-                $data['status'] = 'success';
-            } else {
-                $data['status'] = 'error';
-            }
-            $data['list'] = $list;
-            return response()->json($data);
-        } catch (\Exception $e) {
-            return response()->json(array('status' => 'error', 'message' => $e->getMessage()));
-        }
-    }
+    
     public function productDetail(Request $request, $id)
-    {  
+    { 
+    $leftItem = leftItem($id); 
        if($_POST)
         {
-           $check=CartItem::where('product_id',$id)->first(); 
+            
+           if($leftItem==0) 
+           {
+            redirect()->back()->with('message', 'Item Out of Stock');
+           }
+           else{
+            $check=CartItem::where('product_id',$id)->first();
            if(!$check) 
-           {           
+           {   
+           $delivery=explode(',',$request->input('shipping'));        
            $CartItem=new CartItem();
            $CartItem->product_id=$id;
            $CartItem->ip_address=$_SERVER['REMOTE_ADDR'];
-           $CartItem->session_id=session_id();
            $CartItem->quantity=1;
-           $CartItem->shipping=$request->input('shipping');
+           $CartItem->shipping=$delivery[0];
+           $CartItem->delivery_type=$delivery[1];
            $CartItem->save();
        }
        else{
         redirect()->back()->with('message', 'Product already taken in cart');
        }
+   }
         }
         $products=Products::select('products.*','category.category_name')
         ->leftjoin('category','category.id','products.category')        
         ->where('products.id',$id)->first();
         
-
+       $leftItem = leftItem($id);
        
+        $alls=Products::limit(3)->get();
          $sub_category_name="";
         if($products->sub_category_id!=0)
         $sub_category_name=Category::where('id',$products->sub_category_id)->value('category_name');
@@ -123,24 +119,25 @@ class HomeController extends Controller
         $size=explode(',',$products->size);     
         $sizes=ProductTotalItemStore::select('sizes.id','sizes.size_name')->join('sizes','sizes.id','product_total_item_store.size_id')->where('product_total_item_store.product_id',$products->id)->get();
         $shippings=Shipping::where('product_id',$id)->get();
-        return view('users.product-detail')->with(array('products'=>$products,'product_image' => $product_images,'colors' => $colors,'sizes' => $sizes,'sub_category_name'=>$sub_category_name,'shippings'=>$shippings))->with('message', 'Product set in cart');
+        return view('users.product-detail')->with(array('products'=>$products,'product_image' => $product_images,'colors' => $colors,'sizes' => $sizes,'sub_category_name'=>$sub_category_name,'shippings'=>$shippings,'leftItem'=>$leftItem,'alls'=>$alls))->with('message', 'Product set in cart');
     }
     public function cart(){
 
-$products = Products::select('cart_item.id as cart_id','cart_item.shipping','products.id as product_id','products.product_name as product_name','products.product_code','products.brand','products.color','products.size','shipping_costs.cost','products.special_price','category.category_name','products.price','products.image','colors.color_code','shipping_costs.expected')->join('cart_item', 'products.id', 'cart_item.product_id','category.category_name')
+$products = Products::select('cart_item.id as cart_id','cart_item.shipping','cart_item.delivery_type','products.id as product_id','products.product_name as product_name','products.product_code','products.brand','products.color','products.size','shipping_costs.cost','products.special_price','category.category_name','products.price','products.image','colors.color_code','shipping_costs.expected')->join('cart_item', 'products.id', 'cart_item.product_id','category.category_name')
          ->join('category', 'category.id', 'products.category')
          ->leftjoin('colors', 'colors.id', 'cart_item.color')
          ->leftjoin('shipping_costs', 'shipping_costs.id', 'cart_item.shipping')
         ->Where('cart_item.ip_address', $_SERVER['REMOTE_ADDR'])
         ->get()->toArray();  
-       
+       $UserDeliveryAddress=UserDeliveryAddress::where('user_id',Auth::id())->get()->toArray(); 
 
          $commission=Commission::where('commission_title','GST')->first();
-        return view('users.cart')->with(array('products'=>$products,'commission'=>$commission->commission_percentage));
+        return view('users.cart')->with(array('products'=>$products,'commission'=>$commission->commission_percentage,'UserDeliveryAddress'=>$UserDeliveryAddress));
     }
      public function placeorder(Request $request){
-
-        $session_id = session_id();       
+        $token=generateRandomStringToken();
+        $request->session()->put('token',$token);
+           
          $this->middleware('auth');
         if (Auth::check()) {
             $user_id=Auth::id();
@@ -149,75 +146,46 @@ $products = Products::select('cart_item.id as cart_id','cart_item.shipping','pro
             $price=$request->input('price');
             $shipping=$request->input('shipping');
             $shipping_cost=$request->input('shipping_cost');
+            $deliveryAddress=$request->input('deliveryAddress');
             foreach($product_ids as  $key=>$product)
                {
                 $data =new OrderItem();
                 $data->product_id=$product_ids[$key];
                 $data->quantity=$quantity[$key];
                 $data->price=$quantity[$key]*$price[$key];
-                $data->ip_address=$_SERVER['REMOTE_ADDR'];
-                $data->session_id= $session_id;
                 $data->shipping= $shipping[$key];
                 $data->shipping_cost=  $shipping_cost[$key];
-                
+                $data->shipping_address=$deliveryAddress[$key];
+                $data->token=  $token;
                 $data->user_id=$user_id;
                 $data->save();
                }
+               UserDeliveryAddress::where('user_id',$user_id)->delete();
+               foreach($deliveryAddress as  $key=>$address)
+               {
+                if($deliveryAddress[$key]=='Pickup')
+                    continue;
+
+                $DeliveryAddress =new UserDeliveryAddress();
+                $DeliveryAddress->user_id=$user_id;
+                $DeliveryAddress->delivery_address=$deliveryAddress[$key];
+                $DeliveryAddress->save();
+               }
            CartItem::whereIn('product_id',$product_ids)->delete();
-           return redirect('/shipping-address');
+           return redirect('/review-order');
         }
         else{
             return redirect('/login');
         }
     }
-    public function shippingAddress(Request $request){
 
-if($request->isMethod('post')){  
-        try {
-            $user_id=Auth::id();
-            $UserOrderAddress = new UserOrderAddress();
-            if($request->address_type=='ship_it' || $request->address_type=='pick_up')
-            {
-             $add = explode(', ',$request->address);  
-            $UserOrderAddress->name =Auth::user()->first_name.' '.Auth::user()->last_name;
-            $UserOrderAddress->session_id = session_id();
-             $UserOrderAddress->user_id=$user_id;
-            $UserOrderAddress->address =$add['0'];
-            $UserOrderAddress->suburb = $add['1'];
-            $UserOrderAddress->city = $add['2'];
-            $UserOrderAddress->zip_code = $add['4'];
-            $UserOrderAddress->state = $add['3'];
-            $UserOrderAddress->address_type=$request->address_type;
-            }else{
-            $UserOrderAddress->name =$request->first_name.' '.$request->last_name;
-            $UserOrderAddress->session_id = session_id();
-            $UserOrderAddress->user_id=$user_id;
-            $UserOrderAddress->address = $request->other_address;
-            $UserOrderAddress->suburb = $request->suburb;
-            $UserOrderAddress->city = $request->city;
-            $UserOrderAddress->zip_code = $request->zip_code;
-            $UserOrderAddress->state = $request->state;
-            $UserOrderAddress->address_type='';
-        }
-            $UserOrderAddress->save();
-
-            return redirect('/review-order')->with(array('status' => 'success', 'message' => 'Addess details updated successfully!'));
-        } catch (\Exception $e) {
-             echo $e->getMessage();
-             die;
-            return back()->with(array('status' => 'danger', 'message' => $e->getMessage()));
-        }
-    }
-     
-       return view('users.shippingAddress');
-    }
     public function reviewOrder(Request $request){  
-
+        $token = $request->session()->get('token'); 
        $user_id=Auth::user()->id;    
        $products = Products::join('order_item', 'products.id', 'order_item.product_id','category.category_name')
          ->join('category', 'category.id', 'products.category')
          ->leftjoin('colors', 'colors.id', 'order_item.color')
-        ->Where('order_item.session_id',session_id())
+        ->Where('order_item.token',$token)
         ->Where('order_item.order_no',null)
         ->get()->toArray();  
 
@@ -228,18 +196,21 @@ if($request->isMethod('post')){
          return view('users.reviewOrder')->with(array('product_orders' => $products, 'commission' => $commission,'address'=>$address));
     }
     public function payNow(Request $request){
+
+       $token = $request->session()->get('token'); 
+
         $amount=$request->input('total_amount');
         $user_id=Auth::id();
         $payment=new Payment();
         $payment->amount=$request->input('total_amount');
         $payment->user_id=$user_id;
-        $payment->session_id=session_id();
+        $payment->token=$token;
         $payment->order_date=date('Y-m-d h:i');        
         $payment->save();
         $order_no='OR_'.$user_id.'-'.$payment->id;
         Payment::where('id',$payment->id)->update(array('order_no' => $order_no));
-        OrderItem::where('session_id',session_id())->update(array('order_no' => $order_no));
-        UserOrderAddress::where('session_id',session_id())->update(array('order_no' => $order_no));
+        OrderItem::where('token',$token)->update(array('order_no' => $order_no));
+        UserOrderAddress::where('token',$token)->update(array('order_no' => $order_no));
         $request->session()->put('order_no',$order_no);
         $request->session()->put('amount',$amount.'00');
        

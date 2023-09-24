@@ -49,18 +49,9 @@
                         <div class="cart-contant">
                           <h2>{{$product['product_name']}}</h2>
                           <h3>{{$product['category_name']}}</h3>
-                          <ul>
-                            <li>
-                              <div style="display: inline-block;width: 20px;height: 20px;background:{{$product['color_code']}};border-radius: 2px;vertical-align: middle;"></div>
-                              <h4>{{$product['color_name']}}</h4>
-                            </li>
-                            <li>                             
-                              <h5><small>128</small> Size</h5>
-                            </li>
-                          </ul>                                                   
-                          <!--<div class="seller">Seller XYZSeller</div>-->
-                          <p>Delivered by {{$product['expected']}}</p>
+                          <p>Delivered by {{deliveryDays($product['shipping'])}}</p>
                           <div class="shipping-text">Shipping cost - ${{$product['shipping_cost']}}</div>
+                          <p>Delivered Address {{$product['shipping_address']}}</p>
                         </div>                     
                       </div>             
                     </td>
@@ -71,8 +62,12 @@
                       </div>
                     </td>
                     <td>
+                       @if($product['special_price']==Null || $product['special_price']==0)
+                      <h6>$ {{$product['price']}}</h6>
+                      @else
                       <h6>$ {{$product['special_price']}}</h6>
                       <span>${{$product['price']}}</span>
+                      @endif
                     </td>
                   </tr> 
                  @endforeach
@@ -80,17 +75,7 @@
              </table> 
             </div>                      
           </div>  
-          <div class="row shipping-address">
-            <div class="col-md-6 col-sm-6">
-              <h3>Shipping Address</h3>
-              <address>
-                {{$address->name}}
-               <br />  {{$address->suburb}} <br /> {{$address->city}} <br /> {{$address->state}},  {{$address->zip_code}}<br /> 
-               
-              </address>
-            </div>
-              
-          </div>                       
+                               
         </div>
         <div class="col-md-4 col-sm-4">
           <div class="subtotal-part">
@@ -105,16 +90,16 @@
                 <h3>$ {{$cost}}</h3>
               </li>
               <li>                                                                                   
-                <p>GST({{$commission.'%'}})</p>
-                <h3>$ {{($total+$cost)*$commission/100}}</h3>
+                
+              
               </li>
               <li>
                 <p>Final Payment</p>
-                <h3>$ {{$total+$cost+(($total+$cost)*$commission/100)}}</h3>
+                <h3>$ {{$total+$cost}}</h3>
               </li>
             </ul>            
             <div class="order-btn text-center">
-              <input type="hidden" name="total_amount" value="{{$total+$cost+(($total+$cost)*$commission/100)}}">
+              <input type="hidden" name="total_amount" value="{{$total+$cost}}">
               <button>PAY NOW</button>
             </div>
           </div>
@@ -131,7 +116,7 @@
     }); 
     function changeAmount(quantity,price,id){
      var qty_price = quantity*price;
-     var commission =  parseInt($("#commission").text());
+    
      $("#special_price_"+id).text(qty_price);
       var total_item_value=0;
      $(".special_price_val").each(function() {
