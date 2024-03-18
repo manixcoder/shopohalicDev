@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_image',
         'address',
         'city',
+        'phone',
         'zip_code',        
         'general_layality',
         'status',
@@ -36,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'last_login',
         'email_verified_at',
+        'remember_token',
     ];
     /**
      * The attributes that should be hidden for arrays.

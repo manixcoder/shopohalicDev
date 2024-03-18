@@ -1,70 +1,65 @@
-@extends('layouts.auth')
+@extends('layouts.masters.home')
 @section('content')
- 
-<div class="login-register" style="background-image:url({{ asset('public/assets/admin/images/background/login-register.jpg') }});">
-    <div class="login-box card">
-        <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
+<div class="login-box text-center container-fluid">
+    <h2>Reset Password</h2>
+    <div id="loginform" class="mt-30 row">
+        <form method="POST" id="resetPasswordForm" action="{{ route('password.update') }}">
+            @csrf
+
+            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="hidden" name="user_type" value="{{ request()->type }}">
+
+            <div class="form-group has-feedback col-sm-12 pr-0 pl-0">
+                <span class="fa fa-user form-control-feedback"></span>
+                <input id="email" type="email" class="form-control required" name="email"
+                    value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+            </div>
+
+            <div class="form-group has-feedback col-sm-12 pr-0 pl-0">
+                <span class="fa fa-lock form-control-feedback"></span>
+                <input type="password" data-placement="bottom" data-toggle="popover" data-trigger="focus"
+                    data-html="true" data-content='<div id="errors"></div>'
+                    class="form-control required passwordStrength" id="password" name="password"
+                    placeholder="New password" autocomplete="off">
+            </div>
+
+            <div class="form-group has-feedback col-sm-12 pr-0 pl-0">
+                <span class="fa fa-lock form-control-feedback"></span>
+                <input id="password-confirm" type="password" class="form-control required" name="password_confirmation"
+                    required autocomplete="off" placeholder="Confirm password">
+            </div>
+            @if(count($errors))
+            <div class="clearfix"></div>
+            <div class="alert alert-danger alert-validations text-left">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
-            <form class="form-horizontal form-material" method="POST" id="loginform" action="{{ route('password.update') }}">
-                @csrf
-
-                <input type="hidden" name="token" value="{{ $token }}">
-                <h3 class="box-title m-b-20">{{ __('Reset Password') }}</h3>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-                            @error('email')
-                            <span class="invalid-feedback" style="display:block !important" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-
-                    </div>
-                </div>
-
-
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                        @error('password')
-                            <span class="invalid-feedback" style="display:block !important" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-                </div>
-
-
-                <div class="form-group ">
-                    <div class="col-xs-12">
-
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
- 
-                    </div>
-                </div>
-
-
-
-                <div class="form-group text-center m-t-20">
-                    <div class="col-xs-12">
-                        <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit"> {{ __('Reset Password') }}</button>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
+            @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+            @endif
+            <button type="submit" class="btn btn-primary">
+                {{ __('Reset Password') }}
+            </button>
+        </form>
     </div>
 </div>
-   
-
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$(function() {
+    $('#resetPasswordForm').validate();
+    $("#password-confirm").rules('add', {
+        equalTo: "#password",
+        messages: {
+            equalTo: "Not matched with password."
+        }
+    });
+});
+</script>
 @endsection

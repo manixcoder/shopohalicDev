@@ -20,19 +20,27 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $usersData = User::with(['getRole'])
-            ->whereHas('roles', function ($q) {
-                $q->where('name', 'users');
-            })->get()->count();
-        $merchantData = User::with(['getRole'])
-            ->whereHas('roles', function ($q) {
-                $q->where('name', 'merchant');
-            })->get()->count();
+    public function index(Request $request)
+    {     
+        $start_date='';
+        $end_date='';       
+    if($request->isMethod('GET')){
+        if(!empty($request->start_date)) $start_date =$request->start_date;
+        if(!empty($request->end_date)) $end_date = $request->end_date;       
+    }
+        $usersData = User::where('user_role', '3')->whereBetween('created_at', [$start_date.' 00:00:00',$end_date.' 23:59:59'])->count();
+        $merchantData = User::where('user_role', '2')->whereBetween('created_at', [$start_date.' 00:00:00',$end_date.' 23:59:59'])->count();            
+        $totalOrder = \App\Models\Payment::where('status','succeeded')->whereBetween('created_at', [$start_date.' 00:00:00',$end_date.' 23:59:59'])->count();
+        $totalSale = \App\Models\Payment::where('status','succeeded')->whereBetween('created_at', [$start_date.' 00:00:00',$end_date.' 23:59:59'])->sum('amount');
+        $totalCancel = \App\Models\Payment::where('status',null)->whereBetween('created_at', [$start_date.' 00:00:00',$end_date.' 23:59:59'])->count();
         return view('admin.dashboard.index')->with(array(
             'usersData' => $usersData,
-            'merchantData' => $merchantData
+            'merchantData' => $merchantData,
+            'totalOrder' => $totalOrder,
+            'totalSale' => $totalSale,
+            'totalCancel' => $totalCancel,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
         ));
     }
     /**

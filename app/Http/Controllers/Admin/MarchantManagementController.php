@@ -17,22 +17,12 @@ class MarchantManagementController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data  = User::where('user_role','2')->where('isDelete','0')->get();
-          
-            return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-     
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-    
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-        }
+         $userData = User::where('user_role','3')->where('isDelete','0')->get();
+        return view('admin.merchant.index')->with(array(
+            'usersData' => $userData,
+           
+        ));
        
-        return view('admin.merchant.index');
     }
 
     /**
@@ -72,7 +62,7 @@ class MarchantManagementController extends Controller
         $userData = User::find($id);
         $status=$userData->status==0?'1':'0';
         $result=DB::table('users')->where('id', $id)->update(array('status' => $status));
-        echo $result;
+        echo $status;
         die;
     }
 

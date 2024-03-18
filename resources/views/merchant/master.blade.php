@@ -30,7 +30,7 @@
       <div class="container">
         <div class="row">
             <div class="col-md-2 col-sm-3 text-center">
-            <a href="{{ URL::to('/') }}">
+            <a href="{{ URL::to('/merchant') }}">
           <img src="{{ asset('public/merchantassets/images/logo.png') }}" alt="logo" width="150px"> </a>
             </div>                          
 
@@ -38,15 +38,13 @@
               <ul class="marchent-menu">
                 <li>
                 <a href="#" class="bell-icon">
-              @if(Auth::user()->profile_image !='')
-              <img src="{{ asset('public/uploads/') }}/{{ Auth::user()->profile_image }}"  alt="bell-icon">
-              @endif
+                <img src="{{ asset('public/merchantassets/images/bell.png') }}" alt="bell-icon">
             </a>
               
               </li>
                 <li class="marchent-dropmenu-sec">
                   <a href="#" class="dropdown-headmenu">
-                    <img src="images/favicon.png" alt="icon">
+                    <img src="{{ asset('public/merchantassets/images/favicon.png') }}" alt="icon">
                   </a>
                   <ul class="submenu-drop">
                     <li><a href="#">My Account</a></li>
@@ -72,12 +70,12 @@
         <div class="row">
           <div class="col-md-3 col-sm-3">
             <div class="payment-part">
-              <a href="#" class="footer-logo"><img src="./images/footer-logo.jpg" alt="footer-logo"></a>
+              <a href="#" class="footer-logo"><img src="{{ asset('public/merchantassets/images/footer-logo.jpg') }}" alt="footer-logo"></a>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
               <h6>WE ACCEPT</h6>
               <ul>
-                <li><a href="#"><img src="./images/payment-img1.jpg" alt="payment-img1"></a></li>
-                <li><a href="#"><img src="./images/payment-img2.jpg" alt="payment-img2"></a></li>
+                <li><a href="#"><img src="{{ asset('public/merchantassets/images/payment-img1.jpg') }}" alt="payment-img1"></a></li>
+                <li><a href="#"><img src="{{ asset('public/merchantassets/images/payment-img2.jpg') }}" alt="payment-img2"></a></li>
               </ul>
             </div>
           </div>
@@ -96,7 +94,7 @@
               <a href="#">FREE LISTING</a>
               <form class="form-inline">
                 <div class="form-group">
-                  <label><img src="./images/subscribe.png" alt="subscribe">Subscribe to our newsletter</label>
+                  <label><img src="{{ asset('public/merchantassets/images/subscribe.png') }}" alt="subscribe">Subscribe to our newsletter</label>
                   <div class="input-group">
                     <input type="email" class="form-control" id="exampleInputAmount" placeholder="Email ID">
                     <button type="submit" class="btn btn-primary">SUBSCRIBE</button>

@@ -4,10 +4,43 @@
 | Web Routes
 |--------------------------------------------------------------------------
  */
-Route::get('/admin/login', 'HomeController@adminLogin');
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', 'PaymentController@index');
+//Route::post('/payment','PaymentController@payment');
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail for testing',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('sanjeevkustwar@gmail.com')->send(new \App\Mail\MyTestMail($details));
+   
+    dd("Email is Sent.thank you");
 });
+
+Route::get('/admin/login', 'HomeController@adminLogin');
+Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::any('/product-detail/{id}', 'HomeController@productDetail'); 
+///
+Route::any('/search', 'HomeController@search'); 
+Route::get('searchItem', 'HomeController@searchItem');
+Route::get('/about', 'HomeController@about'); 
+Route::get('/contactus', 'HomeController@contactus'); 
+Route::get('/privacypolicy', 'HomeController@privacypolicy'); 
+Route::get('termcondition', 'HomeController@termcondition'); 
+Route::get('get-subcategory', 'GeneralController@getSubCategory');
+Route::get('get-brand', 'GeneralController@getBrand');
+Route::get('get-size', 'GeneralController@getSize');
+Route::get('add-subscription', 'HomeController@addSubscription'); 
+Route::get('merchant-registration', 'HomeController@MerchantRegistation');
+Route::any('forgot-password', 'HomeController@forgotPassword')->name('forgot-password');
+Route::get('emailverification/{email}/{token}', 'HomeController@emailVerfied');    
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/home', function () {
     return view('welcome');
 });
@@ -20,6 +53,7 @@ Route::get('/validate-user', 'HomeController@checkUserRole');
 /*=====================================ADMIN=====================================*/
 Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function () {
     Route::get('/', 'Admin\DashboardController@index');
+    Route::get('/filter-dashboard', 'Admin\DashboardController@filterDashboard');
 
     /*
     |---------------------------------
@@ -56,7 +90,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::get('{id}/edit', 'Admin\SubscriberManagementController@edit');
         Route::post('{id}/update', 'Admin\SubscriberManagementController@update');
         Route::get('{id}/view', 'Admin\SubscriberManagementController@show');
-        Route::get('delete/{', 'Admin\SubscriberManagementController@destroy');
+        Route::get('delete/', 'Admin\SubscriberManagementController@destroy');
+         Route::get('/export', 'Admin\SubscriberManagementController@export');
+
+
     });
     Route::group(['prefix' => 'order-settings'], function () {
         Route::get('/', 'Admin\OrderSettingManagementController@index');
@@ -88,28 +125,69 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin', 'auth']], function 
         Route::get('{id}/view', 'Admin\CommissionManagementController@show');
         Route::get('delete/{id}', 'Admin\CommissionManagementController@destroy');
     });
-    
+    Route::group(['prefix' => 'banner'], function () {
+        Route::get('/', 'Admin\BannerController@index');
+        Route::get('create', 'Admin\BannerController@create');
+        Route::post('/save', 'Admin\BannerController@store');
+        Route::get('/edit/{id}', 'Admin\BannerController@edit');
+        Route::post('/{id}/update', 'Admin\BannerController@update');
+        Route::get('delete/{id}', 'Admin\BannerController@destroy');
+    });
+    Route::group(['prefix' => 'brands'], function () {
+        Route::get('/', 'Admin\BrandController@index');
+        Route::get('create', 'Admin\BrandController@create');
+        Route::post('/save', 'Admin\BrandController@store');
+        Route::get('/edit/{id}', 'Admin\BrandController@edit');
+        Route::post('/{id}/update', 'Admin\BrandController@update');
+        Route::get('delete/{id}', 'Admin\BrandController@destroy');      
+    });
+    Route::group(['prefix' => 'sizes'], function () {
+        Route::get('/', 'Admin\SizeController@index');
+        Route::get('create', 'Admin\SizeController@create');
+        Route::post('/save', 'Admin\SizeController@store');
+        Route::get('/edit/{id}', 'Admin\SizeController@edit');
+        Route::post('/{id}/update', 'Admin\SizeController@update');
+        Route::get('delete/{id}', 'Admin\SizeController@destroy');
+    });
+    Route::group(['prefix' => 'colors'], function () {
+        Route::get('/', 'Admin\ColorController@index');
+        Route::get('create', 'Admin\ColorController@create');
+        Route::post('/save', 'Admin\ColorController@store');
+        Route::get('/edit/{id}', 'Admin\ColorController@edit');
+        Route::post('/{id}/update', 'Admin\ColorController@update');
+        Route::get('delete/{id}', 'Admin\ColorController@destroy');
+    });
+    Route::group(['prefix' => 'orderstatus'], function () {
+        Route::get('/', 'Admin\OrderStatusController@index');
+        Route::get('create', 'Admin\OrderStatusController@create');
+        Route::post('/save', 'Admin\OrderStatusController@store');
+        Route::get('/edit/{id}', 'Admin\OrderStatusController@edit');
+        Route::post('/{id}/update', 'Admin\OrderStatusController@update');
+        Route::get('delete/{id}', 'Admin\OrderStatusController@destroy');
+    });
 });
 
 
 /*=====================================merchant=====================================*/
 Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], function () {
     Route::get('/', 'Merchant\DashboardController@index');
+    Route::post('/', 'Merchant\DashboardController@index');
     Route::group(['prefix' => 'order-management'], function () {
         Route::get('/', 'Merchant\OrderManagementController@index');
-        Route::get('users-data', 'Merchant\OrderManagementController@studentData');
-        Route::get('create', 'Merchant\OrderManagementController@create');
-        Route::post('/save-category', 'Merchant\OrderManagementController@store');
-        Route::get('{id}/edit', 'Merchant\OrderManagementController@edit');
-        Route::post('{id}/update', 'Merchant\OrderManagementController@update');
-        Route::get('{id}/view', 'Merchant\OrderManagementController@show');
-        Route::get('delete/{id}', 'Merchant\OrderManagementController@destroy');
+        Route::any('order/{id}', 'Merchant\OrderManagementController@orderDetail');
+        Route::get('changeOrderStatus', 'Merchant\OrderManagementController@orderStatus');
     });
     Route::group(['prefix' => 'products-management'], function () {
         Route::get('/', 'Merchant\ProductManagementController@index');
         Route::get('create', 'Merchant\ProductManagementController@create');
         Route::post('/save', 'Merchant\ProductManagementController@store');
-       
+        Route::get('{id}/edit', 'Merchant\ProductManagementController@edit');
+        Route::post('{id}/update', 'Merchant\ProductManagementController@update');
+        Route::any('{id}/color-variant', 'Merchant\ProductManagementController@colorVariant');
+        Route::any('{product_id}/{color_id}/manage-store', 'Merchant\ProductManagementController@manageStore');
+    });
+    Route::group(['prefix' => 'special-price-management'], function () {
+        Route::get('/', 'Merchant\SpecialPriceManagementController@index');        
     });
     Route::group(['prefix' => 'shipping-management'], function () {
         Route::get('/', 'Merchant\ShippingManagementController@index');
@@ -121,7 +199,8 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], fun
         Route::get('delete', 'Merchant\ShippingManagementController@destroy');
     });
     Route::group(['prefix' => 'account-management'], function () {
-        Route::get('/', 'Merchant\AccountManagementController@index');
+        Route::any('/', 'Merchant\AccountManagementController@index');
+        Route::get('change-password', 'Merchant\AccountManagementController@changePassword');
         Route::get('users-data', 'Merchant\AccountManagementController@studentData');
         Route::get('create', 'Merchant\AccountManagementController@create');
         Route::post('/save', 'Merchant\AccountManagementController@store');
@@ -132,12 +211,43 @@ Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], fun
     });
 });
 
-
+// Route::group(['prefix' => 'merchant', 'middleware' => ['merchant', 'auth']], function () {
+//     Route::get('/', 'Merchant\DashboardController@index');
+//     Route::post('/', 'Merchant\DashboardController@index');
+// });
 /*=====================================Users=====================================*/
 Route::group(['prefix' => 'users', 'middleware' => ['users', 'auth']], function () {
-    
+
     // return "Student";
-    Route::get('/', 'Users\DashboardController@index');
+    Route::get('/', 'Users\DashboardController@myAccount');
+    Route::any('myaccount', 'Users\DashboardController@myAccount');
+    Route::any('edit-account', 'Users\DashboardController@userProfileUpdate');
+    Route::any('edit-shiiping-address', 'Users\DashboardController@editShiipingAddress');
+    Route::get('get-shipping-address', 'Users\DashboardController@getShippingAddress');
+    Route::any('stripe-payment', 'Users\DashboardController@stripePayment');
+    Route::post('/payment','Users\DashboardController@payment');
+    Route::any('myorder', 'Users\DashboardController@myOrder');
+    Route::any('myorder/{id}', 'Users\DashboardController@myOrderDetail');
+    //Route::post('/save', 'Users\DashboardController@store');
+    Route::get('deleteItem', 'Users\DashboardController@deleteItem');
+     Route::get('getDeliveryAddress', 'Users\DashboardController@getDeliveryAddress');
+    Route::any('/cart', 'HomeController@cart'); 
+Route::any('/placeorder', 'HomeController@placeorder');
+    
+    
+    /*
+    |---------------------------------
+    | Employee Management Routes Here    |
+    |---------------------------------
+     */
+});
+    Route::group(['prefix' => '', 'middleware' => ['users', 'auth']], function () {
+    Route::any('/cart', 'HomeController@cart'); 
+    Route::any('/placeorder', 'HomeController@placeorder');
+    Route::any('/shipping-address', 'HomeController@shippingAddress'); 
+    Route::get('get-shipping-address', 'HomeController@getShippingAddress');
+    Route::any('/review-order', 'HomeController@reviewOrder'); 
+    Route::any('/pay-now', 'HomeController@payNow'); 
     /*
     |---------------------------------
     | Employee Management Routes Here    |

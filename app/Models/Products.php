@@ -19,7 +19,6 @@ class Products extends Model
         'id',
         'product_name',
         'product_code',
-        'product_code',
         'brand',
         'quantity',
         'description',
@@ -29,8 +28,12 @@ class Products extends Model
         'price',
         'special_price',
         'status',
+        'stock_type',
+        'start_date',
+        'end_date',
         'created_by',
         'created_at',
         'updated_at',
+        'pickup',
     ];
 }

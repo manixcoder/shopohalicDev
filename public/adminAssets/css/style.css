@@ -2029,3 +2029,52 @@ ul.mobile-colorgrid {
 .upload-filebox {
     position: relative; display: inline-block;
 }
+
+
+/************************************************************************************************/
+.marchent-wapperbox { display: flex;}
+.marchent-wapperbox .marcntsidebar-menu { position: relative;}
+
+.range-inputbox input {     font-size: 16px !important;
+    background: #eee;
+    padding: 12px;
+    border: none;
+    border-radius: 5px; }
+.range-inputbox .rangeBtn {     background: #FF8E0A;
+    color: #fff;
+    text-transform: uppercase; 
+   }
+.range-inputbox .rangeBtn:hover { opacity: 0.8;}
+.range-inputbox button { font-size: 16px !important; }
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px !important;
+    width: 14px !important;
+    left: 2px !important;
+    bottom: 2px !important;
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(12px) !important;
+    -ms-transform: translateX(12px) !important;
+    transform: translateX(12px) !important;
+}
+label {
+    margin-bottom: 3px !important;
+    font-weight: 500 !important;
+}
+.marchent-wapperbox .right-marchent-wapper .btn-section { margin-bottom: 10px;}
+.product-detailform form {
+    margin-bottom: 15px !important;
+}
+.btn-addprod { text-align: left; }
+
+
+.btn-primary { background: #FF8E0A !important; border-color: #FF8E0A !important; }
+.btn-primary:hover { background: #f28606 !important; border-color: #f28606 !important; }
+.registerBtn { margin-top: 24px;}
+.error { font-weight: 400; font-size: 12px; margin-bottom: 0px;}
+#registrationForm .form-control { height: 44px; }
+.form-control:focus { border-color: #FF8E0A !important;  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(255 142 10 / 36%) !important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(255 142 10 / 36%) !important; }
+#checkbox-error { position: absolute; top: 23px; left: 14px; }

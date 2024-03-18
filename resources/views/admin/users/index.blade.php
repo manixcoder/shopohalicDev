@@ -1,7 +1,6 @@
 @extends('admin.master')
-@section('pageTitle','Uses Management')
+@section('pageTitle', 'User Management')
 @section('content')
-
 <style>
 .switch {
   position: relative;
@@ -63,80 +62,66 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 </style>
-<div class="extrapad-wapper">
-    <div class="row">
-        <div class="col-md-5  heading-full">
-            <h3>Users</h3>
-        </div>
-        <div class="col-md-5  select-box pull-right">
-            <div class="row">
-                <div class="col-md-5 select-sec">
-                    <select name="abc" id="name">
-                        <option value="">All</option>
-                        <option value="">All</option>
-                    </select>
-                </div>
-                <div class="col-md-7 search-bar">
-                    <div class="form-group">
-                        <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="extrapad-wapper">
-    <div class="white-boxbg">
-        <div class="table-responive">
+<<div class="dashboard-marchent">
+    <div class="container">
+      <h3>User Management</h3>
+      <div class="marchent-wapperbox">
+      @include('admin.includes.sidebar')
+        <div class="right-marchent-wapper">
+          <div class="row">
+          <div class="table-responive">
             <!-- <table border="0" width="100%"> -->
             <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-                <thead>
-                    <tr>
-                        <th class="no-sort">Users ID</th>
-                        <th class="no-sort">User Name</th>
-                        <th class="no-sort">Email</th>
-                        <th class="no-sort">Phone Number</th>
-                        <th class="no-sort">Date of Registration</th>
-                        <th class="no-sort">Status</th>
-                        <th class="no-sort">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($usersData as $key=> $users)
-                    <tr id='row_{{$users->id}}'>
-                        <td>
-                            {{$key+1}}
-                        </td>
-                        <td>
-                            <img src="{{ asset('public/adminAssets/images/circle.jpg') }}" alt="circle" width="50px">
-                            {{$users->name}}
-                        </td>
-                        <td> {{$users->email}}</td>
-                        <td>{{$users->mobile}}</td>
-                        <td>{{ date('d M Y', strtotime($users->created_at)) }}</td>
-                        <td>
-                            <label class="switch right-click">
-                                    <input type="checkbox" id="checkbox" @if($users->status=='1') checked @endif  onclick="changeStatus({{$users->id}},{{$users->status}});">
-                                    <span class="slider round"></span>
-                            </label>
-                            <span id='statustype'>@if($users->status=='1')  Active @else In-Active @endif</span>
+<thead>
+    <tr>
+        <th class="no-sort">No</th>
+        <th class="no-sort">User Name</th>
+        <th class="no-sort">Email</th>
+        <th class="no-sort">Phone Number</th>
+        <th class="no-sort">Date of Registration</th>
+        <th class="no-sort">Status</th>
+        <th class="no-sort">Actions</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach($usersData as $key=> $users)
+    <tr id='row_{{$users->id}}'>
+        <td>
+            {{$key+1}}
+        </td>
+        <td>
+            {{$users->name}}
+        </td>
+        <td> {{$users->email}}</td>
+        <td>{{$users->mobile}}</td>
+        <td>{{ date('d M Y', strtotime($users->created_at)) }}</td>
+        <td>
 
-                        </td>
-                        <td>
-                            <small class="delete-icon">
-                                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon" onclick="deleteStatus({{$users->id}});">
-                            </small>
-                        </td>
-                    </tr>
-                    @endforeach
+            <label class="switch right-click">
+                    <input type="checkbox" id="checkbox" @if($users->status=='1') checked @endif  onclick="changeStatus({{$users->id}},{{$users->status}});">
+                    <span class="slider round"></span>
+            </label>
+            <span id='statustype_{{$users->id}}'>@if($users->status=='1')  In-Active @else Active @endif</span>
 
-                </tbody>
-            </table>
+        </td>
+        <td>
+            <small class="delete-icon">
+                    <img src="{{ asset('public/adminAssets/images/delete.svg') }}" alt="icon" onclick="deleteStatus({{$users->id}});">
+            </small>
+        </td>
+    </tr>
+    @endforeach
+
+</tbody>
+</table>
         </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     function changeStatus(id,status){
         var status=($('#statustype').text());
@@ -155,8 +140,8 @@ input:checked + .slider:before {
                 success: function(response) {
                    if(response)
                    {
-                    var type=status=='Active'?'In-Active':'Active';
-                    $('#statustype').text(type);
+                    var type=response==1?'In-Active':'Active';
+                    $('#statustype_'+id).text(type);
                    }
                 }
             });
@@ -186,8 +171,6 @@ input:checked + .slider:before {
     }
   </script>
 
-@stop
+@endsection
 @section('pagejs')
-
-
 @stop

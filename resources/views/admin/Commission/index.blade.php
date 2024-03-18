@@ -1,43 +1,40 @@
 @extends('admin.master')
-@section('pageTitle','Uses Management')
+@section('pageTitle', 'Commission Management')
 @section('content')
-
-
-<div class="Merchants-sec">
+<<div class="dashboard-marchent">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12  heading-full">
-                <h3>Commission</h3>
-            </div>
-
-        </div>
-    </div>
-    <div class="container">
-
-        
-
-        <table border="0  " width="100%"> 
-                <tr>
-                    <th>Title </th>
-                    <th class="commission">%</th>
-                </tr> 
-                @foreach($commissiondata as $key=> $commission)
+      <h3>Commission Management
+ <!-- <span class="pull-right"><a href="#" class="addproduct-btn">ADD NEW CATEGORY</a></span> -->
+      </h3>
+      <div class="marchent-wapperbox">
+      @include('admin.includes.sidebar')
+        <div class="right-marchent-wapper">
+          <div class="row">
+          <div class="table-responive">
+            <!-- <table border="0" width="100%"> -->
+           <table id="datatable-responsive1" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+      <thead>
+        <tr>
+           <th>Title </th>
+           <th class="commission">%</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($commissiondata as $key=> $commission)
                 <tr>
                   <td>{{$commission->commission_title}}</td>
                   <td class="right-text-bar" >{{$commission->commission_percentage}}%</td>
                 </tr>
                 @endforeach
-                
-            </table>
 
+      </tbody>
+    </table>
+        </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
-
-
-@stop
+  </div>
+@endsection
 @section('pagejs')
-<script type="text/javascript">
- 
-</script>
 @stop

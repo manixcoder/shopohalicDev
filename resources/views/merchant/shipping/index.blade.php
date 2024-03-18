@@ -1,99 +1,102 @@
 @extends('merchant.master')
-@section('pageTitle','Product Management')
+@section('pageTitle', 'Shipping Cost')
 @section('content')
-@section('pageCss')
-<style></style>
-@stop
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card card-outline-info">
-            <div class="card-body">
-                @if(Session::has('status'))
-                <div class="alert alert-{{ Session::get('status') }}">
-                    <i class="ti-user"></i> {{ Session::get('message') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-                </div>
-                @endif
-                <form class="edit-form" method="POST" action="{{ url('/merchant/shipping-management/save') }}" enctype="multipart/form-data">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/bootstrap-table.min.css"></script>
+<<div class="dashboard-marchent">
+    <div class="container">
+      <h3>Dashboard 
+      
+      </h3>
+      <div class="marchent-wapperbox">
+      @include('merchant.includes.sidebar')
+      <div class="right-marchent-wapper">
+          <div class="shipping-costspg">
+          <form class="edit-form" method="POST" action="{{ url('/merchant/shipping-management/save') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
+            <div class="table-responsive">
+              <table id="mytable">
+                <thead>
+                  <tr>
+                    <th style="width: 70%">Location</th>
+                    <th style="width: 100px">Cost</th>
+                    <th style="width: 80px">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+              
                         @if(count($shippings)==0)
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Location</label>
-                                    <input type="text" class="form-control form-control-danger" id="" name="location[]" placeholder=""  />
-                                   
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label">Cost</label>
-                                    <input type="text" class="form-control form-control-danger" id="" name="cost[]" placeholder=""  />
-                                   
-                                </div>
-                            </div>
-                            @else
+                  <tr>
+                    <td>
+                    <input type="text" class="form-control" id="" name="location[]" placeholder=""  />                      
+                    </td>
+                    <td>
+                    <input type="text" class="form-control" id="" name="cost[]" placeholder=""  /> 
+                      
+                    </td>
+                    <td>
+                     
+                    </td>
+                  </tr>
+                  @else
                             @foreach($shippings as $shipping)
-                            <div id="row_{{$shipping->id}}">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Location</label>
-                                    <input type="text" class="form-control form-control-danger" id="" name="location[]" placeholder="" value={{$shipping->location}}  />
-                              </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label">Cost</label>
-                                    <input type="text" class="form-control form-control-danger" id="" name="cost[]" placeholder="" value={{$shipping->cost}}  />
-                                 </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                 <spam onclick="deleteRow({{$shipping->id}});" style="cursor:pointer;">Delete</span>
-                                </div>
-                            </div>
-                        </div>
-                            @endforeach
+                            <tr id="row_{{$shipping->id}}">
+                    <td>
+                      <input type="text" name="location[]" placeholder="" value="{{$shipping->location}}" class="form-control">
+                    </td>
+                    <td>
+                      <input type="text" name="cost[]" placeholder="" value="{{$shipping->cost}}" class="form-control">
+                    </td>
+                    <td>
+                      <i class="fa fa-trash" onclick="deleteRow({{$shipping->id}});" style="cursor:pointer;" aria-hidden="true"></i>
+                    </td>
+                  </tr>
+                  @endforeach
                             @endif
-                       <div class="field_wrapper"></div>     
-                    <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png"/></a>
-                    <div class="form-actions">
+                            
+                             
+                </tbody>
+              </table>
+              <div class="form-actions">
                         <button type="submit" class="btn btn-info waves-effect waves-light  cus-submit save-btn"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
-                    </div>
-                </form>
+                    </div>    
             </div>
+</form>
+            <div class="btnbox addother-shiping">
+            
+              <a href="javascript:void(0);" class="add_button btn"><i class="fa fa-plus-circle" aria-hidden="true"></i> ADD ANOTHER SHIPPING AREA</a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
-@stop
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
 <script type="text/javascript">
-$(document).ready(function(){
-    
+$(document).ready(function(){    
     var maxField = 10; //Input fields increment limitation
-    var addButton = $('.add_button'); //Add button selector
-    var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML ='<div class="col-md-6"> <div class="form-group"><label class="control-label">Location</label> <input type="text" class="form-control form-control-danger" id="" name="location[]" placeholder=""  /></div></div>';
-     fieldHTML +='<div class="col-md-2"><div class="form-group"> <label class="control-label">Cost</label><input type="text" class="form-control form-control-danger" id="" name="cost[]" placeholder=""  /></div></div>';
-    fieldHTML +='<div class="col-md-1"> <div class="form-group"> Delete </div> </div>';
+    var fieldHTML ='<tr id="row"><td><input type="text" name="location[]" placeholder="Pick Up" class="form-control"></td>';
+    fieldHTML +='<td><input type="text" name="cost[]" placeholder="Free" class="form-control"></td>';
+    fieldHTML +=' <td ><i class="fa fa-trash " id="DeleteRow"  aria-hidden="true"></i> </td></tr>';
+  
     
     var x = 1; //Initial field counter is 1
     
     //Once add button is clicked
     $('.add_button').click(function(){
+      
         //Check maximum number of input fields
         if(x < maxField){ 
             x++; //Increment field counter
-            $(wrapper).append(fieldHTML); //Add field html
+           
+            $('#mytable tr:last').after(fieldHTML); //Add field html
         }
     });
+    $("body").on("click", "#DeleteRow", function () {
+            $(this).parents("#row").remove();
+        })
     
-    //Once remove button is clicked
-    $(wrapper).on('click', '.remove_button', function(e){
-        e.preventDefault();
-        $(this).parent('div').remove(); //Remove field html
-        x--; //Decrement field counter
-    });
 });
 function deleteRow(id){
     if (confirm("Are you sure?")) {
@@ -119,3 +122,9 @@ function deleteRow(id){
             }
     }
 </script>
+@endsection
+@section('pagejs')
+
+        
+
+@stop

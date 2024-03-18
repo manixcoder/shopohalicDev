@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Response;
 use App\Models\Subscription;
 use DB;
 class SubscriberManagementController extends Controller
@@ -17,6 +18,7 @@ class SubscriberManagementController extends Controller
     public function index()
     {
         $subscriptionData = Subscription::get();
+    
          return view('admin.Subscribers.index')->with(array(
              'subscriptionData' => $subscriptionData
          ));
@@ -89,5 +91,24 @@ class SubscriberManagementController extends Controller
         $result=Subscription::where('id', $id)->delete();
         echo $result;
         die;
+    }
+    public function export(Request $request){
+       $subscription = Subscription::all();
+    $csvFileName = 'subscription.csv';
+    $headers = [
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+    ];
+
+    $handle = fopen('php://output', 'w');
+    fputcsv($handle, ['S.No', 'Email']); // Add more headers as needed
+
+    foreach ($subscription as $key=>$value) {
+        fputcsv($handle, [$key+1, $value->email]); // Add more fields as needed
+    }
+
+    fclose($handle);
+
+    return Response::make('', 200, $headers);
     }
 }

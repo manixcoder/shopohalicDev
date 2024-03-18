@@ -60,7 +60,7 @@ class UsersManagementController extends Controller
         $userData = User::find($id);
         $status=$userData->status==0?'1':'0';
         $result=DB::table('users')->where('id', $id)->update(array('status' => $status));
-        echo $result;
+        echo $status;
         die;
     }
 

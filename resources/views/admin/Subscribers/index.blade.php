@@ -1,56 +1,106 @@
 @extends('admin.master')
-@section('pageTitle','Uses Management')
+@section('pageTitle', 'Subscription Management')
 @section('content')
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
 
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-<div class="Merchants-sec">
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+<div class="dashboard-marchent">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6  heading-full">
-                <h3>Subscribers</h3>
-            </div>
-            <div class="col-md-6  select-box">
-                <div class="row">
-                    <div class="col-md-4 ">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary bg-color  btn-section">EXPORT AS CSV</button>
-                        </div>
-                    </div>
-                    <div class="col-md-8 search-bar">
-                        <div class="form-group">
+      <h3>User Management</h3>
+      <div class="marchent-wapperbox">
+      @include('admin.includes.sidebar')
+
+        <div class="right-marchent-wapper">
+        <button type="submit" class="btn btn-primary bg-color  btn-section">EXPORT AS CSV</button>
+        <!-- <div class="form-group">
                             <input type="search" class="form-control text-color" id="emaillogin" aria-describedby="emailHelp" placeholder="search">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container">
-        <table border="0  " width="100%">
+                        </div> -->
+                        <table class="table">
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="checkAll"></th>
+        <th> Email</th>
+        <th>Date of Subscription</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+       @foreach($subscriptionData as $key=> $subscription)
             <tr>
-                <th> <input type="checkbox"></th>
-                <th class="category-box email-box">Email </th>
-                <th>Date of Subscription</th>
-                <th>Action</th>
-            </tr>
-            @foreach($subscriptionData as $key=> $subscription)
-            <tr>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox"> </td>
                 <td>{{$subscription->email}}</td>
                 <td>{{date('d M Y', strtotime($subscription->created_at))}}</td>
-                <td class="text-color-red" style="cursor:pointer;" onclick="deleteStatus({{$subscription->id}});">Delete</td>
+                <td class="text-color-red" style="cursor:pointer;" ><small class="delete-icon">
+                    <img src="http://localhost/shopohalicDev/public/adminAssets/images/delete.svg" alt="icon" onclick="deleteStatus({{$subscription->id}});">
+            </small></td>
             </tr>
             @endforeach
-        </table>
-
-
+    </tbody>
+  </table>
+        </div>
+      </div>
     </div>
+  </div>
 
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
   function changeStatus(id,status){
    
@@ -100,6 +150,22 @@
            
             }
     }
+    $(document).ready(function() {
+        $("#checkAll").click(function () {
+     $('input:checkbox').not(this).prop('checked', this.checked);
+ }); 
+
+var checkboxes = document.getElementsByName(chkboxName);
+  var checkboxesChecked = [];
+  // loop over them all
+  for (var i=0; i<checkboxes.length; i++) {
+     // And stick the checked ones onto an array...
+     if (checkboxes[i].checked) {
+        checkboxesChecked.push(checkboxes[i]);
+     }
+  }
+        
+    });
   </script>
 
 @stop
@@ -237,5 +303,8 @@
         document.getElementById("submitbtn").innerText = 'Save';
         $('#unique-model').modal('show');
     }
+
 </script>
+@endsection
+@section('pagejs')
 @stop

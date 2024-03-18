@@ -17,6 +17,7 @@ class CreateCategoryTable extends Migration
             $table->bigIncrements('id');
             $table->string('category_name')->nullable();
             $table->string('parent_id')->nullable();
+            $table->integer('child')->nullable();
             $table->enum('status', ['0', '1'])->default(0)->comment("1 = Active; 0 = Deactive");
             $table->softDeletes();
             $table->timestamps();
